@@ -15,5 +15,8 @@
   "license": "ISC",
   "devDependencies": {
     "aws-cdk": "^2.89.0"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.89.0"
   }
 }
