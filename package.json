@@ -14,9 +14,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "aws-cdk": "^2.89.0"
+    "@types/aws-lambda": "^8.10.119",
+    "aws-cdk": "^2.89.0",
+    "aws-cdk-lib": "^2.89.0",
+    "aws-lambda": "^1.0.7",
+    "constructs": "^10.0.0",
+    "json-schema-to-ts": "^2.9.1"
   },
-  "dependencies": {
-    "aws-cdk-lib": "^2.89.0"
-  }
+  "dependencies": {}
 }
