@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { ProducerStack } from '../lib/producer-stack';
+import { ProducerStack } from '../lib/producerStack';
 
 const app = new cdk.App();
 new ProducerStack(app, 'ProducerStack', {
