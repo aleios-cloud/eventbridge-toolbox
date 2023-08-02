@@ -1,7 +1,10 @@
 import { APIGatewayProxyResult } from "aws-lambda";
-import { examplePersonSchema } from "example-architecture/events";
+import { ExamplePersonContract } from "example-architecture/events";
 
-export const main = async (): Promise<APIGatewayProxyResult> => {
-  console.log(examplePersonSchema);
-  return { statusCode: 200, body: "success" };
+export const handler = async (): Promise<APIGatewayProxyResult> => {
+  const contractBody: ExamplePersonContract = {
+    firstName: "April",
+    lastName: "Bates",
+  };
+  return { statusCode: 200, body: JSON.stringify(contractBody) };
 };
