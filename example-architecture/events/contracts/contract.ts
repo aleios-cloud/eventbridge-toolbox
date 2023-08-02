@@ -1,6 +1,6 @@
-import { JSONSchema } from "json-schema-to-ts";
+import { JSONSchema } from 'json-schema-to-ts';
 
-const examplePersonSchema = {
+export const examplePersonSchema = {
   $id: "https://example.com/person.schema.json",
   $schema: "https://json-schema.org/draft/2020-12/schema",
   title: "Person",
