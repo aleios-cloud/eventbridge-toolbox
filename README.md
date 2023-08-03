@@ -26,6 +26,12 @@ With yarn:
 yarn add -D eventbridge-toolbox
 ```
 
+With pnpm:
+
+```
+pnpm add -D eventbridge-toolbox
+```
+
 ### Usage
 
 ## User Documentation
