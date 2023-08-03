@@ -1,9 +1,9 @@
 import * as AWS from "@aws-sdk/client-lambda";
 import { describe, it, assertType } from "vitest";
 import { ExamplePersonContract } from "example-architecture/events";
-import { REGION } from "example-architecture/producer/constants";
+import environments from "example-architecture/environments";
 
-const lambda = new AWS.Lambda({ region: REGION });
+const lambda = new AWS.Lambda({ region: environments.dev.region });
 
 describe("Given a producer lambda that returns a Contract", () => {
   const params = {

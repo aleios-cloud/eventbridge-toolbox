@@ -8,6 +8,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  AWS_REGION: eu-central-1
+  AWS_ACCOUNT_ID: '482449649348'
+
 jobs:
   install-dependencies:
     name: Install dependencies
@@ -17,6 +21,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      # - uses: pnpm/action-setup@v2
-      #   with:
-      #     package_json_file: --where our code is located--/package.json
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN_PRODUCTION }}
+      - name: 🚀 Deploy
+        run: pnpm nx affected --target=deploy-github-actions --all
+      - name: '🧪 Run integration tests'
+        run: pnpm test-integration --verbose
