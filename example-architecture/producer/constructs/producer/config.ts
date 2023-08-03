@@ -5,7 +5,7 @@ import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 
 import { Duration } from "aws-cdk-lib";
 import { Architecture, Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
-import { getCdkHandlerPath } from "example-architecture/producer/constructs/producer/helpers/getCdkHandlerPath";
+import { getCdkHandlerPath } from "./helpers/getCdkHandlerPath";
 export class Producer extends Construct {
   public producerLambda: IFunction;
 
@@ -14,6 +14,7 @@ export class Producer extends Construct {
 
     this.producerLambda = new NodejsFunction(this, "producer-lambda", {
       runtime: Runtime.NODEJS_18_X,
+      functionName: "producer-lambda",
       architecture: Architecture.ARM_64,
       tracing: Tracing.ACTIVE,
       memorySize: 1024,
