@@ -4,6 +4,9 @@ devDependencies:
   '@types/aws-lambda':
     specifier: ^8.10.119
     version: 8.10.119
+  '@types/node':
+    specifier: ^20.4.5
+    version: 20.4.6
   aws-cdk:
     specifier: ^2.89.0
     version: 2.89.0
@@ -37,6 +40,10 @@ packages:
 
   /@types/aws-lambda@8.10.119:
     resolution: {integrity: sha512-Vqm22aZrCvCd6I5g1SvpW151jfqwTzEZ7XJ3yZ6xaZG31nUEOEyzzVImjRcsN8Wi/QyPxId/x8GTtgIbsy8kEw==}
+    dev: true
+
+  /@types/node@20.4.6:
+    resolution: {integrity: sha512-q0RkvNgMweWWIvSMDiXhflGUKMdIxBo2M2tYM/0kEGDueQByFzK4KZAgu5YHGFNxziTlppNpTIBcqHQAxlfHdA==}
     dev: true
 
   /ajv@8.12.0:

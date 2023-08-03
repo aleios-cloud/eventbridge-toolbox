@@ -1,6 +1,6 @@
 name: PR Created
 
-on: 
+on:
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -10,7 +10,16 @@ concurrency:
 
 env:
   AWS_REGION: eu-central-1
-  AWS_ACCOUNT_ID: '482449649348'
+  AWS_ACCOUNT_ID: "482449649348"
+
+permissions:
+  id-token: write # this is required for AWS https://github.com/aws-actions/configure-aws-credentials#usage
+  contents: read # this is required for Nx https://github.com/nrwl/nx-set-shas#permissions-in-v2
+  actions: read # this is required for Nx https://github.com/nrwl/nx-set-shas#permissions-in-v2
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   install-dependencies:
@@ -21,12 +30,17 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6.0.2
+      - name: pnpm install
+        run: npm install -g aws-cdk && pnpm i
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.AWS_REGION }}
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN_PRODUCTION }}
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/eventbridgeToolboxRole
       - name: 🚀 Deploy
-        run: pnpm nx affected --target=deploy-github-actions --all
-      - name: '🧪 Run integration tests'
-        run: pnpm test-integration --verbose
+        run: cd example-architecture/producer && pnpm deploy-dev
+      - name: "🧪 Run tests"
+        run: pnpm test --verbose
