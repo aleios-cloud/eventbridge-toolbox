@@ -1,7 +1,7 @@
 import * as AWS from "@aws-sdk/client-lambda";
 import { describe, it, assertType } from "vitest";
 import { ExamplePersonContract } from "example-architecture/events";
-const REGION = "eu-west-2";
+import { REGION } from "example-architecture/producer/constants";
 
 const lambda = new AWS.Lambda({ region: REGION });
 
