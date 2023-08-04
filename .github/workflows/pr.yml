@@ -46,6 +46,9 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/eventbridgeToolboxRole
       - name: 🚀 Deploy
-        run: cd example-architecture/producer && pnpm deploy-dev
+        run: |
+          cd example-architecture/producer 
+          pnpm install --frozen-lockfile 
+          pnpm deploy-dev
       - name: "🧪 Run tests"
         run: pnpm test --verbose
