@@ -49,6 +49,7 @@ jobs:
         run: |
           cd example-architecture/producer 
           pnpm install --frozen-lockfile 
+          pnpm bootstrap
           pnpm deploy-dev
       - name: "🧪 Run tests"
         run: pnpm test --verbose

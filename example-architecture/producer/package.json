@@ -7,11 +7,12 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
+    "bootstrap": "cdk bootstrap",
     "test": "pnpm test-type && pnpm test-unit",
     "test-unit": "vitest run",
     "test-type": "vitest typecheck --run",
     "cdk": "cdk",
-    "deploy-dev": "cdk deploy --verbose --context stage=dev --all"
+    "deploy-dev": "cdk deploy --verbose --context stage=dev --all --require-approval never"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
