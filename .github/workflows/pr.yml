@@ -52,4 +52,6 @@ jobs:
           pnpm bootstrap
           pnpm deploy-dev
       - name: "🧪 Run tests"
-        run: pnpm test --verbose
+        run: |
+          cd example-architecture/producer 
+          pnpm test --verbose
