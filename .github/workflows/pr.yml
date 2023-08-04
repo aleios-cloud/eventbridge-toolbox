@@ -47,12 +47,10 @@ jobs:
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/eventbridgeToolboxRole
       - name: "install packages"
         run: |
-          pnpm install --frozen-lockfile 
           cd example-architecture/producer 
           pnpm install --frozen-lockfile
       - name: "🧪 Run tests"
         run: |
-          cd example-architecture/producer 
           pnpm test --verbose
       - name: 🚀 Deploy
         run: |

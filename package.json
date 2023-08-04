@@ -8,7 +8,9 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "pnpm test-type && pnpm test-unit",
+    "test-unit": "vitest run",
+    "test-type": "vitest typecheck --run"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,7 @@
     "aws-lambda": "^1.0.7",
     "constructs": "^10.0.0",
     "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.1.6",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.34.1"
   }
