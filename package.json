@@ -1,12 +1,8 @@
 {
-  "name": "@aleios-cloud/eventbridge-toolbox",
-  "version": "0.0.1",
+  "name": "eventbridge-toolbox",
+  "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "scripts": {
     "test": "pnpm test-type && pnpm test-unit",
     "test-unit": "vitest run",

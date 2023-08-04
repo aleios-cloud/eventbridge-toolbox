@@ -22,8 +22,8 @@ jobs:
       - uses: google-github-actions/release-please-action@v3
         id: release-please
         with:
+          command: manifest
           release-type: node
-          package-name: eventbridge-toolbox
   publish:
     name: Publish package
     runs-on: ubuntu-latest
@@ -32,6 +32,6 @@ jobs:
     steps:
       - name: "🚀 Publish package"
         if: ${{ needs.release-please.outputs.releases_created  }}
-        run: pnpm publish --no-git-checks
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

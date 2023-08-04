@@ -1,0 +1,19 @@
+{
+  "name": "@aleios-cloud/eventbridge-toolbox",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-cdk": "^2.89.0"
+  }
+}
