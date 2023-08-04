@@ -38,23 +38,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: "pnpm"
-      - name: Install dependencies
+      - name: Install Top Level Dependencies
         run: pnpm install --frozen-lockfile
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/eventbridgeToolboxRole
-      - name: "install packages"
+      - name: "🧪 Run tests"
+        run: pnpm test --verbose
+      - name: 🚀 Install Producer Dependencies and Deploy
         run: |
           cd example-architecture/producer 
           pnpm install --frozen-lockfile
-      - name: "🧪 Run tests"
-        run: |
-          pnpm test --verbose
-      - name: 🚀 Deploy
-        run: |
-          cd example-architecture/producer 
-          pnpm install --frozen-lockfile 
-          pnpm bootstrap
           pnpm deploy-dev

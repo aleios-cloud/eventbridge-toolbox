@@ -22,9 +22,12 @@
     "aws-cdk-lib": "^2.89.0",
     "aws-lambda": "^1.0.7",
     "constructs": "^10.0.0",
+    "esbuild": "^0.18.17",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.6",
+    "ts-node": "^10.9.1",
     "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.34.1"
+    "vitest": "^0.34.1",
+    "@aws-sdk/client-lambda": "^3.382.0"
   }
 }

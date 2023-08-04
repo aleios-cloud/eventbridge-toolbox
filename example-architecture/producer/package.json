@@ -10,7 +10,6 @@
     "deploy-dev": "cdk deploy --verbose --all --require-approval never"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.3",
     "@types/node": "^20.4.5",
     "aws-cdk": "2.89.0",
     "aws-cdk-lib": "2.89.0",
