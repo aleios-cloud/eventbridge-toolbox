@@ -1,6 +1,6 @@
 import { Lambda } from "@aws-sdk/client-lambda";
 import { describe, it, assertType } from "vitest";
-import { ExamplePersonContract } from "example-architecture/events";
+import { ExamplePersonContract } from "example-architecture/events/contracts/examplePersonContract";
 import { REGION } from "environment";
 
 const lambda = new Lambda({ region: REGION });
