@@ -1,4 +1,4 @@
-import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegistedContract";
+import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
 
 export const handler = (): PersonRegisteredContract => {
   const contractBody: PersonRegisteredContract = {

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Lambda } from "@aws-sdk/client-lambda";
-import { REGION } from "example-architecture/environment";
-import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegistedContract";
+import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
+import { REGION } from "environment";
 import { assertType, describe, it } from "vitest";
 
 const lambda = new Lambda({ region: REGION });
