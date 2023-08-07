@@ -12,7 +12,16 @@ EventBridge contracts ensure a stable and reliable interaction emitters and cons
 
 ## Creating an EventBridge contract
 
-To create an EventBridge Contract, create a contract file and define the type of your contract. If the type of the contract does not match the shape of the event which is received by the producer, then you will see an error.
+To create an EventBridge Contract, define a type for your contract. If the type of the contract does not match the shape of the event which is received by the producer, then you will see an error.
+
+Create an Contract type:
+
+```typescript
+export type PersonRegisteredContract = {
+  firstName: string;
+  lastName: string;
+};
+```
 
 ## Key Features
 
