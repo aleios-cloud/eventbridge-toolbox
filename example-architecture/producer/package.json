@@ -7,7 +7,7 @@
   "scripts": {
     "bootstrap": "cdk bootstrap",
     "cdk": "cdk",
-    "deploy-dev": "cdk deploy --verbose --all --require-approval never"
+    "deploy-dev": "cdk deploy --verbose --all"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",
