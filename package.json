@@ -11,8 +11,7 @@
     "test": "pnpm test-type && pnpm test-unit",
     "test-unit": "vitest run",
     "test-type": "vitest typecheck --run",
-    "lint-fix": "eslint . --ext=js,ts --fix",
-    "lint-fix-all": "cd example-architecture/producer && pnpm lint-fix"
+    "lint-fix": "eslint . --ext=js,ts --fix"
   },
   "keywords": [],
   "author": "",
