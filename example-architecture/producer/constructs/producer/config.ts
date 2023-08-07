@@ -16,12 +16,8 @@ export class Producer extends Construct {
       runtime: Runtime.NODEJS_18_X,
       functionName: "producer-lambda",
       architecture: Architecture.ARM_64,
-      tracing: Tracing.ACTIVE,
       memorySize: 1024,
       entry: getCdkHandlerPath(__dirname),
-      timeout: Duration.seconds(20),
-      retryAttempts: 2,
-      deadLetterQueueEnabled: true,
     });
   }
 }
