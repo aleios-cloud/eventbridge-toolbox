@@ -1,11 +1,9 @@
-/* eslint-disable max-lines */
 module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:import/recommended",
     "plugin:prettier/recommended",
   ],
-  ignorePatterns: ["**/dist/**", "**/cdk.out/**", "fresko.config.ts"],
   rules: {
     "prettier/prettier": "error",
     "import/extensions": 0,
@@ -78,10 +76,6 @@ module.exports = {
       "error",
       {
         paths: [
-          {
-            name: "lodash",
-            message: "Please use lodash/{module} import instead",
-          },
           {
             name: "aws-sdk",
             message: "Please use aws-sdk/{module} import instead",
