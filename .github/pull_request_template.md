@@ -9,7 +9,3 @@
 :construction: Remaining work:
 
 - 
-
-:ticket: Associated DevOps ticket:
-
-- 
