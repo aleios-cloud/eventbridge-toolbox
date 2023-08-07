@@ -5,7 +5,7 @@ type GetCdkHandlerPathProps = {
 
 export const getCdkHandlerPath = (
   directoryPath: string,
-  props?: GetCdkHandlerPathProps
+  props?: GetCdkHandlerPathProps,
 ): string => {
   const processRunLocation = process.cwd();
 
