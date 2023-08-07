@@ -1,7 +1,7 @@
-import { ExamplePersonContract } from "example-architecture/events/contracts/examplePersonContract";
+import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegistedContract";
 
-export const handler = async (): Promise<ExamplePersonContract> => {
-  const contractBody: ExamplePersonContract = {
+export const handler = async (): Promise<PersonRegisteredContract> => {
+  const contractBody: PersonRegisteredContract = {
     firstName: "testFirstName",
     lastName: "testLastName",
   };

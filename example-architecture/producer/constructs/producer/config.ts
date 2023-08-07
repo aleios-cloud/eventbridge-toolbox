@@ -3,8 +3,7 @@ import { Construct } from "constructs";
 
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 
-import { Duration } from "aws-cdk-lib";
-import { Architecture, Runtime, Tracing } from "aws-cdk-lib/aws-lambda";
+import { Architecture, Runtime } from "aws-cdk-lib/aws-lambda";
 import { getCdkHandlerPath } from "example-architecture/producer/constructs/producer/helpers/getCdkHandlerPath";
 export class Producer extends Construct {
   public producerLambda: IFunction;
