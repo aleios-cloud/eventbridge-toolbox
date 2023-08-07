@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Lambda } from "@aws-sdk/client-lambda";
-import { describe, it, assertType } from "vitest";
+import { REGION } from "example-architecture/environment";
 import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegistedContract";
-import { REGION } from "environment";
+import { assertType, describe, it } from "vitest";
 
 const lambda = new Lambda({ region: REGION });
 
@@ -14,7 +16,7 @@ describe("Given a producer lambda that returns a Contract", () => {
 
     it("The body returned is of type Contract ", () => {
       const body = JSON.parse(
-        Buffer.from(invokedLambda.Payload ?? "").toString()
+        Buffer.from(invokedLambda.Payload ?? "").toString(),
       );
       assertType<PersonRegisteredContract>(body);
     });

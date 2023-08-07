@@ -1,5 +1,5 @@
 import { getCdkHandlerPath } from "example-architecture/producer/functions/producer/helpers/getCdkHandlerPath";
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("getCdkHandlerPath", () => {
   it("should return the default path when given no option", () => {
@@ -8,7 +8,7 @@ describe("getCdkHandlerPath", () => {
 
   it("should customize the extension when given an extension parameter", () => {
     expect(getCdkHandlerPath("/path/to/file", { extension: "mjs" })).toBe(
-      "/path/to/file/handler.mjs"
+      "/path/to/file/handler.mjs",
     );
   });
 
@@ -16,7 +16,7 @@ describe("getCdkHandlerPath", () => {
     expect(
       getCdkHandlerPath("/path/to/file", {
         fileName: "toto",
-      })
+      }),
     ).toBe("/path/to/file/toto.ts");
   });
 });
