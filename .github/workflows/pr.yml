@@ -9,8 +9,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  AWS_REGION: eu-central-1
-
+  AWS_REGION: eu-west-2
+  
 permissions:
   id-token: write # this is required for AWS https://github.com/aws-actions/configure-aws-credentials#usage
   contents: read # this is required for Nx https://github.com/nrwl/nx-set-shas#permissions-in-v2
