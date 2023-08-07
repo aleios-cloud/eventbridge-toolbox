@@ -1,3 +1,3 @@
-import { Event } from './classes/Event'
+import { Event } from './classes'
 
 export { Event }

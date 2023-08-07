@@ -1,11 +1,11 @@
-export class Event<contract> {
-  private data: contract
+export class Event<Contract> {
+  private data: Contract
 
-  constructor(contract: contract) {
+  constructor(contract: Contract) {
     this.data = contract
   } 
 
-  getData(): contract {
+  getData = (): Contract => {
     return this.data
   }
 }
