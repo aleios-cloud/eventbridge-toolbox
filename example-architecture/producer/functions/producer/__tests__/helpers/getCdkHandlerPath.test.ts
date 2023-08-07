@@ -1,4 +1,4 @@
-import { getCdkHandlerPath } from "example-architecture/producer/constructs/producer/helpers/getCdkHandlerPath";
+import { getCdkHandlerPath } from "example-architecture/producer/functions/producer/helpers/getCdkHandlerPath";
 import { describe, it, expect } from "vitest";
 
 describe("getCdkHandlerPath", () => {
