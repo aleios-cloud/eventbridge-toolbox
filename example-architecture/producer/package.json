@@ -7,7 +7,8 @@
   "scripts": {
     "bootstrap": "cdk bootstrap",
     "cdk": "cdk",
-    "deploy-dev": "cdk deploy --verbose --all"
+    "deploy-dev": "cdk deploy --verbose --all",
+    "lint-fix": "eslint . --ext=js,ts --fix"
   },
   "devDependencies": {
     "@types/node": "^20.4.5",
@@ -19,6 +20,8 @@
     "typescript": "~5.1.6"
   },
   "dependencies": {
-    "@aws-sdk/client-lambda": "^3.382.0"
+    "@aws-sdk/client-lambda": "^3.382.0",
+    "vitest": "^0.34.1",
+    "eslint": "^8.43.0"
   }
 }
