@@ -1,13 +1,18 @@
 {
   "name": "eventbridge-toolbox",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "scripts": {
     "test": "pnpm test-type && pnpm test-unit",
     "test-unit": "vitest run",
     "test-type": "vitest typecheck --run",
-    "lint-fix": "eslint . --ext=js,ts --fix"
+    "lint-fix": "eslint . --ext=js,ts --fix",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
