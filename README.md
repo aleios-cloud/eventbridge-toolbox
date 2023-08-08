@@ -25,12 +25,13 @@ export type PersonRegisteredContract = {
 
 ## Creating an Event
 
-The Event class bakes in a lot of best practices by just using the object, done like so:
+The Event class bakes in a lot of best practices, you can import and use it like so:
 
-```
-const Event = new Event(data)
-```
+```typescript
+import Event from "@eventbridge-toolbox";
 
+const MyEvent = new Event(data);
+```
 
 ## Key Features
 
