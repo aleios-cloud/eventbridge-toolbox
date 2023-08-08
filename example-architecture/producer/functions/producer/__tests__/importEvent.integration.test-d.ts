@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { Lambda } from "@aws-sdk/client-lambda";
-import { REGION } from "environment";
 import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
+import { getEnvVariable } from "example-architecture/producer/functions/producer/helpers/getEnvVariable";
+import { IEvent } from "src/classes/Event";
 import { assertType, describe, it } from "vitest";
 
-const lambda = new Lambda({ region: REGION });
+const lambda = new Lambda({ region: getEnvVariable("AWS_REGION") });
 
 describe("Given a producer lambda that returns a Contract", () => {
   const params = {
@@ -14,12 +15,13 @@ describe("Given a producer lambda that returns a Contract", () => {
   describe("When that lambda is invoked", async () => {
     const invokedLambda = await lambda.invoke(params);
 
-    it("The body returned is of type Contract ", () => {
-      const body = JSON.parse(
+    it("An event is returned ", () => {
+      console.log("!!!!");
+      const body: IEvent<PersonRegisteredContract> = JSON.parse(
         Buffer.from(invokedLambda.Payload ?? "").toString(),
       );
-
-      assertType<PersonRegisteredContract>(body);
+      console.log(body);
+      assertType<PersonRegisteredContract>(body.data);
     });
   });
 });
