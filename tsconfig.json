@@ -5,12 +5,13 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "esModuleInterop": true,
+    "outDir": "./dist",
     "types": ["node"],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["**/*.ts"],
+  "include": ["src/**/*.ts"],
   "ts-node": {
     "compilerOptions": {
       "module": "Node16"
