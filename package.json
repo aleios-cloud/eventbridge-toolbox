@@ -12,30 +12,37 @@
     "test-unit": "vitest run",
     "test-type": "vitest typecheck --run",
     "lint-fix": "eslint . --ext=js,ts --fix",
-    "build": "tsc"
+    "clear-dist": "rm -rf dist",
+    "build": "pnpm clear-dist && tsc"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@aws-sdk/client-lambda": "^3.382.0",
     "@types/node": "^20.4.5",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
     "aws-cdk": "^2.89.0",
     "aws-cdk-lib": "^2.89.0",
     "constructs": "^10.0.0",
     "esbuild": "^0.18.17",
-    "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.6",
-    "ts-node": "^10.9.1",
-    "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.34.1",
-    "@aws-sdk/client-lambda": "^3.382.0",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-prettier": "^5.0.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0"
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.1.6",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^0.34.1"
   }
 }
