@@ -1,2 +1,8 @@
 # Node modules
-node_modules/
+node_modules
+
+# CDK Output
+cdk.out
+
+# Environment Variables
+.env
