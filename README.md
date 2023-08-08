@@ -23,6 +23,15 @@ export type PersonRegisteredContract = {
 };
 ```
 
+## Creating an Event
+
+The Event class bakes in a lot of best practices by just using the object, done like so:
+
+```
+const Event = new Event(data)
+```
+
+
 ## Key Features
 
 - An event construct
