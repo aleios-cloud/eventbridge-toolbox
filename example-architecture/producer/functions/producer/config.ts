@@ -9,7 +9,7 @@ export class Producer extends Construct {
     super(scope, id);
 
     this.producerLambda = new NodejsFunction(this, "producer-lambda", {
-      runtime: Runtime.NODEJS_18_X,
+      runtime: Runtime.NODEJS_16_X,
       functionName: "producer-lambda",
       architecture: Architecture.ARM_64,
       memorySize: 1024,
