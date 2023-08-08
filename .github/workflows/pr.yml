@@ -44,7 +44,9 @@ jobs:
         with:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-      - name: "🧪 Run tests"
+      - name: '🧪 Test linter'
+        run: pnpm lint-test
+      - name: "🧪 Test unit and integration"
         run: pnpm test --verbose
       - name: 🚀 Install Producer Dependencies and Deploy
         run: |
