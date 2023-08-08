@@ -46,5 +46,8 @@
     "typescript": "^5.1.6",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.34.1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-eventbridge": "^3.386.0"
   }
 }
