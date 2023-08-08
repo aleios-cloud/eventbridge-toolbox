@@ -14,7 +14,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  release-please:
+  publish:
+    name: Publish package
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      release-please:
     runs-on: ubuntu-latest
     outputs:
       releases_created: ${{ steps.release-please.outputs.releases_created }}
@@ -22,16 +30,26 @@ jobs:
       - uses: google-github-actions/release-please-action@v3
         id: release-please
         with:
-          command: manifest
           release-type: node
-  publish:
-    name: Publish package
+          package-name: eventbridge-toolbox
+  publish-package:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     needs: release-please
+    if: ${{ needs.release-please.outputs.releases_created  }}
     steps:
-      - name: "🚀 Publish package"
-        if: ${{ needs.release-please.outputs.releases_created  }}
-        run: npm publish
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
+      - name: 💫 Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: 🏡 Build
+        run: pnpm run build
+      - name: 🚀 Publish eventbridge-toolbox
+        run: pnpm publish --access=public
+        with:
+          working-directory: src
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
