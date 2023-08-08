@@ -1,6 +1,6 @@
 import { Lambda } from "@aws-sdk/client-lambda";
 import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
-import { getEnvVariable } from "example-architecture/producer/functions/producer/helpers/getEnvVariable";
+import { getEnvVariable } from "example-architecture/helpers/getEnvVariable";
 import { IEvent } from "src/classes/Event";
 import { assertType, describe, it } from "vitest";
 
