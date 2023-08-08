@@ -21,8 +21,8 @@ defaults:
     shell: bash
 
 jobs:
-  install-dependencies:
-    name: Install dependencies
+  run-tests:
+    name: Run Tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
