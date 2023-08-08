@@ -53,3 +53,8 @@ jobs:
           cd example-architecture/producer 
           pnpm install --frozen-lockfile
           pnpm deploy-dev
+      - name: 🚀 Install Events Dependencies and Deploy
+        run: |
+          cd example-architecture/events 
+          pnpm install --frozen-lockfile
+          pnpm deploy-dev
