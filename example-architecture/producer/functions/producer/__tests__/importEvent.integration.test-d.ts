@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Lambda } from "@aws-sdk/client-lambda";
 import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
 import { getEnvVariable } from "example-architecture/producer/functions/producer/helpers/getEnvVariable";
@@ -17,7 +16,7 @@ describe("Given a producer lambda that returns a Contract", () => {
     it("An event is returned ", () => {
       const body: IEvent<PersonRegisteredContract> = JSON.parse(
         Buffer.from(invokedLambda.Payload ?? "").toString(),
-      );
+      ) as IEvent<PersonRegisteredContract>;
       assertType<PersonRegisteredContract>(body.data);
     });
   });
