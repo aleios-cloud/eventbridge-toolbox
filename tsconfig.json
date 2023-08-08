@@ -13,7 +13,7 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["**/*.ts"],
+  "include": ["src/**/*.ts"],
   "ts-node": {
     "compilerOptions": {
       "module": "Node16"
