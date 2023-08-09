@@ -15,9 +15,6 @@
   },
   "include": ["src/**/*.ts"],
   "ts-node": {
-    "compilerOptions": {
-      "module": "Node16"
-    },
     "require": ["tsconfig-paths/register"]
   }
 }
