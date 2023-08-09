@@ -5,15 +5,18 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "esModuleInterop": true,
+    "declaration": true, // generate .d.ts files
+    "sourceMap": true, // show TS sourcemap
+    "outDir": "./dist",
     "types": ["node"],
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["**/*.ts"],
+  "include": ["src/**/*.ts"],
   "ts-node": {
     "compilerOptions": {
-      "module": "Node16"
+      "module": "NodeNext"
     },
     "require": ["tsconfig-paths/register"]
   }

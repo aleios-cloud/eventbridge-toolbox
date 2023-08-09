@@ -4,7 +4,7 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:prettier/recommended",
   ],
-  ignorePatterns: ["**/cdk.out/**"],
+  ignorePatterns: ["**/cdk.out/**", "**/dist/**"],
   rules: {
     "prettier/prettier": "error",
     "import/extensions": 0,
@@ -100,7 +100,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 9,
     sourceType: "module",
-    project: ["./tsconfig.json"],
+    project: ["./tsconfig.eslint.json"],
     tsconfigRootDir: __dirname,
   },
   overrides: [
