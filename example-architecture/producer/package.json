@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@aws-cdk/aws-iam": "^1.204.0",
+    "@aws-sdk/client-eventbridge": "^3.387.0",
     "@aws-sdk/client-lambda": "^3.382.0",
     "eslint": "^8.43.0",
     "vitest": "^0.34.1"
