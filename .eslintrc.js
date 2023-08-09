@@ -4,7 +4,7 @@ module.exports = {
     "plugin:import/recommended",
     "plugin:prettier/recommended",
   ],
-  ignorePatterns: ["**/cdk.out/**", "dist"],
+  ignorePatterns: ["**/cdk.out/**", "**/dist/**"],
   rules: {
     "prettier/prettier": "error",
     "import/extensions": 0,
