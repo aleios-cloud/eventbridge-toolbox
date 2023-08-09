@@ -1,8 +1,8 @@
 import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
 import { getEnvVariable } from "example-architecture/helpers/getEnvVariable";
-import { Event, IEvent } from "src";
+import { Event } from "src/classes/Event";
 
-export const handler = async (): Promise<IEvent<PersonRegisteredContract>> => {
+export const handler = async (): Promise<PersonRegisteredContract> => {
   const contract: PersonRegisteredContract = {
     firstName: "testFirstName",
     lastName: "testLastName",
@@ -14,5 +14,5 @@ export const handler = async (): Promise<IEvent<PersonRegisteredContract>> => {
 
   await event.publish(EVENT_BUS_ARN);
 
-  return event;
+  return event.getData();
 };
