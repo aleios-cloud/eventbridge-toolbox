@@ -20,8 +20,9 @@
     "typescript": "~5.1.6"
   },
   "dependencies": {
+    "@aws-cdk/aws-iam": "^1.204.0",
     "@aws-sdk/client-lambda": "^3.382.0",
-    "vitest": "^0.34.1",
-    "eslint": "^8.43.0"
+    "eslint": "^8.43.0",
+    "vitest": "^0.34.1"
   }
 }
