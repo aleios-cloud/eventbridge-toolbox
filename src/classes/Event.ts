@@ -1,6 +1,7 @@
 import {
   EventBridgeClient,
   PutEventsCommand,
+  type PutEventsResponse,
 } from "@aws-sdk/client-eventbridge";
 
 export const eventBridge = new EventBridgeClient({});
@@ -16,16 +17,19 @@ export class Event<Contract> implements IEvent<Contract> {
     return this.data;
   };
 
-  publish = async (eventBusArn: string): Promise<void> => {
+  publish = async (eventBusArn: string): Promise<PutEventsResponse> => {
     const params = {
       Entries: [
         {
-          detail: this.data,
+          Detail: JSON.stringify(this.data),
+          Source: "lambda.amazonaws.com",
+          DetailType: "eventContractData",
           EventBusName: eventBusArn,
         },
       ],
     };
-    await eventBridge.send(new PutEventsCommand(params));
+
+    return await eventBridge.send(new PutEventsCommand(params));
   };
 }
 
