@@ -20,6 +20,7 @@
     "typescript": "~5.1.6"
   },
   "dependencies": {
+    "@aws-sdk/client-eventbridge": "^3.387.0",
     "@aws-sdk/client-lambda": "^3.382.0",
     "aws-sdk": "^2.1431.0",
     "eslint": "^8.43.0",
