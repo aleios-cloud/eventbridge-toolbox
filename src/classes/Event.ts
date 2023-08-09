@@ -25,12 +25,12 @@ export class Event<Contract> implements IEvent<Contract> {
     const params = {
       Entries: [
         {
-          Detail: '{ "key1": "value1", "key2": "value2" }',
-          DetailType: "appRequestSubmitted",
-          Resources: [eventBus.eventBusArn],
-          Source: "com.company.app",
+          detail: this.data,
+          DetailType: "NEED TO PASS THIS IN AS A PARAM",
+          eventBus: eventBus.eventBusArn,
         },
       ],
     };
+    await eventBridge.send(new PutEventsCommand(params));
   };
 }
