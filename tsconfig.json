@@ -15,6 +15,9 @@
   },
   "include": ["src/**/*.ts"],
   "ts-node": {
+    "compilerOptions": {
+      "module": "NodeNext"
+    },
     "require": ["tsconfig-paths/register"]
   }
 }
