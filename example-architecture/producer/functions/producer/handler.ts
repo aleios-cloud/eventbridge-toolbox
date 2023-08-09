@@ -1,8 +1,9 @@
+import { type PutEventsResponse } from "@aws-sdk/client-eventbridge";
 import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
 import { getEnvVariable } from "example-architecture/helpers/getEnvVariable";
 import { Event } from "src/classes/Event";
 
-export const handler = async (): Promise<PersonRegisteredContract> => {
+export const handler = async (): Promise<PutEventsResponse> => {
   const contract: PersonRegisteredContract = {
     firstName: "testFirstName",
     lastName: "testLastName",
@@ -12,7 +13,5 @@ export const handler = async (): Promise<PersonRegisteredContract> => {
 
   const EVENT_BUS_ARN = getEnvVariable("EVENT_BUS_ARN");
 
-  await event.publish(EVENT_BUS_ARN);
-
-  return event.getData();
+  return await event.publish(EVENT_BUS_ARN);
 };
