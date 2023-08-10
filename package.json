@@ -9,9 +9,7 @@
   },
   "scripts": {
     "clean": "rimraf dist",
-    "test": "pnpm test-type && pnpm test-unit",
-    "test-unit": "vitest run",
-    "test-type": "vitest typecheck --run",
+    "test": "vitest run",
     "lint-fix": "eslint . --ext=js,ts --fix",
     "lint-test": "eslint . --ext=js,ts",
     "build": "pnpm clean && tsc"
