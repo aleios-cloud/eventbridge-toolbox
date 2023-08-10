@@ -25,12 +25,25 @@ export type PersonRegisteredContract = {
 
 ## Creating an Event
 
-The Event class bakes in a lot of best practices, you can import and use it like so:
+The Event class bakes in a lot of best practices.
+To instantiate an eventbridge-toolbox event, create a new Event and pass in your event data. You can then publish your event by calling the `publish` function, passing in the ARN of the EventBus which you want to publish your event to.
+
+You can see an example below:
 
 ```typescript
 import Event from "@eventbridge-toolbox";
 
-const MyEvent = new Event(data);
+const data: LoggedInContract = {
+  firstName: "Lucy",
+  lastName: "Example",
+  timeLoggedIn: "2023-01-01T13:00:00.000Z",
+};
+
+const myEvent = new Event(data);
+
+const EVENT_BUS_ARN = getEnvVariable("EVENT_BUS_ARN");
+
+await myEvent.publish(EVENT_BUS_ARN);
 ```
 
 ## Key Features
