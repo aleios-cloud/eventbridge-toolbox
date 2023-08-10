@@ -46,8 +46,6 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
       - name: '🧪 Test linter'
         run: pnpm lint-test
-      - name: "🧪 Test unit and integration"
-        run: pnpm test --verbose
       - name: 🚀 Install Events Dependencies and Deploy
         run: |
           cd example-architecture/events 
@@ -58,3 +56,5 @@ jobs:
           cd example-architecture/producer 
           pnpm install --frozen-lockfile
           pnpm deploy-dev
+      - name: "🧪 Test unit and integration"
+        run: pnpm test --verbose
