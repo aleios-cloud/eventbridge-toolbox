@@ -29,7 +29,19 @@ export class Event<Contract> implements IEvent<Contract> {
       ],
     };
 
-    return await eventBridge.send(new PutEventsCommand(params));
+    const eventBridgeResponse = await eventBridge.send(
+      new PutEventsCommand(params),
+    );
+    eventBridgeResponse.Entries?.forEach((entry) => {
+      if (entry.ErrorCode !== undefined) {
+        console.error("Event failed to publish to event bus.", {
+          ErrorCode: entry.ErrorCode,
+          ErrorMessage: entry.ErrorMessage,
+        });
+      }
+    });
+
+    return eventBridgeResponse;
   };
 }
 
