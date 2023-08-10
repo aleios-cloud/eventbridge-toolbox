@@ -1,5 +1,10 @@
 import { Fn } from "aws-cdk-lib";
-import { PolicyStatement, Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
+import {
+  ManagedPolicy,
+  PolicyStatement,
+  Role,
+  ServicePrincipal,
+} from "aws-cdk-lib/aws-iam";
 import { Architecture, IFunction, Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
@@ -17,6 +22,12 @@ export class Producer extends Construct {
       assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
       description: "Producer lambda role",
     });
+
+    lambdaRole.addManagedPolicy(
+      ManagedPolicy.fromAwsManagedPolicyName(
+        "service-role/AWSLambdaBasicExecutionRole",
+      ),
+    );
 
     lambdaRole.addToPolicy(
       new PolicyStatement({
