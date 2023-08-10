@@ -11,7 +11,7 @@ export class EventsStack extends Stack {
 
     new CfnOutput(this, "EventBusARN", {
       value: eventBus.eventBusArn,
-      exportName: "eventBusARN",
+      exportName: "EventBusARN",
     });
   }
 }
