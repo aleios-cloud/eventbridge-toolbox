@@ -44,10 +44,17 @@ jobs:
         with:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-      - name: "🧪 Run tests"
-        run: pnpm test --verbose
+      - name: '🧪 Test linter'
+        run: pnpm lint-test
+      - name: 🚀 Install Events Dependencies and Deploy
+        run: |
+          cd example-architecture/events 
+          pnpm install --frozen-lockfile
+          pnpm deploy-dev
       - name: 🚀 Install Producer Dependencies and Deploy
         run: |
           cd example-architecture/producer 
           pnpm install --frozen-lockfile
           pnpm deploy-dev
+      - name: "🧪 Test unit and integration"
+        run: pnpm test --verbose

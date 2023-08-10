@@ -1,15 +1,17 @@
+import { type PutEventsResponse } from "@aws-sdk/client-eventbridge";
 import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
-import { Event, IEvent } from "src";
+import { getEnvVariable } from "example-architecture/helpers/getEnvVariable";
+import { Event } from "src/classes/Event";
 
-// The lambda documentation recommends making the handler async, although there is nothing to await
-// When synchronous this lambda returns null.
-// eslint-disable-next-line @typescript-eslint/require-await
-export const handler = async (): Promise<IEvent<PersonRegisteredContract>> => {
+export const handler = async (): Promise<PutEventsResponse> => {
   const contract: PersonRegisteredContract = {
     firstName: "testFirstName",
     lastName: "testLastName",
   };
+
   const event = new Event(contract);
 
-  return event;
+  const EVENT_BUS_ARN = getEnvVariable("EVENT_BUS_ARN");
+
+  return await event.publish(EVENT_BUS_ARN);
 };

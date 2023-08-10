@@ -1,8 +1,8 @@
 {
-  "name": "producer",
+  "name": "events",
   "version": "0.1.0",
   "bin": {
-    "producer": "bin/producer.js"
+    "events": "bin/events.js"
   },
   "scripts": {
     "bootstrap": "cdk bootstrap",
@@ -20,10 +20,7 @@
     "typescript": "~5.1.6"
   },
   "dependencies": {
-    "@aws-cdk/aws-iam": "^1.204.0",
     "@aws-sdk/client-eventbridge": "^3.387.0",
-    "@aws-sdk/client-lambda": "^3.382.0",
-    "eslint": "^8.43.0",
-    "vitest": "^0.34.1"
+    "aws-sdk": "^2.1431.0"
   }
 }
