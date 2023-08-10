@@ -42,10 +42,13 @@ export class Event<Contract> implements IEvent<Contract> {
     const eventBridgeResponse = await eventBridge.send(
       new PutEventsCommand(params),
     );
-    eventBridgeResponse.Entries &&
+    if (eventBridgeResponse.Entries === undefined) {
+      console.error("Error publishing event to event bus");
+    } else {
       eventBridgeResponse.Entries.forEach((entry) =>
         logResponseOnPublishFailure(entry),
       );
+    }
 
     return eventBridgeResponse;
   };
