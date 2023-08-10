@@ -13,7 +13,7 @@ export class Producer extends Construct {
 
     const eventBusArn: string = Fn.importValue("EventBusARN");
 
-    const lambdaRole = new Role(this, "Role", {
+    const lambdaRole = new Role(this, "producer-lambda-role", {
       assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
       description: "Producer lambda role",
     });
