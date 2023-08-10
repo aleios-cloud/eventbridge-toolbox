@@ -48,13 +48,13 @@ jobs:
         run: pnpm lint-test
       - name: "🧪 Test unit and integration"
         run: pnpm test --verbose
-      - name: 🚀 Install Producer Dependencies and Deploy
-        run: |
-          cd example-architecture/producer 
-          pnpm install --frozen-lockfile
-          pnpm deploy-dev
       - name: 🚀 Install Events Dependencies and Deploy
         run: |
           cd example-architecture/events 
+          pnpm install --frozen-lockfile
+          pnpm deploy-dev
+      - name: 🚀 Install Producer Dependencies and Deploy
+        run: |
+          cd example-architecture/producer 
           pnpm install --frozen-lockfile
           pnpm deploy-dev
