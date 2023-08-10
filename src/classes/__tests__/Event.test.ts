@@ -41,13 +41,42 @@ vi.mock("@aws-sdk/client-eventbridge", async () => {
   };
 });
 
+const consoleMock = vi.spyOn(console, "error").mockImplementation(() => {});
+
 describe("Given an Event class", () => {
   const event = new Event(mockData);
   describe("When a user calls publish", () => {
     it("An event is sent to eventBridge", async () => {
+      mockSend.mockReturnValueOnce({ Entries: [{ EventId: "mockEventId" }] });
       await event.publish("MOCK_EVENT_BUS_ARN");
       expect(PutEventsCommand).toHaveBeenCalledWith(mockParams);
       expect(mockSend).toHaveBeenCalled();
+    });
+
+    it("If publish returns undefined, an error is thrown", async () => {
+      mockSend.mockReturnValueOnce({ Entries: undefined });
+      await event.publish("MOCK_EVENT_BUS_ARN");
+      expect(mockSend).toHaveBeenCalled();
+      expect(consoleMock).toHaveBeenCalledWith(
+        "Error publishing event to event bus",
+      );
+    });
+
+    it("If publish returns error response, an error is thrown", async () => {
+      mockSend.mockReturnValueOnce({
+        Entries: [
+          { ErrorCode: "mockErrorCode", ErrorMessage: "mockErrorMessage" },
+        ],
+      });
+      await event.publish("MOCK_EVENT_BUS_ARN");
+      expect(mockSend).toHaveBeenCalled();
+      expect(consoleMock).toHaveBeenCalledWith(
+        "Event failed to publish to event bus.",
+        {
+          ErrorCode: "mockErrorCode",
+          ErrorMessage: "mockErrorMessage",
+        },
+      );
     });
   });
   describe("When a user calls getData", () => {
