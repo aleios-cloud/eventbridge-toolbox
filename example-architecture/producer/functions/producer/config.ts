@@ -13,7 +13,7 @@ export class Producer extends Construct {
 
     const eventBusArn: string = Fn.importValue("EventBusARN");
 
-    const lambdaRole = new Role(this, "producer-lambda-role", {
+    const lambdaRole = new Role(this, "ProducerLambdaRole", {
       assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
       description: "Producer lambda role",
     });
@@ -25,9 +25,9 @@ export class Producer extends Construct {
       }),
     );
 
-    this.producerLambda = new NodejsFunction(this, "producer-lambda", {
+    this.producerLambda = new NodejsFunction(this, "ProducerLambda", {
       runtime: Runtime.NODEJS_18_X,
-      functionName: "producer-lambda",
+      functionName: "producerLambda",
       architecture: Architecture.ARM_64,
       memorySize: 1024,
       entry: getCdkHandlerPath(__dirname),
