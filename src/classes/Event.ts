@@ -2,9 +2,19 @@ import {
   EventBridgeClient,
   PutEventsCommand,
   type PutEventsResponse,
+  type PutEventsResultEntry,
 } from "@aws-sdk/client-eventbridge";
 
 export const eventBridge = new EventBridgeClient({});
+
+const logResponseOnPublishFailure = (entry: PutEventsResultEntry): void => {
+  if (entry.ErrorCode !== undefined) {
+    console.error("Event failed to publish to event bus.", {
+      ErrorCode: entry.ErrorCode,
+      ErrorMessage: entry.ErrorMessage,
+    });
+  }
+};
 
 export class Event<Contract> implements IEvent<Contract> {
   readonly data: Contract;
@@ -32,14 +42,10 @@ export class Event<Contract> implements IEvent<Contract> {
     const eventBridgeResponse = await eventBridge.send(
       new PutEventsCommand(params),
     );
-    eventBridgeResponse.Entries?.forEach((entry) => {
-      if (entry.ErrorCode !== undefined) {
-        console.error("Event failed to publish to event bus.", {
-          ErrorCode: entry.ErrorCode,
-          ErrorMessage: entry.ErrorMessage,
-        });
-      }
-    });
+    eventBridgeResponse.Entries &&
+      eventBridgeResponse.Entries.forEach((entry) =>
+        logResponseOnPublishFailure(entry),
+      );
 
     return eventBridgeResponse;
   };
