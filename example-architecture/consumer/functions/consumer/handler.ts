@@ -9,7 +9,7 @@ const isNonNullObject = (detail: unknown): detail is object =>
   typeof detail === "object" && detail !== null;
 
 export const isIEventType = <Contract>(
-  event: unknown
+  event: unknown,
 ): event is IEvent<Contract> => {
   if (isNonNullObject(event)) {
     if ("detail" in event && isNonNullObject(event.detail)) {
