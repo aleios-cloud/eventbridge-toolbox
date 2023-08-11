@@ -31,11 +31,12 @@ jobs:
     if: ${{ needs.release-please.outputs.releases_created  }}
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.27.0
       - uses: actions/setup-node@v3
         with:
-          node-version: "18"
           cache: "pnpm"
-          registry-url: "https://registry.npmjs.org"
       - name: 💫 Install dependencies
         run: pnpm install --frozen-lockfile
       - name: 🏡 Build
