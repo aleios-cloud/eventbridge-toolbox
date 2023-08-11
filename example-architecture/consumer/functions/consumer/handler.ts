@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/require-await */
 
-export const validateIEventType = (event: unknown): boolean => {
+import { IEvent } from "src/classes/Event";
+
+export const isIEventType = <Contract>(
+  event: unknown,
+): event is IEvent<Contract> => {
   if (typeof event === "object" && event !== null) {
     if (
       "data" in event &&
@@ -15,7 +19,7 @@ export const validateIEventType = (event: unknown): boolean => {
 };
 
 export const handler = async (event: unknown): Promise<void> => {
-  if (validateIEventType(event)) {
+  if (isIEventType(event)) {
     console.log("Event type is valid!");
   }
 };
