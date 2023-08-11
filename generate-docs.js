@@ -18,6 +18,7 @@ fs.readdir(pathToContracts, (err, files) => {
     console.error(err);
   } else {
     files.forEach((file) => {
+      // TODO: remove console.log once script is more stable
       console.log(file);
       const pathToFile = path.join(pathToContracts, file);
       const filenameWithoutExtension = file.split(".")[0];
