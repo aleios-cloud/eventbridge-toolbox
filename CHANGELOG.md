@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/aleios-cloud/eventbridge-toolbox/compare/v1.0.0...v1.1.0) (2023-08-11)
+
+
+### Features
+
+* add pnpm install and remove npm reference ([#14](https://github.com/aleios-cloud/eventbridge-toolbox/issues/14)) ([24c6e66](https://github.com/aleios-cloud/eventbridge-toolbox/commit/24c6e667a269bf1f8c2efda203f889bfae20de17))
+
 ## 1.0.0 (2023-08-10)
 
 
