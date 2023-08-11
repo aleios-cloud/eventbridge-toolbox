@@ -20,6 +20,7 @@
     "typescript": "~5.1.6"
   },
   "dependencies": {
+    "@aws-cdk/aws-events-targets": "^1.204.0",
     "@aws-cdk/aws-iam": "^1.204.0",
     "@aws-sdk/client-eventbridge": "^3.387.0",
     "@aws-sdk/client-lambda": "^3.382.0",
