@@ -55,5 +55,5 @@ export class Event<Contract> implements IEvent<Contract> {
 }
 
 export interface IEvent<Contract> {
-  readonly data: Contract;
+  readonly detail: Contract;
 }
