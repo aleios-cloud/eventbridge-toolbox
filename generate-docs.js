@@ -28,11 +28,11 @@ fs.readdir(pathToContracts, (err, files) => {
         ? filenameWithoutExtension.replace("Contract", "")
         : filenameWithoutExtension;
 
-      const newFilePath = path.join(
+      const eventDocsFilePath = path.join(
         __dirname,
         `/docs/${fileNameWithoutContract}`,
       );
-      fs.mkdirSync(newFilePath, { recursive: true });
+      fs.mkdirSync(eventDocsFilePath, { recursive: true });
 
       const eventMarkdownTemplate = fs.readFileSync(
         path.join(__dirname, "/doc-template.md"),
@@ -48,12 +48,16 @@ fs.readdir(pathToContracts, (err, files) => {
         "1.0.0",
       );
 
-      fs.writeFile(`${newFilePath}/index.md`, markdownWithVersion, (error) => {
-        if (error) {
-          // TODO: log error rather than throw once script is more stable
-          throw error;
-        }
-      });
+      fs.writeFile(
+        `${eventDocsFilePath}/index.md`,
+        markdownWithVersion,
+        (error) => {
+          if (error) {
+            // TODO: log error rather than throw once script is more stable
+            throw error;
+          }
+        },
+      );
 
       const typeToSchemaConfig = {
         path: pathToFile,
@@ -65,12 +69,16 @@ fs.readdir(pathToContracts, (err, files) => {
         .createSchema(typeToSchemaConfig.type);
       const schemaString = JSON.stringify(schema, null, 2);
 
-      fs.writeFile(`${newFilePath}/schema.json`, schemaString, (error) => {
-        if (error) {
-          // TODO: log error rather than throw once script is more stable
-          throw error;
-        }
-      });
+      fs.writeFile(
+        `${eventDocsFilePath}/schema.json`,
+        schemaString,
+        (error) => {
+          if (error) {
+            // TODO: log error rather than throw once script is more stable
+            throw error;
+          }
+        },
+      );
     });
   }
 });
