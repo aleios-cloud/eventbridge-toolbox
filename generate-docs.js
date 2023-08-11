@@ -8,7 +8,10 @@ const pathToContracts = path.join(
 );
 
 const docsFilePath = path.join(__dirname, "/docs");
-fs.mkdirSync(docsFilePath, { recursive: true });
+if (!fs.existsSync(docsFilePath)) {
+  fs.mkdirSync(docsFilePath, { recursive: true });
+  console.log("Docs directory created");
+}
 
 fs.readdir(pathToContracts, (err, files) => {
   if (err) {
