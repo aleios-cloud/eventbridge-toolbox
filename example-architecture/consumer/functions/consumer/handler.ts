@@ -2,15 +2,14 @@
 
 import { IEvent } from "src/classes/Event";
 
+const isNonNullObject = (data: unknown): data is object =>
+  typeof data === "object" && data !== null;
+
 export const isIEventType = <Contract>(
   event: unknown,
 ): event is IEvent<Contract> => {
-  if (typeof event === "object" && event !== null) {
-    if (
-      "data" in event &&
-      typeof event.data === "object" &&
-      event.data !== null
-    ) {
+  if (isNonNullObject(event)) {
+    if ("data" in event && isNonNullObject(event.data)) {
       return true;
     }
   }
