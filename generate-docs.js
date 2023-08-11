@@ -38,6 +38,7 @@ fs.readdir(pathToContracts, (err, files) => {
         "//name//",
         fileNameWithoutContract
       );
+      // TODO: replace with version from contract path once versioning is implemented
       const markdownWithVersion = markdownWithName.replace(
         "//version//",
         "1.0.0"
