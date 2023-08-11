@@ -15,7 +15,7 @@ if (!fs.existsSync(docsFilePath)) {
 
 fs.readdir(pathToContracts, (err, files) => {
   if (err) {
-    console.log(err);
+    console.error(err);
   } else {
     files.forEach((file) => {
       console.log(file);
