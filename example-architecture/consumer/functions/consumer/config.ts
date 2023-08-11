@@ -1,3 +1,7 @@
+import { Fn } from "aws-cdk-lib";
+import { EventBus, Rule } from "aws-cdk-lib/aws-events";
+import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
+import { ServicePrincipal } from "aws-cdk-lib/aws-iam";
 import { Architecture, IFunction, Runtime } from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
@@ -16,5 +20,22 @@ export class Consumer extends Construct {
       memorySize: 1024,
       entry: getCdkHandlerPath(__dirname),
     });
+
+    const eventBusArn: string = Fn.importValue("EventBusARN");
+
+    const eventBus = EventBus.fromEventBusArn(
+      this,
+      "ExampleArchitectureEventBus",
+      eventBusArn,
+    );
+
+    const rule = new Rule(this, "rule", {
+      eventPattern: {
+        detailType: ["eventContractData"],
+      },
+      eventBus: eventBus,
+    });
+
+    rule.addTarget(new LambdaFunction(this.consumerLambda));
   }
 }
