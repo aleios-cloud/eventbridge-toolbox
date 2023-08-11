@@ -18,13 +18,11 @@ fs.readdir(pathToContracts, (err, files) => {
       console.log(file);
       const pathToFile = path.join(pathToContracts, file);
       const filenameWithoutExtension = file.split(".")[0];
-      let fileNameWithoutContract = filenameWithoutExtension;
-      if (filenameWithoutExtension.endsWith("Contract")) {
-        fileNameWithoutContract = filenameWithoutExtension.replace(
-          "Contract",
-          ""
-        );
-      }
+      const fileNameWithoutContract = filenameWithoutExtension.endsWith(
+        "Contract"
+      )
+        ? filenameWithoutExtension.replace("Contract", "")
+        : filenameWithoutExtension;
 
       const newFilePath = path.join(
         __dirname,
