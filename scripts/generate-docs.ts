@@ -1,19 +1,21 @@
-const fs = require("fs");
-const path = require("path");
-const tsj = require("ts-json-schema-generator");
+import { existsSync, mkdirSync, readdir, readFileSync, writeFile } from "fs";
+import path from "path";
+import * as tsj from "ts-json-schema-generator";
+
+const rootPath = path.join(__dirname, "..");
 
 const pathToContracts = path.join(
-  __dirname,
+  rootPath,
   "/example-architecture/events/contracts",
 );
 
-const docsFilePath = path.join(__dirname, "/docs");
-if (!fs.existsSync(docsFilePath)) {
-  fs.mkdirSync(docsFilePath, { recursive: true });
+const docsFilePath = path.join(rootPath, "/docs");
+if (!existsSync(docsFilePath)) {
+  mkdirSync(docsFilePath, { recursive: true });
   console.log("Docs directory created");
 }
 
-fs.readdir(pathToContracts, (err, files) => {
+readdir(pathToContracts, (err, files) => {
   if (err) {
     console.error(err);
   } else {
@@ -29,12 +31,12 @@ fs.readdir(pathToContracts, (err, files) => {
         : filenameWithoutExtension;
 
       const eventDocsFilePath = path.join(
-        __dirname,
+        rootPath,
         `/docs/${fileNameWithoutContract}`,
       );
-      fs.mkdirSync(eventDocsFilePath, { recursive: true });
+      mkdirSync(eventDocsFilePath, { recursive: true });
 
-      const eventMarkdownTemplate = fs.readFileSync(
+      const eventMarkdownTemplate = readFileSync(
         path.join(__dirname, "/doc-template.md"),
         "utf8",
       );
@@ -48,7 +50,7 @@ fs.readdir(pathToContracts, (err, files) => {
         "1.0.0",
       );
 
-      fs.writeFile(
+      writeFile(
         `${eventDocsFilePath}/index.md`,
         markdownWithVersion,
         (error) => {
@@ -61,7 +63,7 @@ fs.readdir(pathToContracts, (err, files) => {
 
       const typeToSchemaConfig = {
         path: pathToFile,
-        tsconfig: path.join(__dirname, "/tsconfig.json"),
+        tsconfig: path.join(rootPath, "/tsconfig.json"),
         type: "*",
       };
       const schema = tsj
@@ -69,16 +71,12 @@ fs.readdir(pathToContracts, (err, files) => {
         .createSchema(typeToSchemaConfig.type);
       const schemaString = JSON.stringify(schema, null, 2);
 
-      fs.writeFile(
-        `${eventDocsFilePath}/schema.json`,
-        schemaString,
-        (error) => {
-          if (error) {
-            // TODO: log error rather than throw once script is more stable
-            throw error;
-          }
-        },
-      );
+      writeFile(`${eventDocsFilePath}/schema.json`, schemaString, (error) => {
+        if (error) {
+          // TODO: log error rather than throw once script is more stable
+          throw error;
+        }
+      });
     });
   }
 });
