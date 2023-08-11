@@ -50,6 +50,7 @@ fs.readdir(pathToContracts, (err, files) => {
 
       fs.writeFile(`${newFilePath}/index.md`, markdownWithVersion, (error) => {
         if (error) {
+          // TODO: log error rather than throw once script is more stable
           throw error;
         }
       });
@@ -66,6 +67,7 @@ fs.readdir(pathToContracts, (err, files) => {
 
       fs.writeFile(`${newFilePath}/schema.json`, schemaString, (error) => {
         if (error) {
+          // TODO: log error rather than throw once script is more stable
           throw error;
         }
       });
