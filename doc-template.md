@@ -2,7 +2,7 @@
 name: //name//
 version: //version//
 summary: |
-  A summery
+  A summary
 producers:
   - Producer
 consumers:
