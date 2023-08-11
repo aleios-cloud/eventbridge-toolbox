@@ -4,7 +4,7 @@ const tsj = require("ts-json-schema-generator");
 
 const pathToContracts = path.join(
   __dirname,
-  "/example-architecture/events/contracts"
+  "/example-architecture/events/contracts",
 );
 
 const docsFilePath = path.join(__dirname, "/docs");
@@ -23,29 +23,29 @@ fs.readdir(pathToContracts, (err, files) => {
       const pathToFile = path.join(pathToContracts, file);
       const filenameWithoutExtension = file.split(".")[0];
       const fileNameWithoutContract = filenameWithoutExtension.endsWith(
-        "Contract"
+        "Contract",
       )
         ? filenameWithoutExtension.replace("Contract", "")
         : filenameWithoutExtension;
 
       const newFilePath = path.join(
         __dirname,
-        `/docs/${fileNameWithoutContract}`
+        `/docs/${fileNameWithoutContract}`,
       );
       fs.mkdirSync(newFilePath, { recursive: true });
 
       const eventMarkdownTemplate = fs.readFileSync(
         path.join(__dirname, "/doc-template.md"),
-        "utf8"
+        "utf8",
       );
       const markdownWithName = eventMarkdownTemplate.replace(
         "//name//",
-        fileNameWithoutContract
+        fileNameWithoutContract,
       );
       // TODO: replace with version from contract path once versioning is implemented
       const markdownWithVersion = markdownWithName.replace(
         "//version//",
-        "1.0.0"
+        "1.0.0",
       );
 
       fs.writeFile(`${newFilePath}/index.md`, markdownWithVersion, (error) => {
@@ -58,7 +58,7 @@ fs.readdir(pathToContracts, (err, files) => {
       const typeToSchemaConfig = {
         path: pathToFile,
         tsconfig: path.join(__dirname, "/tsconfig.json"),
-        type: "*"
+        type: "*",
       };
       const schema = tsj
         .createGenerator(typeToSchemaConfig)
