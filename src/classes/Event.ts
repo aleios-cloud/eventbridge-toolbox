@@ -17,21 +17,21 @@ const logResponseOnPublishFailure = (entry: PutEventsResultEntry): void => {
 };
 
 export class Event<Contract> implements IEvent<Contract> {
-  readonly data: Contract;
+  readonly detail: Contract;
 
   constructor(contract: Contract) {
-    this.data = contract;
+    this.detail = contract;
   }
 
-  getData = (): Contract => {
-    return this.data;
+  getDetail = (): Contract => {
+    return this.detail;
   };
 
   publish = async (eventBusArn: string): Promise<PutEventsResponse> => {
     const params = {
       Entries: [
         {
-          Detail: JSON.stringify(this.data),
+          Detail: JSON.stringify(this.detail),
           Source: "lambda.amazonaws.com",
           DetailType: "eventContractData",
           EventBusName: eventBusArn,
