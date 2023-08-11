@@ -4,10 +4,7 @@ import * as tsj from "ts-json-schema-generator";
 
 const rootPath = path.join(__dirname, "..");
 
-const pathToContracts = path.join(
-  rootPath,
-  "/example-architecture/events/contracts",
-);
+const pathToContracts = path.join(rootPath, process.argv[2]);
 
 const docsFilePath = path.join(rootPath, "/docs");
 if (!existsSync(docsFilePath)) {
