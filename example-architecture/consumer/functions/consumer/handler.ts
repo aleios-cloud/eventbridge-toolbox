@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
-import { IEvent } from "src/classes/Event";
 
-const validateEventType = (
-  event: IEvent<PersonRegisteredContract>
-): boolean => {
-  console.log(event);
-
-  return true;
-};
-
-export const handler = async (
-  event: IEvent<PersonRegisteredContract>
-): Promise<IEvent<PersonRegisteredContract>> => {
-  if (validateEventType(event)) {
-    console.log("Event type is valid!");
+export const validateIEventType = (event: unknown): boolean => {
+  if (typeof event === "object" && event !== null) {
+    if (
+      "data" in event &&
+      typeof event.data === "object" &&
+      event.data !== null
+    ) {
+      return true;
+    }
   }
 
-  return event;
+  return false;
+};
+
+export const handler = async (event: unknown): Promise<void> => {
+  if (validateIEventType(event)) {
+    console.log("Event type is valid!");
+  }
 };
