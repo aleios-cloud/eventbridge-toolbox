@@ -25,7 +25,7 @@ export type PersonRegisteredContract = {
 
 ## Creating an Event
 
-The Event class bakes in a lot of best practices. To instantiate an eventbridge-toolbox event, create a new Event and pass in your event detail and an event detail type. 
+The Event class bakes in a lot of best practices. To instantiate an eventbridge-toolbox event, create a new Event and pass in your event detail and event detail type. 
 
 You can see an example below:
 
@@ -38,13 +38,13 @@ const loggedInData: LoggedInContract = {
   timeLoggedIn: "2023-01-01T13:00:00.000Z",
 };
 
-const myEvent = new Event('loggedIn', data);
+const myEvent = new Event('loggedIn', loggedInData);
 
 //equal to the 'loggedInData' object
 const myEventDetail = myEvent.getDetail();
 
 //equal to 'loggedIn'
-const myEventEventDetailType = myEvent.getDetailType():
+const myEventDetailType = myEvent.getDetailType():
 
 ```
 
