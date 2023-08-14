@@ -20,9 +20,9 @@ export class Event<Contract> implements IEvent<Contract> {
   readonly detail: Contract;
   readonly eventDetailType: string;
 
-  constructor(eventDetailType: string, eventDetail: Contract) {
-    this.eventDetailType = eventDetailType;
-    this.detail = eventDetail;
+  constructor(detailType: string, detail: Contract) {
+    this.eventDetailType = detailType;
+    this.detail = detail;
   }
 
   getDetail = (): Contract => {
