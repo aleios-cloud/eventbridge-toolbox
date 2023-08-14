@@ -16,7 +16,7 @@ const mockParams = {
   Entries: [
     {
       Detail: JSON.stringify(mockData),
-      Source: "lambda.amazonaws.com",
+      Source: "mockSource",
       DetailType: "MockDataContract",
       EventBusName: "MOCK_EVENT_BUS_ARN",
     },
@@ -48,14 +48,14 @@ describe("Given an Event class", () => {
   describe("When a user calls publish", () => {
     it("An event is sent to eventBridge", async () => {
       mockSend.mockReturnValueOnce({ Entries: [{ EventId: "mockEventId" }] });
-      await event.publish("MOCK_EVENT_BUS_ARN");
+      await event.publish("MOCK_EVENT_BUS_ARN", "mockSource");
       expect(PutEventsCommand).toHaveBeenCalledWith(mockParams);
       expect(mockSend).toHaveBeenCalled();
     });
 
     it("If publish returns undefined, an error is thrown", async () => {
       mockSend.mockReturnValueOnce({ Entries: undefined });
-      await event.publish("MOCK_EVENT_BUS_ARN");
+      await event.publish("MOCK_EVENT_BUS_ARN", "mockSource");
       expect(mockSend).toHaveBeenCalled();
       expect(consoleMock).toHaveBeenCalledWith(
         "Error publishing event to event bus",
@@ -68,7 +68,7 @@ describe("Given an Event class", () => {
           { ErrorCode: "mockErrorCode", ErrorMessage: "mockErrorMessage" },
         ],
       });
-      await event.publish("MOCK_EVENT_BUS_ARN");
+      await event.publish("MOCK_EVENT_BUS_ARN", "mockSource");
       expect(mockSend).toHaveBeenCalled();
       expect(consoleMock).toHaveBeenCalledWith(
         "Event failed to publish to event bus.",

@@ -35,13 +35,13 @@ export class Event<Contract> implements IEvent<Contract> {
 
   publish = async (
     eventBusArn: string,
-    // eventSource: string
+    eventSource: string,
   ): Promise<PutEventsResponse> => {
     const params = {
       Entries: [
         {
           Detail: JSON.stringify(this.detail),
-          Source: "lambda.amazonaws.com",
+          Source: eventSource,
           DetailType: this.eventDetailType,
           EventBusName: eventBusArn,
         },
