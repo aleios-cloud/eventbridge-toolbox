@@ -84,9 +84,9 @@ describe("Given an Event class", () => {
       expect(event.getDetail()).toStrictEqual(mockData);
     });
   });
-  describe("When a user calls getEventDetailType", () => {
+  describe("When a user calls getDetailType", () => {
     it("The event detail type is returned", () => {
-      expect(event.getEventDetailType()).toStrictEqual("MockDataContract");
+      expect(event.getDetailType()).toStrictEqual("MockDataContract");
     });
   });
 });

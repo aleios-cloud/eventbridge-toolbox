@@ -29,7 +29,7 @@ export class Event<Contract> implements IEvent<Contract> {
     return this.detail;
   };
 
-  getEventDetailType = (): string => {
+  getDetailType = (): string => {
     return this.eventDetailType;
   };
 
