@@ -1,12 +1,9 @@
 {
-  "name": "eventbridge-toolbox",
+  "name": "@aleios-cloud/eventbridge-toolbox",
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "scripts": {
     "clean": "rimraf dist",
     "test": "vitest run",
