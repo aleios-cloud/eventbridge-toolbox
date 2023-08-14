@@ -81,7 +81,7 @@ describe("Given an Event class", () => {
   });
   describe("When a user calls getData", () => {
     it("The event data is returned", () => {
-      expect(event.getData()).toStrictEqual(mockData);
+      expect(event.getDetail()).toStrictEqual(mockData);
     });
   });
 });

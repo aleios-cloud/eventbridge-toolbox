@@ -56,5 +56,10 @@ jobs:
           cd example-architecture/producer 
           pnpm install --frozen-lockfile
           pnpm deploy-dev
+      - name: 🚀 Install Consumer Dependencies and Deploy
+        run: |
+          cd example-architecture/consumer 
+          pnpm install --frozen-lockfile
+          pnpm deploy-dev
       - name: "🧪 Test unit and integration"
         run: pnpm test --verbose
