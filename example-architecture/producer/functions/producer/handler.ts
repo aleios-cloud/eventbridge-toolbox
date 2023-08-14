@@ -9,7 +9,7 @@ export const handler = async (): Promise<PutEventsResponse> => {
     lastName: "testLastName",
   };
 
-  const event = new Event(contract);
+  const event = new Event("PersonRegisteredContract", contract);
 
   const EVENT_BUS_ARN = getEnvVariable("EVENT_BUS_ARN");
 
