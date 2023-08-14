@@ -48,6 +48,7 @@ export class Event<Contract> implements IEvent<Contract> {
           Source: eventSource,
           DetailType: this.metadata.detailType,
           EventBusName: eventBusArn,
+          Version: this.metadata.version,
         },
       ],
     };

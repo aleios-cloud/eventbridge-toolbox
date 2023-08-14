@@ -27,6 +27,7 @@ const mockParams = {
       Source: "mockSource",
       DetailType: "MockDataContract",
       EventBusName: "MOCK_EVENT_BUS_ARN",
+      Version: 1,
     },
   ],
 };
