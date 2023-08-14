@@ -26,7 +26,7 @@ describe("Given a producer handler", () => {
   describe("When that handler is run", () => {
     it("The handler returns with the output of publish", async () => {
       const result = await handler();
-      expect(mockPublish).toBeCalledWith("mockArn");
+      expect(mockPublish).toBeCalledWith("mockArn", "lambda.amazonaws.com");
       expect(result).toStrictEqual({
         eventId: "mockEventId",
       });
