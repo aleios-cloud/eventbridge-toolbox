@@ -30,7 +30,7 @@ export class Consumer extends Construct {
 
     const rule = new Rule(this, "rule", {
       eventPattern: {
-        detailType: ["eventContractData"],
+        detailType: ["PersonRegisteredContract"],
       },
       eventBus: eventBus,
     });
