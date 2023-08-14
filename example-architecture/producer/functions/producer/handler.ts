@@ -5,11 +5,11 @@ import { Event } from "src/classes/Event";
 
 export const handler = async (): Promise<PutEventsResponse> => {
   const contract: PersonRegisteredContract = {
-    firstName: "testFirstName",
-    lastName: "testLastName",
+    metadata: { version: 1, detailType: "PersonRegisteredContract" },
+    detail: { firstName: "testFirstName", lastName: "testLastName" },
   };
 
-  const event = new Event("PersonRegisteredContract", contract);
+  const event = new Event(contract);
 
   const EVENT_BUS_ARN = getEnvVariable("EVENT_BUS_ARN");
 
