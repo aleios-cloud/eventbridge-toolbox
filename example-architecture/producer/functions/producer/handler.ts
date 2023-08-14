@@ -13,5 +13,5 @@ export const handler = async (): Promise<PutEventsResponse> => {
 
   const EVENT_BUS_ARN = getEnvVariable("EVENT_BUS_ARN");
 
-  return await event.publish(EVENT_BUS_ARN);
+  return await event.publish(EVENT_BUS_ARN, "lambda.amazonaws.com");
 };
