@@ -1,15 +1,23 @@
 import { PutEventsCommand } from "@aws-sdk/client-eventbridge";
-import { Event } from "src/classes/Event";
+import { Event, IEvent } from "src/classes/Event";
 import { describe, expect, it, vi } from "vitest";
 
-type MockDataContract = {
+type MockDataDetail = {
   name: string;
   type: string;
 };
 
-const mockData: MockDataContract = {
+const mockData: MockDataDetail = {
   name: "mockName",
   type: "mockType",
+};
+
+const mockDataContract: IEvent<MockDataDetail> = {
+  metadata: { version: 1, detailType: "MockDataContract" },
+  detail: {
+    name: "mockName",
+    type: "mockType",
+  },
 };
 
 const mockParams = {
@@ -44,7 +52,7 @@ vi.mock("@aws-sdk/client-eventbridge", async () => {
 const consoleMock = vi.spyOn(console, "error").mockImplementation(() => {});
 
 describe("Given an Event class", () => {
-  const event = new Event("MockDataContract", mockData);
+  const event = new Event(mockDataContract);
   describe("When a user calls publish", () => {
     it("An event is sent to eventBridge", async () => {
       mockSend.mockReturnValueOnce({ Entries: [{ EventId: "mockEventId" }] });
@@ -87,6 +95,11 @@ describe("Given an Event class", () => {
   describe("When a user calls getDetailType", () => {
     it("The event detail type is returned", () => {
       expect(event.getDetailType()).toStrictEqual("MockDataContract");
+    });
+  });
+  describe("When a user calls getVersion", () => {
+    it("The event detail type is returned", () => {
+      expect(event.getVersion()).toStrictEqual(1);
     });
   });
 });

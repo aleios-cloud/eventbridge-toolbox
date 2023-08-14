@@ -18,11 +18,11 @@ const logResponseOnPublishFailure = (entry: PutEventsResultEntry): void => {
 
 export class Event<Contract> implements IEvent<Contract> {
   readonly detail: Contract;
-  readonly eventDetailType: string;
+  readonly metadata: MetaData;
 
-  constructor(detailType: string, detail: Contract) {
-    this.eventDetailType = detailType;
-    this.detail = detail;
+  constructor(eventContract: IEvent<Contract>) {
+    this.detail = eventContract.detail;
+    this.metadata = eventContract.metadata;
   }
 
   getDetail = (): Contract => {
@@ -30,7 +30,11 @@ export class Event<Contract> implements IEvent<Contract> {
   };
 
   getDetailType = (): string => {
-    return this.eventDetailType;
+    return this.metadata.detailType;
+  };
+
+  getVersion = (): number => {
+    return this.metadata.version;
   };
 
   publish = async (
@@ -42,7 +46,7 @@ export class Event<Contract> implements IEvent<Contract> {
         {
           Detail: JSON.stringify(this.detail),
           Source: eventSource,
-          DetailType: this.eventDetailType,
+          DetailType: this.metadata.detailType,
           EventBusName: eventBusArn,
         },
       ],
@@ -63,6 +67,12 @@ export class Event<Contract> implements IEvent<Contract> {
   };
 }
 
+interface MetaData {
+  version: number;
+  detailType: string;
+}
+
 export interface IEvent<Contract> {
+  readonly metadata: MetaData;
   readonly detail: Contract;
 }
