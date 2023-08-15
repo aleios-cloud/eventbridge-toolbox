@@ -12,19 +12,14 @@ EventBridge contracts ensure a stable and reliable interaction emitters and cons
 
 ## Creating an EventBridge contract
 
-To create an EventBridge Contract, define a type for your contract. Your contract type must extend the interface `IEvent<[YourDetailType]>`, with IEvent being importable from the eventbridge-toolbox package. This typing will force you to add an event version to your contract. If you ever alter your contract (for instance, to add a new field), please create a copy of the contract in a new file, and give it a version number one higher that you previous version of your contract. The `detailType` field stays consistent, and allows you to link together all versions of your contract.
+To create an EventBridge Contract, define a type for your contract. Your contract type must extend the interface `Contract`, with `Contract` being importable from the eventbridge-toolbox package. This typing will force you to add an event version to your contract. If you ever alter your contract (for instance, to add a new field), please create a copy of the contract in a new file, and give it a version number higher that you previous version of your contract. The `detailType` field stays consistent, and allows you to link together all versions of your contract.
 
 Create an Contract type:
 
 ```typescript
-export type PersonRegisteredDetail = {
-  firstName: string;
-  lastName: string;
-};
-
-export interface PersonRegisteredContract
-  extends IEvent<PersonRegisteredDetail> {
-  metadata: { version: 1; detailType: "PersonRegisteredContract" };
+export interface PersonRegisteredContract extends Contract {
+  version: 1;
+  detailType: "PersonRegisteredContract";
   detail: {
     firstName: string;
     lastName: string;
