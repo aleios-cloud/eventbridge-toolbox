@@ -44,11 +44,13 @@ export class Event<Contract> implements IEvent<Contract> {
     const params = {
       Entries: [
         {
-          Detail: JSON.stringify(this.detail),
+          Detail: JSON.stringify({
+            eventVersion: this.metadata.version,
+            ...this.detail,
+          }),
           Source: eventSource,
           DetailType: this.metadata.detailType,
           EventBusName: eventBusArn,
-          Version: this.metadata.version,
         },
       ],
     };
