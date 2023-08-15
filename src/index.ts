@@ -1,1 +1,1 @@
-export { Event, IEvent } from "./classes";
+export { Event, Contract } from "./classes";

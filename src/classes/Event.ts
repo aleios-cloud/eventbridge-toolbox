@@ -4,6 +4,7 @@ import {
   type PutEventsResponse,
   type PutEventsResultEntry,
 } from "@aws-sdk/client-eventbridge";
+import { Contract } from "src/classes/types";
 
 export const eventBridge = new EventBridgeClient({});
 
@@ -16,21 +17,27 @@ const logResponseOnPublishFailure = (entry: PutEventsResultEntry): void => {
   }
 };
 
-export class Event<Contract> implements IEvent<Contract> {
-  readonly detail: Contract;
-  readonly eventDetailType: string;
+export class Event implements Contract {
+  readonly detail: object;
+  readonly version: number;
+  readonly detailType: string;
 
-  constructor(detailType: string, detail: Contract) {
-    this.eventDetailType = detailType;
-    this.detail = detail;
+  constructor(eventContract: Contract) {
+    this.detail = eventContract.detail;
+    this.version = eventContract.version;
+    this.detailType = eventContract.detailType;
   }
 
-  getDetail = (): Contract => {
+  getDetail = (): object => {
     return this.detail;
   };
 
   getDetailType = (): string => {
-    return this.eventDetailType;
+    return this.detailType;
+  };
+
+  getVersion = (): number => {
+    return this.version;
   };
 
   publish = async (
@@ -40,9 +47,12 @@ export class Event<Contract> implements IEvent<Contract> {
     const params = {
       Entries: [
         {
-          Detail: JSON.stringify(this.detail),
+          Detail: JSON.stringify({
+            eventVersion: this.version,
+            ...this.detail,
+          }),
           Source: eventSource,
-          DetailType: this.eventDetailType,
+          DetailType: this.detailType,
           EventBusName: eventBusArn,
         },
       ],
@@ -61,8 +71,4 @@ export class Event<Contract> implements IEvent<Contract> {
 
     return eventBridgeResponse;
   };
-}
-
-export interface IEvent<Contract> {
-  readonly detail: Contract;
 }

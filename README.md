@@ -12,33 +12,57 @@ EventBridge contracts ensure a stable and reliable interaction emitters and cons
 
 ## Creating an EventBridge contract
 
-To create an EventBridge Contract, define a type for your contract. If the type of the contract does not match the shape of the event which is received by the producer, then you will see an error.
+To create an EventBridge Contract, define a type for your contract. Your contract type must extend the interface `Contract`, with `Contract` being importable from the eventbridge-toolbox package. This typing will force you to add an event version to your contract. If you ever alter your contract (for instance, to add a new field), please create a copy of the contract in a new file, and give it a version number higher that you previous version of your contract. The `detailType` field stays consistent, and allows you to link together all versions of your contract.
 
 Create an Contract type:
 
 ```typescript
-export type PersonRegisteredContract = {
-  firstName: string;
-  lastName: string;
-};
+export interface PersonRegisteredContractV1 extends Contract {
+  version: 1;
+  detailType: "PersonRegisteredContract";
+  detail: {
+    firstName: string;
+    lastName: string;
+  };
+}
+```
+
+As `version` and `detailType` are set as constants in the type, when we create an object of type PersonRegisteredContractV1, the `version` and `detailType` must match what is defined here otherwise you will see an error.
+
+Create an Contract type:
+
+```typescript
+const ourEvent: PersonRegisteredContractV1 = {
+  version: 1;
+  detailType: "PersonRegisteredContract";
+  detail: {
+    firstName: 'testFirstName';
+    lastName: 'testLastName';
+  };
+}
 ```
 
 ## Creating an Event
 
-The Event class bakes in a lot of best practices. To instantiate an eventbridge-toolbox event, create a new Event and pass in your event detail and event detail type. 
+The Event class bakes in a lot of best practices. To instantiate an eventbridge-toolbox event, create a new Event and pass in your event detail and event detail type.
 
 You can see an example below:
 
 ```typescript
 import Event from "@eventbridge-toolbox";
 
-const loggedInData: LoggedInContract = {
-  firstName: "Lucy",
-  lastName: "Example",
-  timeLoggedIn: "2023-01-01T13:00:00.000Z",
-};
+const loggedInData: LoggedInContractV1 = {
+  version: 1;
+  detailType: "LoggedInContract";
+  detail: {
+    firstName: "Lucy",
+    lastName: "Example",
+    timeLoggedIn: "2023-01-01T13:00:00.000Z",
+  };
+}
 
-const myEvent = new Event('loggedIn', loggedInData);
+
+const myEvent = new Event(loggedInData);
 
 //equal to the 'loggedInData' object
 const myEventDetail = myEvent.getDetail();
