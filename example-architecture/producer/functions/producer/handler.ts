@@ -5,7 +5,8 @@ import { Event } from "src/classes/Event";
 
 export const handler = async (): Promise<PutEventsResponse> => {
   const contract: PersonRegisteredContract = {
-    metadata: { version: 1, detailType: "PersonRegisteredContract" },
+    version: 1,
+    detailType: "PersonRegisteredContract",
     detail: { firstName: "testFirstName", lastName: "testLastName" },
   };
 

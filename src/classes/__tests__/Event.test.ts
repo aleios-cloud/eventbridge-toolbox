@@ -1,5 +1,5 @@
 import { PutEventsCommand } from "@aws-sdk/client-eventbridge";
-import { Event, IEvent } from "src/classes/Event";
+import { Contract, Event } from "src/classes/Event";
 import { describe, expect, it, vi } from "vitest";
 
 type MockDataDetail = {
@@ -12,8 +12,9 @@ const mockData: MockDataDetail = {
   type: "mockType",
 };
 
-const mockDataContract: IEvent<MockDataDetail> = {
-  metadata: { version: 1, detailType: "MockDataContract" },
+const mockDataContract: Contract = {
+  version: 1,
+  detailType: "MockDataContract",
   detail: {
     name: "mockName",
     type: "mockType",
@@ -23,11 +24,10 @@ const mockDataContract: IEvent<MockDataDetail> = {
 const mockParams = {
   Entries: [
     {
-      Detail: JSON.stringify(mockData),
+      Detail: JSON.stringify({ eventVersion: 1, ...mockData }),
       Source: "mockSource",
       DetailType: "MockDataContract",
       EventBusName: "MOCK_EVENT_BUS_ARN",
-      Version: 1,
     },
   ],
 };
