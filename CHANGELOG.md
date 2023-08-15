@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.1](https://github.com/aleios-cloud/eventbridge-toolbox/compare/v1.1.0...v0.0.1) (2023-08-15)
+
+
+### Bug Fixes
+
+* exclude tests from build output ([f1793bf](https://github.com/aleios-cloud/eventbridge-toolbox/commit/f1793bfca592a67a256b4abdb339b80786fd68c3))
+
+
+### Miscellaneous Chores
+
+* release 0.0.1 ([#24](https://github.com/aleios-cloud/eventbridge-toolbox/issues/24)) ([0bc6977](https://github.com/aleios-cloud/eventbridge-toolbox/commit/0bc6977177820879c6c7e1fa19c0f268a4c908f4))
+
 ## [1.1.0](https://github.com/aleios-cloud/eventbridge-toolbox/compare/v1.0.0...v1.1.0) (2023-08-11)
 
 
