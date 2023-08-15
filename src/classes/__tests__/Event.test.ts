@@ -100,7 +100,7 @@ describe("Given an Event class", () => {
     });
   });
   describe("When a user calls getVersion", () => {
-    it("The event detail type is returned", () => {
+    it("The event version is returned", () => {
       expect(event.getVersion()).toStrictEqual(1);
     });
   });
