@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.1](https://github.com/aleios-cloud/eventbridge-toolbox/compare/v0.0.1...v0.0.1) (2023-08-15)
+
+
+### Bug Fixes
+
+* update CI variable ([#26](https://github.com/aleios-cloud/eventbridge-toolbox/issues/26)) ([7692e3a](https://github.com/aleios-cloud/eventbridge-toolbox/commit/7692e3acfa262776e2792719f180187f1a37cced))
+
 ## [0.0.1](https://github.com/aleios-cloud/eventbridge-toolbox/compare/v1.1.0...v0.0.1) (2023-08-15)
 
 
