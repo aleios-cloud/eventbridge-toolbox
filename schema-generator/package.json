@@ -1,6 +1,6 @@
 {
   "name": "@aleios-cloud/eventbridge-toolbox-schema-generator",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
@@ -9,12 +9,14 @@
     "test": "vitest run",
     "lint-fix": "eslint . --ext=js,ts --fix",
     "lint-test": "eslint . --ext=js,ts",
-    "build": "pnpm clean && tsc",
-    "generate-docs": "ts-node scripts/generate-docs.ts example-architecture/events/contracts"
+    "build": "pnpm clean && tsc"
   },
   "files": [
     "dist"
   ],
+  "bin": {
+    "schema-generator": "./dist/generate-docs.js"
+  },
   "module": "gen-doc/dist/index.js",
   "types": "gen-doc/dist/index.d.ts",
   "keywords": [],
