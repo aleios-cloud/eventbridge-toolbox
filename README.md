@@ -18,24 +18,24 @@ Create an Contract type:
 
 ```typescript
 export interface PersonRegisteredContractV1 extends Contract {
-  version: 1;
+  detailVersion: 1;
   detailType: "PersonRegisteredContract";
-  detail: {
+  data: {
     firstName: string;
     lastName: string;
   };
 }
 ```
 
-As `version` and `detailType` are set as constants in the type, when we create an object of type PersonRegisteredContractV1, the `version` and `detailType` must match what is defined here otherwise you will see an error.
+As `detailVersion` and `detailType` are set as constants in the type, when we create an object of type PersonRegisteredContractV1, the `detailVersion` and `detailType` must match what is defined here otherwise you will see an error.
 
 Create an Contract type:
 
 ```typescript
 const ourEvent: PersonRegisteredContractV1 = {
-  version: 1;
+  detailVersion: 1;
   detailType: "PersonRegisteredContract";
-  detail: {
+  data: {
     firstName: 'testFirstName';
     lastName: 'testLastName';
   };
@@ -52,9 +52,9 @@ You can see an example below:
 import Event from "@eventbridge-toolbox";
 
 const loggedInData: LoggedInContractV1 = {
-  version: 1;
+  detailVersion: 1;
   detailType: "LoggedInContract";
-  detail: {
+  data: {
     firstName: "Lucy",
     lastName: "Example",
     timeLoggedIn: "2023-01-01T13:00:00.000Z",
@@ -65,7 +65,7 @@ const loggedInData: LoggedInContractV1 = {
 const myEvent = new Event(loggedInData);
 
 //equal to the 'loggedInData' object
-const myEventDetail = myEvent.getDetail();
+const myEventDetail = myEvent.getData();
 
 //equal to 'loggedIn'
 const myEventDetailType = myEvent.getDetailType():

@@ -18,26 +18,28 @@ const logResponseOnPublishFailure = (entry: PutEventsResultEntry): void => {
 };
 
 export class Event implements Contract {
-  readonly detail: object;
-  readonly version: number;
+  readonly data: object;
+  readonly detailVersion: number;
   readonly detailType: string;
+  readonly eventContract: Contract;
 
   constructor(eventContract: Contract) {
-    this.detail = eventContract.detail;
-    this.version = eventContract.version;
+    this.eventContract = eventContract;
+    this.data = eventContract.data;
+    this.detailVersion = eventContract.detailVersion;
     this.detailType = eventContract.detailType;
   }
 
-  getDetail = (): object => {
-    return this.detail;
+  getData = (): object => {
+    return this.data;
   };
 
   getDetailType = (): string => {
     return this.detailType;
   };
 
-  getVersion = (): number => {
-    return this.version;
+  getDetailVersion = (): number => {
+    return this.detailVersion;
   };
 
   publish = async (
@@ -47,10 +49,7 @@ export class Event implements Contract {
     const params = {
       Entries: [
         {
-          Detail: JSON.stringify({
-            eventVersion: this.version,
-            ...this.detail,
-          }),
+          Detail: JSON.stringify(this.eventContract),
           Source: eventSource,
           DetailType: this.detailType,
           EventBusName: eventBusArn,

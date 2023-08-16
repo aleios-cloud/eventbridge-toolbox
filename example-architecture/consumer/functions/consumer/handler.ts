@@ -1,5 +1,6 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
 import { getEnvVariable } from "example-architecture/helpers/getEnvVariable";
 
 type ConsumerEvent = {
@@ -11,11 +12,7 @@ type ConsumerEvent = {
   time: string;
   region: string;
   resources: string;
-  detail: {
-    eventVersion: number;
-    firstName: string;
-    lastName: string;
-  };
+  detail: PersonRegisteredContract;
 };
 
 export const handler = async (event: ConsumerEvent): Promise<void> => {
@@ -28,9 +25,9 @@ export const handler = async (event: ConsumerEvent): Promise<void> => {
     Item: {
       pk: event.id,
       detailType: event["detail-type"],
-      eventVersion: event.detail.eventVersion,
-      firstName: event.detail.firstName,
-      lastName: event.detail.lastName,
+      detailVersion: event.detail.detailVersion,
+      firstName: event.detail.data.firstName,
+      lastName: event.detail.data.lastName,
     },
   };
 

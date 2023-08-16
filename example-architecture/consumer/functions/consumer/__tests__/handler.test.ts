@@ -1,7 +1,7 @@
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { handler } from "example-architecture/consumer/functions/consumer/handler";
+import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
 import { describe, expect, it, vi } from "vitest";
-
-import { handler } from "../handler";
 
 process.env.TABLE_NAME = "mockTableName";
 
@@ -10,7 +10,7 @@ const mockParams = {
   Item: {
     pk: "mockId",
     detailType: "mockDetailType",
-    eventVersion: 100,
+    detailVersion: 1,
     firstName: "mockFirstName",
     lastName: "mockLastName",
   },
@@ -34,8 +34,17 @@ vi.mock("@aws-sdk/lib-dynamodb", async () => {
 
 DynamoDBDocumentClient.from = vi.fn();
 
+const mockContract: PersonRegisteredContract = {
+  detailVersion: 1,
+  detailType: "PersonRegisteredContract",
+  data: {
+    firstName: "mockFirstName",
+    lastName: "mockLastName",
+  },
+};
+
 const mockEvent = {
-  version: "mockEventVersion",
+  version: "mockdetailVersion",
   id: "mockId",
   "detail-type": "mockDetailType",
   source: "mockSource",
@@ -43,11 +52,7 @@ const mockEvent = {
   time: "mockTime",
   region: "mockRegion",
   resources: "mockResources",
-  detail: {
-    eventVersion: 100,
-    firstName: "mockFirstName",
-    lastName: "mockLastName",
-  },
+  detail: mockContract,
 };
 
 vi.spyOn(console, "error").mockImplementation(() => {});

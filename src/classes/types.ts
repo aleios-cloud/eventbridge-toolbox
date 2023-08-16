@@ -1,5 +1,5 @@
 export interface Contract {
-  readonly version: number;
+  readonly detailVersion: number;
   readonly detailType: string;
-  readonly detail: object;
+  readonly data: object;
 }

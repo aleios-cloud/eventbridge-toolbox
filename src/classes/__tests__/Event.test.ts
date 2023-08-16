@@ -14,9 +14,9 @@ const mockData: MockDataDetail = {
 };
 
 const mockDataContract: Contract = {
-  version: 1,
+  detailVersion: 1,
   detailType: "MockDataContract",
-  detail: {
+  data: {
     name: "mockName",
     type: "mockType",
   },
@@ -25,7 +25,7 @@ const mockDataContract: Contract = {
 const mockParams = {
   Entries: [
     {
-      Detail: JSON.stringify({ eventVersion: 1, ...mockData }),
+      Detail: JSON.stringify(mockDataContract),
       Source: "mockSource",
       DetailType: "MockDataContract",
       EventBusName: "MOCK_EVENT_BUS_ARN",
@@ -90,8 +90,8 @@ describe("Given an Event class", () => {
     });
   });
   describe("When a user calls getData", () => {
-    it("The event detail is returned", () => {
-      expect(event.getDetail()).toStrictEqual(mockData);
+    it("The event data is returned", () => {
+      expect(event.getData()).toStrictEqual(mockData);
     });
   });
   describe("When a user calls getDetailType", () => {
@@ -100,8 +100,8 @@ describe("Given an Event class", () => {
     });
   });
   describe("When a user calls getVersion", () => {
-    it("The event version is returned", () => {
-      expect(event.getVersion()).toStrictEqual(1);
+    it("The detail version is returned", () => {
+      expect(event.getDetailVersion()).toStrictEqual(1);
     });
   });
 });
