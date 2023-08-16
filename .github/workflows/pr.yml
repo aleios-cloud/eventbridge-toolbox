@@ -44,8 +44,6 @@ jobs:
         with:
           aws-region: ${{ env.AWS_REGION }}
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-      - name: '🧪 Test linter'
-        run: pnpm lint-test
       - name: 🚀 Install Events Dependencies and Deploy
         run: |
           cd example-architecture/events 
@@ -63,3 +61,5 @@ jobs:
           pnpm deploy-dev
       - name: "🧪 Test unit and integration"
         run: pnpm test --verbose
+      - name: '🧪 Test linter'
+        run: pnpm lint-test
