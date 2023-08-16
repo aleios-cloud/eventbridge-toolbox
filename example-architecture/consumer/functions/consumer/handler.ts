@@ -18,10 +18,10 @@ type ConsumerEvent = {
   };
 };
 
-const TABLE_NAME = getEnvVariable("TABLE_NAME");
-
 export const handler = async (event: ConsumerEvent): Promise<void> => {
   const dynamoDB = DynamoDBDocumentClient.from(new DynamoDBClient());
+
+  const TABLE_NAME = getEnvVariable("TABLE_NAME");
 
   const params = {
     TableName: TABLE_NAME,
@@ -35,7 +35,8 @@ export const handler = async (event: ConsumerEvent): Promise<void> => {
   };
 
   try {
-    await dynamoDB.send(new PutCommand(params));
+    const putCommand = new PutCommand(params);
+    await dynamoDB.send(putCommand);
   } catch (error) {
     console.error("DynamoDB PutCommand didn't work :(", error);
   }
