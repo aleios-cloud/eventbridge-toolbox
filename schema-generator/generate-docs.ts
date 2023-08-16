@@ -6,12 +6,6 @@ const rootPath = path.join(__dirname, "..");
 
 const pathToContracts = path.join(rootPath, process.argv[2]);
 
-const docsFilePath = path.join(rootPath, "/docs");
-if (!existsSync(docsFilePath)) {
-  mkdirSync(docsFilePath, { recursive: true });
-  console.log("Docs directory created");
-}
-
 readdir(pathToContracts, (err, files) => {
   if (err) {
     console.error(err);
@@ -29,9 +23,14 @@ readdir(pathToContracts, (err, files) => {
           ? filenameWithoutExtension.replace("Contract", "")
           : filenameWithoutExtension;
 
+        const docsFilePath = path.join(rootPath, process.argv[3]);
+        if (!existsSync(docsFilePath)) {
+          throw "Docs directory does not exist";
+        }
+
         const eventDocsFilePath = path.join(
           rootPath,
-          `/docs/${fileNameWithoutContract}`,
+          `/${process.argv[3]}/${fileNameWithoutContract}`,
         );
         mkdirSync(eventDocsFilePath, { recursive: true });
 

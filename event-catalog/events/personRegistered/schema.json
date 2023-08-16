@@ -5,16 +5,35 @@
     "PersonRegisteredContract": {
       "type": "object",
       "properties": {
-        "firstName": {
-          "type": "string"
+        "version": {
+          "type": "number",
+          "const": 1
         },
-        "lastName": {
-          "type": "string"
+        "detailType": {
+          "type": "string",
+          "const": "PersonRegisteredContract"
+        },
+        "detail": {
+          "type": "object",
+          "properties": {
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "firstName",
+            "lastName"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [
-        "firstName",
-        "lastName"
+        "detail",
+        "detailType",
+        "version"
       ],
       "additionalProperties": false
     }
