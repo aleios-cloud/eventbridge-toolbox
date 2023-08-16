@@ -2,7 +2,7 @@
 import {
   DynamoDBClient,
   GetItemCommand,
-  GetItemCommandOutput,
+  type GetItemCommandOutput,
 } from "@aws-sdk/client-dynamodb";
 import {
   type PutEventsResponse,
@@ -25,7 +25,7 @@ const getDynamoDBCommand = (eventId: string): GetItemCommand =>
   });
 
 const queryDynamodbReturnsItem = async (
-  eventId: string
+  eventId: string,
 ): Promise<GetItemCommandOutput | undefined> => {
   try {
     const itemResponse = await client.send(getDynamoDBCommand(eventId));
@@ -39,7 +39,7 @@ const queryDynamodbReturnsItem = async (
 };
 
 const pollDynamoDB = async (
-  events: PutEventsResultEntry[] | undefined
+  events: PutEventsResultEntry[] | undefined,
 ): Promise<object> => {
   if (
     events === undefined ||
@@ -71,7 +71,7 @@ describe("Given a producer lambda that returns a Contract", () => {
   describe("When that lambda is invoked and returns a body", async () => {
     const invokedLambda = await lambda.invoke(params);
     const body: PutEventsResponse = JSON.parse(
-      Buffer.from(invokedLambda.Payload ?? "").toString()
+      Buffer.from(invokedLambda.Payload ?? "").toString(),
     );
 
     it("Response with an eventId is returned without an error", () => {
