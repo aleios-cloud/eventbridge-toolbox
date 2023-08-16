@@ -38,6 +38,6 @@ export const handler = async (event: ConsumerEvent): Promise<void> => {
   try {
     await dynamoDB.send(new PutCommand(params));
   } catch (error) {
-    console.log("DynamoDB didn't work :(", error);
+    console.log("DynamoDB PutCommand didn't work :(", error);
   }
 };
