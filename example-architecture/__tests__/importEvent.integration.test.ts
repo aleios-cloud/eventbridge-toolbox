@@ -32,23 +32,30 @@ const queryDynamodbReturnsItem = async (
 
     return "Item" in itemResponse ? itemResponse : undefined;
   } catch (error) {
-    console.log("DynamoDB send error :(", error);
+    console.log("DynamoDB get item error :(", error);
 
     return undefined;
   }
 };
 
+const getEventId = (
+  events: PutEventsResultEntry[] | undefined,
+): string | undefined =>
+  events === undefined || events.length === 0 || events[0].EventId === undefined
+    ? undefined
+    : events[0].EventId;
+
+const wait = (interval: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, interval);
+  });
+
 const pollDynamoDB = async (
   events: PutEventsResultEntry[] | undefined,
 ): Promise<object> => {
-  if (
-    events === undefined ||
-    events.length === 0 ||
-    events[0].EventId === undefined
-  )
-    return {};
+  const eventId = getEventId(events);
+  if (eventId === undefined) return {};
 
-  const eventId = events[0].EventId;
   let result = await queryDynamodbReturnsItem(eventId);
   while (result === undefined) {
     await wait(500);
@@ -56,12 +63,6 @@ const pollDynamoDB = async (
   }
 
   return result;
-};
-
-const wait = (interval: number) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, interval);
-  });
 };
 
 describe("Given a producer lambda that returns a Contract", () => {
