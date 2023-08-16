@@ -1,4 +1,5 @@
-import { Contract } from "src/classes/Event";
+import { Contract } from "src/classes/types";
+
 export interface PersonRegisteredContract extends Contract {
   version: 1;
   detailType: "PersonRegisteredContract";
