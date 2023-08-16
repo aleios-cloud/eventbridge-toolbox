@@ -26,15 +26,15 @@ const getDynamoDBCommand = (eventId: string): GetItemCommand =>
 
 const queryDynamodbReturnsItem = async (
   eventId: string,
-): Promise<GetItemCommandOutput | undefined> => {
+): Promise<GetItemCommandOutput | object> => {
   try {
     const itemResponse = await client.send(getDynamoDBCommand(eventId));
 
-    return "Item" in itemResponse ? itemResponse : undefined;
+    return itemResponse;
   } catch (error) {
     console.error("DynamoDB get GetItemCommand didn't work :(", error);
 
-    return undefined;
+    return {};
   }
 };
 
@@ -57,7 +57,7 @@ const pollDynamoDB = async (
   if (eventId === undefined) return {};
 
   let result = await queryDynamodbReturnsItem(eventId);
-  while (result === undefined) {
+  while (!("Item" in result)) {
     await wait(500);
     result = await queryDynamodbReturnsItem(eventId);
   }
