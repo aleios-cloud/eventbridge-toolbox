@@ -32,7 +32,7 @@ const queryDynamodbReturnsItem = async (
 
     return "Item" in itemResponse ? itemResponse : undefined;
   } catch (error) {
-    console.log("DynamoDB get GetItemCommand didn't work :(", error);
+    console.error("DynamoDB get GetItemCommand didn't work :(", error);
 
     return undefined;
   }
