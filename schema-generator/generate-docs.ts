@@ -2,9 +2,7 @@ import { existsSync, mkdirSync, readdir, readFileSync, writeFile } from "fs";
 import path from "path";
 import * as tsj from "ts-json-schema-generator";
 
-const rootPath = path.join(__dirname, "..");
-
-const pathToContracts = path.join(rootPath, process.argv[2]);
+const pathToContracts = path.join(process.cwd(), process.argv[2]);
 
 readdir(pathToContracts, (err, files) => {
   if (err) {
@@ -23,13 +21,13 @@ readdir(pathToContracts, (err, files) => {
           ? filenameWithoutExtension.replace("Contract", "")
           : filenameWithoutExtension;
 
-        const docsFilePath = path.join(rootPath, process.argv[3]);
+        const docsFilePath = path.join(process.cwd(), process.argv[3]);
         if (!existsSync(docsFilePath)) {
           throw "Docs directory does not exist";
         }
 
         const eventDocsFilePath = path.join(
-          rootPath,
+          process.cwd(),
           `/${process.argv[3]}/${fileNameWithoutContract}`,
         );
         mkdirSync(eventDocsFilePath, { recursive: true });
@@ -61,7 +59,7 @@ readdir(pathToContracts, (err, files) => {
 
         const typeToSchemaConfig = {
           path: pathToFile,
-          tsconfig: path.join(rootPath, "/tsconfig.json"),
+          tsconfig: path.join(process.cwd(), "/tsconfig.json"),
           type: "*",
         };
         const schema = tsj
