@@ -69,7 +69,7 @@ describe("Given a producer lambda that returns a Contract", () => {
   const params = {
     FunctionName: "producerLambda",
   };
-  describe("When that lambda is invoked and returns a body", async () => {
+  describe("When that lambda is invoked and returns an event response", async () => {
     const invokedLambda = await lambda.invoke(params);
     const body: PutEventsResponse = JSON.parse(
       Buffer.from(invokedLambda.Payload ?? "").toString(),
