@@ -1,8 +1,8 @@
 {
   "name": "@aleios-cloud/eventbridge-toolbox-schema-generator",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
-  "main": "./dist/generate-docs.js",
+  "main": "index.js",
   "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
   "scripts": {
     "clean": "rimraf dist",
@@ -17,7 +17,6 @@
   "bin": {
     "schema-generator": "./dist/generate-docs.js"
   },
-  "type": "module",
   "module": "./dist/generate-docs.js",
   "types": "./dist/generate-docs.d.ts",
   "keywords": [],
