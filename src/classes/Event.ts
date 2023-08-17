@@ -18,7 +18,7 @@ const logResponseOnPublishFailure = (entry: PutEventsResultEntry): void => {
 };
 
 export class Event implements Contract {
-  readonly data: object;
+  readonly data: Record<string, unknown>;
   readonly detailVersion: number;
   readonly detailType: string;
   readonly eventContract: Contract;
@@ -30,7 +30,7 @@ export class Event implements Contract {
     this.detailType = eventContract.detailType;
   }
 
-  getData = (): object => {
+  getData = (): Record<string, unknown> => {
     return this.data;
   };
 
