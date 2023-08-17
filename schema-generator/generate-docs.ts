@@ -65,7 +65,8 @@ readdir(pathToContracts, (err, files) => {
         const schema = tsj
           .createGenerator(typeToSchemaConfig)
           .createSchema(typeToSchemaConfig.type);
-        const schemaString = JSON.stringify(schema, null, 2);
+        const jsonSchemaWhiteSpace = 2;
+        const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
 
         writeFile(`${eventDocsFilePath}/schema.json`, schemaString, (error) => {
           if (error) {
