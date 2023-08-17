@@ -6,7 +6,6 @@
   "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
   "scripts": {
     "clean": "rimraf dist",
-    "test": "vitest run",
     "lint-fix": "eslint . --ext=js,ts --fix",
     "lint-test": "eslint . --ext=js,ts",
     "build": "pnpm clean && tsc && cp doc-template.md dist/doc-template.md"
@@ -40,8 +39,6 @@
     "ts-json-schema-generator": "^1.2.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.6",
-    "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.34.1"
+    "typescript": "^5.1.6"
   }
 }
