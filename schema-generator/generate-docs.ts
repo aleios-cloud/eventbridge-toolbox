@@ -2,6 +2,13 @@ import { existsSync, mkdirSync, readdir, readFileSync, writeFile } from "fs";
 import path from "path";
 import * as tsj from "ts-json-schema-generator";
 
+if (process.argv[2] === "") {
+  throw "Please provide the path to your contracts as the first argument.";
+}
+if (process.argv[3] === "") {
+  throw "Please provide the path to your event catalog events folder as the second argument.";
+}
+
 const pathToContracts = path.join(process.cwd(), process.argv[2]);
 
 readdir(pathToContracts, (err, files) => {
