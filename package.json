@@ -44,7 +44,7 @@
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.34.1"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@aws-sdk/client-eventbridge": "^3.386.0"
   }
 }
