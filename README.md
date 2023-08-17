@@ -118,7 +118,7 @@ pnpm add -D eventbridge-toolbox
 
 You can create a documentation website based on [eventcatalog.dev](https://www.eventcatalog.dev/) and generate docs directly from your event contracts.
 
-1. Set up event catalog site in the root of your project:
+1. Set up an event catalog site:
 
 ```
 npx @eventcatalog/create-eventcatalog@latest event-catalog
@@ -128,7 +128,7 @@ npx @eventcatalog/create-eventcatalog@latest event-catalog
 
 3. Remove the example events from the `event-catalog/events` folder
 
-4. In the root of your project, install `eventbridge-toolbox-schema-generator`:
+4. Install `eventbridge-toolbox-schema-generator`:
 
 With npm:
 
@@ -148,7 +148,7 @@ With pnpm:
 pnpm add -D @aleios-cloud/eventbridge-toolbox-schema-generator
 ```
 
-5. Still in the root, run `eventbridge-toolbox-schema-generator` with the following arguments:
+5. Run `eventbridge-toolbox-schema-generator` with the following arguments:
 
 - The path from the root to your event contracts
 - The path from the root to the event catalog events folder
@@ -157,7 +157,7 @@ pnpm add -D @aleios-cloud/eventbridge-toolbox-schema-generator
 npx schema-generator <path from root to your event contracts> event-catalog/events
 ```
 
-6. You can check out your new documentation site in a local development server
+6. You can start a local development server by running:
 
 ```
 cd event-catalog
