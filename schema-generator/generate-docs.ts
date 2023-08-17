@@ -18,8 +18,8 @@ readdir(pathToContracts, (err, files) => {
     files
       .filter((fileName) => fileName.includes("Contract"))
       .forEach((file) => {
-        // TODO: remove console.log once script is more stable
-        console.log(file);
+        console.log(`Found ${file}`);
+
         const pathToFile = path.join(pathToContracts, file);
         const filenameWithoutExtension = file.split(".")[0];
         const fileNameWithoutContract = filenameWithoutExtension.endsWith(
@@ -58,8 +58,7 @@ readdir(pathToContracts, (err, files) => {
           markdownWithVersion,
           (error) => {
             if (error) {
-              // TODO: log error rather than throw once script is more stable
-              throw error;
+              console.log(error);
             }
           },
         );
@@ -77,10 +76,11 @@ readdir(pathToContracts, (err, files) => {
 
         writeFile(`${eventDocsFilePath}/schema.json`, schemaString, (error) => {
           if (error) {
-            // TODO: log error rather than throw once script is more stable
-            throw error;
+            console.log(error);
           }
         });
+
+        console.log(`Created docs for ${fileNameWithoutContract}`);
       });
   }
 });
