@@ -23,7 +23,7 @@ readdir(pathToContracts, (err, files) => {
 
         const docsFilePath = path.join(process.cwd(), process.argv[3]);
         if (!existsSync(docsFilePath)) {
-          throw "Docs directory does not exist";
+          throw "File path provided for documentation directory is invalid. Directory does not exist.";
         }
 
         const eventDocsFilePath = path.join(
