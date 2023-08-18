@@ -1,16 +1,18 @@
 import { existsSync, mkdirSync, readdir, readFileSync, writeFile } from "fs";
 import path from "path";
-import * as tsj from "ts-json-schema-generator";
+import { createGenerator } from "ts-json-schema-generator";
+import { fileURLToPath } from "url";
 
-const rootPath = path.join(__dirname, "..");
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
-const pathToContracts = path.join(rootPath, process.argv[2]);
-
-const docsFilePath = path.join(rootPath, "/docs");
-if (!existsSync(docsFilePath)) {
-  mkdirSync(docsFilePath, { recursive: true });
-  console.log("Docs directory created");
+if (process.argv[2] === "") {
+  throw "Please provide the path to your contracts as the first argument.";
 }
+if (process.argv[3] === "") {
+  throw "Please provide the path to your event catalog events folder as the second argument.";
+}
+
+const pathToContracts = path.join(process.cwd(), process.argv[2]);
 
 readdir(pathToContracts, (err, files) => {
   if (err) {
@@ -19,8 +21,8 @@ readdir(pathToContracts, (err, files) => {
     files
       .filter((fileName) => fileName.includes("Contract"))
       .forEach((file) => {
-        // TODO: remove console.log once script is more stable
-        console.log(file);
+        console.log(`Found ${file}`);
+
         const pathToFile = path.join(pathToContracts, file);
         const filenameWithoutExtension = file.split(".")[0];
         const fileNameWithoutContract = filenameWithoutExtension.endsWith(
@@ -29,9 +31,14 @@ readdir(pathToContracts, (err, files) => {
           ? filenameWithoutExtension.replace("Contract", "")
           : filenameWithoutExtension;
 
+        const docsFilePath = path.join(process.cwd(), process.argv[3]);
+        if (!existsSync(docsFilePath)) {
+          throw "File path provided for documentation directory is invalid. Directory does not exist.";
+        }
+
         const eventDocsFilePath = path.join(
-          rootPath,
-          `/docs/${fileNameWithoutContract}`,
+          process.cwd(),
+          `/${process.argv[3]}/${fileNameWithoutContract}`,
         );
         mkdirSync(eventDocsFilePath, { recursive: true });
 
@@ -54,28 +61,29 @@ readdir(pathToContracts, (err, files) => {
           markdownWithVersion,
           (error) => {
             if (error) {
-              // TODO: log error rather than throw once script is more stable
-              throw error;
+              console.log(error);
             }
           },
         );
 
         const typeToSchemaConfig = {
           path: pathToFile,
-          tsconfig: path.join(rootPath, "/tsconfig.json"),
+          tsconfig: path.join(process.cwd(), "/tsconfig.json"),
           type: "*",
         };
-        const schema = tsj
-          .createGenerator(typeToSchemaConfig)
-          .createSchema(typeToSchemaConfig.type);
-        const schemaString = JSON.stringify(schema, null, 2);
+        const schema = createGenerator(typeToSchemaConfig).createSchema(
+          typeToSchemaConfig.type,
+        );
+        const jsonSchemaWhiteSpace = 2;
+        const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
 
         writeFile(`${eventDocsFilePath}/schema.json`, schemaString, (error) => {
           if (error) {
-            // TODO: log error rather than throw once script is more stable
-            throw error;
+            console.log(error);
           }
         });
+
+        console.log(`Created docs for ${fileNameWithoutContract}`);
       });
   }
 });

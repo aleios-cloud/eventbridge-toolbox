@@ -1,23 +1,24 @@
 {
-  "name": "@aleios-cloud/eventbridge-toolbox",
-  "version": "0.2.0",
+  "name": "@aleios-cloud/eventbridge-toolbox-schema-generator",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
   "scripts": {
     "clean": "rimraf dist",
-    "test": "vitest run",
     "lint-fix": "eslint . --ext=js,ts --fix",
     "lint-test": "eslint . --ext=js,ts",
-    "build": "pnpm clean && tsc",
-    "generate-example-docs": "ts-node schema-generator/generate-docs.ts example-architecture/events/contracts event-catalog/events"
+    "build": "pnpm clean && tsc && cp doc-template.md dist/doc-template.md"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "bin": {
+    "schema-generator": "./dist/generate-docs.js"
+  },
+  "type": "module",
+  "module": "./dist/generate-docs.js",
+  "types": "./dist/generate-docs.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -26,9 +27,8 @@
     "@types/node": "^20.4.5",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
-    "aws-cdk": "^2.89.0",
-    "aws-cdk-lib": "^2.89.0",
     "constructs": "^10.0.0",
+    "dotenv": "^16.3.1",
     "esbuild": "^0.18.17",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
@@ -40,11 +40,6 @@
     "ts-json-schema-generator": "^1.2.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.6",
-    "vite-tsconfig-paths": "^4.2.0",
-    "vitest": "^0.34.1"
-  },
-  "dependencies": {
-    "@aws-sdk/client-eventbridge": "^3.386.0"
+    "typescript": "^5.1.6"
   }
 }

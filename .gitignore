@@ -9,3 +9,11 @@ cdk.out
 
 # Built Files
 dist
+
+# Event Catalog
+# Production
+event-catalog/build
+event-catalog/public/schemas
+
+# Generated files
+.eventcatalog-core
