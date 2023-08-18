@@ -8,6 +8,7 @@
     "bootstrap": "cdk bootstrap",
     "cdk": "cdk",
     "deploy-dev": "cdk deploy --verbose --all",
+    "deploy-staging": "cdk deploy --context stage=staging --all",
     "lint-fix": "eslint . --ext=js,ts --fix"
   },
   "devDependencies": {
