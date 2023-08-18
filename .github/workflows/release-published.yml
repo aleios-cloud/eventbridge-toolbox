@@ -24,6 +24,7 @@ jobs:
       - name: 🏡 Build
         run: pnpm run build
       - name: 🚀 Publish eventbridge-toolbox
-        run: pnpm publish --access=public
+        run: pnpm publish --access=public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
