@@ -25,3 +25,4 @@ jobs:
         with:
           release-type: node
           package-name: eventbridge-toolbox
+          token: ${{ secrets.RELEASE_PLEASE_GITHUB_TOKEN }}
