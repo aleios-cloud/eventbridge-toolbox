@@ -1,6 +1,6 @@
 import { PutEventsCommand } from "@aws-sdk/client-eventbridge";
-import { Event } from "src/classes/Event";
-import { Contract } from "src/classes/types";
+import { Event } from "src/classes";
+import { Contract } from "src/types";
 import { describe, expect, it, vi } from "vitest";
 
 type MockDataDetail = {

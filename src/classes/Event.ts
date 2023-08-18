@@ -4,7 +4,7 @@ import {
   type PutEventsResponse,
   type PutEventsResultEntry,
 } from "@aws-sdk/client-eventbridge";
-import { Contract } from "src/classes/types";
+import { Contract } from "src/types/Contract";
 
 export const eventBridge = new EventBridgeClient({});
 
