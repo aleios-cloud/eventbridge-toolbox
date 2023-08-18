@@ -40,10 +40,17 @@ const queryDynamodbReturnsItem = async (
 
 const getEventId = (
   events: PutEventsResultEntry[] | undefined,
-): string | undefined =>
-  events === undefined || events.length === 0 || events[0].EventId === undefined
-    ? undefined
-    : events[0].EventId;
+): string | undefined => {
+  if (
+    events === undefined ||
+    events.length === 0 ||
+    events[0].EventId === undefined
+  ) {
+    return undefined;
+  } else {
+    return events[0].EventId;
+  }
+};
 
 const wait = (interval: number) =>
   new Promise((resolve) => {
