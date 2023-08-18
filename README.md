@@ -12,32 +12,36 @@ EventBridge contracts ensure a stable and reliable interaction emitters and cons
 
 ## Creating an EventBridge contract
 
-To create an EventBridge Contract, define a type for your contract. Your contract type must extend the interface `Contract`, with `Contract` being importable from the eventbridge-toolbox package. This typing will force you to add an event version to your contract. If you ever alter your contract (for instance, to add a new field), please create a copy of the contract in a new file, and give it a version number higher that you previous version of your contract. The `detailType` field stays consistent, and allows you to link together all versions of your contract.
+To create an EventBridge Contract, define a type for your contract. Your contract type must extend the interface `Contract`, with `Contract` being importable from the eventbridge-toolbox package. This typing will force you to add an event version to your contract. If you ever alter your contract (for instance, to add a new field), please create a copy of the contract in a new file, and give it a version number higher that you previous version of your contract. The `detail-type` field stays consistent, and allows you to link together all versions of your contract.
 
 Create an Contract type:
 
 ```typescript
 export interface PersonRegisteredContractV1 extends Contract {
-  version: 1;
-  detailType: "PersonRegisteredContract";
+  detail-type: "PersonRegisteredContract";
   detail: {
-    firstName: string;
-    lastName: string;
+    'detail-version': 1;
+    data: {
+      firstName: string;
+      lastName: string;
+    };
   };
 }
 ```
 
-As `version` and `detailType` are set as constants in the type, when we create an object of type PersonRegisteredContractV1, the `version` and `detailType` must match what is defined here otherwise you will see an error.
+As `'detail-version'` and `detail-type` are set as constants in the type, when we create an object of type PersonRegisteredContractV1, the `'detail-version'` and `detail-type` must match what is defined here otherwise you will see an error.
 
 Create an Contract type:
 
 ```typescript
 const ourEvent: PersonRegisteredContractV1 = {
-  version: 1;
-  detailType: "PersonRegisteredContract";
+  'detail-type': "PersonRegisteredContract";
   detail: {
-    firstName: 'testFirstName';
-    lastName: 'testLastName';
+    'detail-version': 1;
+    data: {
+      firstName: 'testFirstName';
+      lastName: 'testLastName';
+    };
   };
 }
 ```
@@ -52,12 +56,14 @@ You can see an example below:
 import Event from "@eventbridge-toolbox";
 
 const loggedInData: LoggedInContractV1 = {
-  version: 1;
-  detailType: "LoggedInContract";
+  'detail-type': "LoggedInContract";
   detail: {
-    firstName: "Lucy",
-    lastName: "Example",
-    timeLoggedIn: "2023-01-01T13:00:00.000Z",
+    'detail-version': 1;
+    data: {
+      firstName: "Lucy",
+      lastName: "Example",
+      timeLoggedIn: "2023-01-01T13:00:00.000Z",
+    };
   };
 }
 
@@ -65,7 +71,7 @@ const loggedInData: LoggedInContractV1 = {
 const myEvent = new Event(loggedInData);
 
 //equal to the 'loggedInData' object
-const myEventDetail = myEvent.getDetail();
+const myEventDetail = myEvent.getData();
 
 //equal to 'loggedIn'
 const myEventDetailType = myEvent.getDetailType():
