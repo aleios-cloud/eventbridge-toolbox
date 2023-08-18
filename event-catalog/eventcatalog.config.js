@@ -3,7 +3,7 @@ module.exports = {
   tagline: "Discover, Explore and Document your Event Driven Architectures",
   organizationName: "Your Company",
   projectName: "Event Catalog",
-  editUrl: "https://github.com/boyney123/eventcatalog-demo/edit/master",
+  editUrl: "https://github.com/aleios-cloud/eventbridge-toolbox",
   trailingSlash: true,
   primaryCTA: {
     label: "Explore Events",
