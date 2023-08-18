@@ -4,7 +4,7 @@ import {
   type PutEventsResponse,
   type PutEventsResultEntry,
 } from "@aws-sdk/client-eventbridge";
-import { Contract } from "src/types/Contract";
+import { Contract, Detail } from "src/types/Contract";
 
 export const eventBridge = new EventBridgeClient({});
 
@@ -20,14 +20,14 @@ const logResponseOnPublishFailure = (entry: PutEventsResultEntry): void => {
 export class Event implements Contract {
   readonly data: Record<string, unknown>;
   readonly detailVersion: number;
-  readonly detailType: string;
-  readonly eventContract: Contract;
+  readonly "detail-type": string;
+  readonly detail: Detail;
 
   constructor(eventContract: Contract) {
-    this.eventContract = eventContract;
-    this.data = eventContract.data;
-    this.detailVersion = eventContract.detailVersion;
-    this.detailType = eventContract.detailType;
+    this.data = eventContract.detail.data;
+    this.detailVersion = eventContract.detail.detailVersion;
+    this["detail-type"] = eventContract["detail-type"];
+    this.detail = eventContract.detail;
   }
 
   getData = (): Record<string, unknown> => {
@@ -35,7 +35,7 @@ export class Event implements Contract {
   };
 
   getDetailType = (): string => {
-    return this.detailType;
+    return this["detail-type"];
   };
 
   getDetailVersion = (): number => {
@@ -44,27 +44,27 @@ export class Event implements Contract {
 
   publish = async (
     eventBusArn: string,
-    eventSource: string,
+    eventSource: string
   ): Promise<PutEventsResponse> => {
     const params = {
       Entries: [
         {
-          Detail: JSON.stringify(this.eventContract),
+          Detail: JSON.stringify(this.detail),
           Source: eventSource,
-          DetailType: this.detailType,
+          DetailType: this["detail-type"],
           EventBusName: eventBusArn,
         },
       ],
     };
 
     const eventBridgeResponse = await eventBridge.send(
-      new PutEventsCommand(params),
+      new PutEventsCommand(params)
     );
     if (eventBridgeResponse.Entries === undefined) {
       console.error("Error publishing event to event bus");
     } else {
       eventBridgeResponse.Entries.forEach((entry) =>
-        logResponseOnPublishFailure(entry),
+        logResponseOnPublishFailure(entry)
       );
     }
 

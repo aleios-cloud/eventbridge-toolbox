@@ -1,12 +1,19 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
-import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
 import { getEnvVariable } from "example-architecture/helpers/getEnvVariable";
-import { ConsumerEvent } from "src/types/ConsumerEvent";
+import { Contract } from "src/types/Contract";
 
-export const handler = async (
-  event: ConsumerEvent<PersonRegisteredContract>,
-): Promise<void> => {
+type EventBridgeEvent = {
+  id: string;
+  version: string;
+  account: string;
+  time: string;
+  region: string;
+  resources: string[];
+  source: string;
+} & Contract;
+
+export const handler = async (event: EventBridgeEvent): Promise<void> => {
   const dynamoDB = DynamoDBDocumentClient.from(new DynamoDBClient());
 
   const TABLE_NAME = getEnvVariable("TABLE_NAME");
