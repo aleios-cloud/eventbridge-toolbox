@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/aleios-cloud/eventbridge-toolbox/compare/v0.1.2...v0.2.0) (2023-08-18)
+
+
+### Features
+
+* set npm registry url in action ([#36](https://github.com/aleios-cloud/eventbridge-toolbox/issues/36)) ([2b35665](https://github.com/aleios-cloud/eventbridge-toolbox/commit/2b35665fee01c9cfc0790b238295d4af71f127ae))
+
 ## [0.1.2](https://github.com/aleios-cloud/eventbridge-toolbox/compare/v0.1.0...v0.1.2) (2023-08-18)
 
 
