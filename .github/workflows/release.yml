@@ -1,0 +1,65 @@
+name: Release Created
+
+on:
+  release:
+    types: [created]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  AWS_REGION: eu-west-2
+
+permissions:
+  id-token: write # this is required for AWS https://github.com/aws-actions/configure-aws-credentials#usage
+  contents: read # this is required for Nx https://github.com/nrwl/nx-set-shas#permissions-in-v2
+  actions: read # this is required for Nx https://github.com/nrwl/nx-set-shas#permissions-in-v2
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  run-tests:
+    name: Deploy and Run Tests 
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.27.0
+      - name: Setup Node.js
+        id: setup-node
+        uses: actions/setup-node@v3
+        with:
+          cache: "pnpm"
+      - name: Install Top Level Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+      - name: '🧪 Test linter'
+        run: pnpm lint-test
+      - name: 🚀 Install Events Dependencies and Deploy Staging
+        run: |
+          cd example-architecture/events 
+          pnpm install --frozen-lockfile
+          pnpm deploy-staging
+      - name: 🚀 Install Producer Dependencies and Deploy Staging
+        run: |
+          cd example-architecture/producer 
+          pnpm install --frozen-lockfile
+          pnpm deploy-staging
+      - name: 🚀 Install Consumer Dependencies and Deploy Staging
+        run: |
+          cd example-architecture/consumer 
+          pnpm install --frozen-lockfile
+          pnpm deploy-staging
+      - name: "🧪 Test unit and integration"
+        run: pnpm test --verbose

@@ -1,0 +1,29 @@
+name: Release Published
+
+on:
+  release:
+    types: [created]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.27.0
+      - uses: actions/setup-node@v3
+        with:
+          cache: "pnpm"
+      - name: 💫 Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: 🏡 Build
+        run: pnpm run build
+      - name: 🚀 Publish eventbridge-toolbox
+        run: pnpm publish --access=public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
