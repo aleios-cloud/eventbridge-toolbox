@@ -9,8 +9,8 @@ const mockParams = {
   TableName: "mockTableName",
   Item: {
     pk: "mockId",
-    detailType: "mockDetailType",
-    detailVersion: 1,
+    detailType: "PersonRegisteredContract",
+    "detail-version": 1,
     firstName: "mockFirstName",
     lastName: "mockLastName",
   },
@@ -35,24 +35,25 @@ vi.mock("@aws-sdk/lib-dynamodb", async () => {
 DynamoDBDocumentClient.from = vi.fn();
 
 const mockContract: PersonRegisteredContract = {
-  detailVersion: 1,
-  detailType: "PersonRegisteredContract",
-  data: {
-    firstName: "mockFirstName",
-    lastName: "mockLastName",
+  "detail-type": "PersonRegisteredContract",
+  detail: {
+    "detail-version": 1,
+    data: {
+      firstName: "mockFirstName",
+      lastName: "mockLastName",
+    },
   },
 };
 
 const mockEvent = {
-  version: "mockdetailVersion",
+  version: "mockDetailVersion",
   id: "mockId",
-  "detail-type": "mockDetailType",
   source: "mockSource",
   account: "mockSccount",
   time: "mockTime",
   region: "mockRegion",
-  resources: "mockResources",
-  detail: mockContract,
+  resources: ["mockResources"],
+  ...mockContract,
 };
 
 vi.spyOn(console, "error").mockImplementation(() => {});

@@ -1,6 +1,6 @@
 import { PutEventsCommand } from "@aws-sdk/client-eventbridge";
 import { Event } from "src/classes";
-import { Contract } from "src/types";
+import { Contract, Detail } from "src/types";
 import { describe, expect, it, vi } from "vitest";
 
 type MockDataDetail = {
@@ -13,19 +13,29 @@ const mockData: MockDataDetail = {
   type: "mockType",
 };
 
-const mockDataContract: Contract = {
-  detailVersion: 1,
-  detailType: "MockDataContract",
+const mockDetail: Detail = {
+  "detail-version": 1,
   data: {
     name: "mockName",
     type: "mockType",
   },
 };
 
+const mockDataContract: Contract = {
+  "detail-type": "MockDataContract",
+  detail: {
+    "detail-version": 1,
+    data: {
+      name: "mockName",
+      type: "mockType",
+    },
+  },
+};
+
 const mockParams = {
   Entries: [
     {
-      Detail: JSON.stringify(mockDataContract),
+      Detail: JSON.stringify(mockDetail),
       Source: "mockSource",
       DetailType: "MockDataContract",
       EventBusName: "MOCK_EVENT_BUS_ARN",

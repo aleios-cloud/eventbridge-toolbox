@@ -5,9 +5,11 @@ import { Event } from "src/classes/Event";
 
 export const handler = async (): Promise<PutEventsResponse> => {
   const contract: PersonRegisteredContract = {
-    detailVersion: 1,
-    detailType: "PersonRegisteredContract",
-    data: { firstName: "testFirstName", lastName: "testLastName" },
+    "detail-type": "PersonRegisteredContract",
+    detail: {
+      "detail-version": 1,
+      data: { firstName: "testFirstName", lastName: "testLastName" },
+    },
   };
 
   const event = new Event(contract);

@@ -103,7 +103,7 @@ describe("Given a producer lambda that returns a Contract", () => {
           detailType: {
             S: "PersonRegisteredContract",
           },
-          detailVersion: { N: "1" },
+          "detail-version": { N: "1" },
           firstName: {
             S: "testFirstName",
           },

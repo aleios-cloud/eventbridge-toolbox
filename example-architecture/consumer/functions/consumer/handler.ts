@@ -3,7 +3,7 @@ import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { getEnvVariable } from "example-architecture/helpers/getEnvVariable";
 import { Contract } from "src/types/Contract";
 
-type EventBridgeEvent = {
+type EventBridgeConsumerEvent = {
   id: string;
   version: string;
   account: string;
@@ -13,7 +13,9 @@ type EventBridgeEvent = {
   source: string;
 } & Contract;
 
-export const handler = async (event: EventBridgeEvent): Promise<void> => {
+export const handler = async (
+  event: EventBridgeConsumerEvent,
+): Promise<void> => {
   const dynamoDB = DynamoDBDocumentClient.from(new DynamoDBClient());
 
   const TABLE_NAME = getEnvVariable("TABLE_NAME");
@@ -23,7 +25,7 @@ export const handler = async (event: EventBridgeEvent): Promise<void> => {
     Item: {
       pk: event.id,
       detailType: event["detail-type"],
-      detailVersion: event.detail.detailVersion,
+      "detail-version": event.detail["detail-version"],
       firstName: event.detail.data.firstName,
       lastName: event.detail.data.lastName,
     },
