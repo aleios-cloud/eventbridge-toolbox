@@ -2,7 +2,7 @@ name: Release Published
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
