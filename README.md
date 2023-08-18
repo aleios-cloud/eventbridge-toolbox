@@ -124,9 +124,9 @@ You can create a documentation website based on [eventcatalog.dev](https://www.e
 npx @eventcatalog/create-eventcatalog@latest <name your event catalog>
 ```
 
-2. Edit `event-catalog/eventcatalog.config.js` with your details
+2. Edit `eventcatalog.config.js` with your details
 
-3. Remove the example events from the `event-catalog/events` folder
+3. Remove the example events from the `events` folder, as well as everything in the `services` and `domains` folders
 
 4. Install `eventbridge-toolbox-schema-generator`:
 
@@ -160,7 +160,6 @@ npx schema-generator <path from root to your event contracts> <path from root to
 6. You can start a local development server by running:
 
 ```
-cd event-catalog
 npm run dev
 ```
 
