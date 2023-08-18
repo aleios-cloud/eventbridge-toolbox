@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync, readdir, readFileSync, writeFile } from "fs";
 import path from "path";
-import * as tsj from "ts-json-schema-generator";
+import { createGenerator } from "ts-json-schema-generator";
 
 if (process.argv[2] === "") {
   throw "Please provide the path to your contracts as the first argument.";
@@ -68,9 +68,9 @@ readdir(pathToContracts, (err, files) => {
           tsconfig: path.join(process.cwd(), "/tsconfig.json"),
           type: "*",
         };
-        const schema = tsj
-          .createGenerator(typeToSchemaConfig)
-          .createSchema(typeToSchemaConfig.type);
+        const schema = createGenerator(typeToSchemaConfig).createSchema(
+          typeToSchemaConfig.type,
+        );
         const jsonSchemaWhiteSpace = 2;
         const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
 
