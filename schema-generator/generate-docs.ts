@@ -1,6 +1,9 @@
 import { existsSync, mkdirSync, readdir, readFileSync, writeFile } from "fs";
 import path from "path";
 import { createGenerator } from "ts-json-schema-generator";
+import { fileURLToPath } from "url";
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 if (process.argv[2] === "") {
   throw "Please provide the path to your contracts as the first argument.";
