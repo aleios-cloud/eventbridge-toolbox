@@ -1,10 +1,9 @@
-import { mkdirSync, readFileSync } from "fs";
-import { readdir, writeFile } from "fs/promises";
+import { mkdirSync } from "fs";
+import { readdir } from "fs/promises";
 import path from "path";
-import { createGenerator } from "ts-json-schema-generator";
-import { fileURLToPath } from "url";
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
+import { writeIndexFile } from "./helpers/writeIndexFile.js";
+import { writeSchemaFile } from "./helpers/writeSchemaFile.js";
 
 //Contract file name must include term 'Contract' to be parsed
 const getContractFileNames = async (
@@ -13,53 +12,6 @@ const getContractFileNames = async (
   const files = await readdir(pathToContracts);
 
   return files.filter((fileName) => fileName.includes("Contract"));
-};
-
-const writeIndexFile = async (
-  contractFilenameWithoutExtension: string,
-  pathToContractDocumentationFolder: string,
-): Promise<void> => {
-  const eventMarkdownTemplate = readFileSync(
-    path.join(__dirname, "/doc-template.md"),
-    "utf8",
-  );
-  const markdownWithName = eventMarkdownTemplate.replace(
-    "//name//",
-    contractFilenameWithoutExtension,
-  );
-  // TODO: replace with version from contract path once versioning is implemented
-  const markdownWithVersion = markdownWithName.replace("//version//", "1.0.0");
-
-  await writeFile(
-    `${pathToContractDocumentationFolder}/index.md`,
-    markdownWithVersion,
-  );
-};
-
-const writeSchemaFile = async (
-  pathToContractsFolder: string,
-  contractFilenameWithoutExtension: string,
-  pathToContractDocumentationFolder: string,
-): Promise<void> => {
-  const pathToContractFile = path.join(
-    pathToContractsFolder,
-    contractFilenameWithoutExtension,
-  );
-  const typeToSchemaConfig = {
-    path: pathToContractFile,
-    tsconfig: path.join(process.cwd(), "/tsconfig.json"),
-    type: "*",
-  };
-  const schema = createGenerator(typeToSchemaConfig).createSchema(
-    typeToSchemaConfig.type,
-  );
-  const jsonSchemaWhiteSpace = 2;
-  const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
-
-  await writeFile(
-    `${pathToContractDocumentationFolder}/schema.json`,
-    schemaString,
-  );
 };
 
 export const generateDocumentation = async (
