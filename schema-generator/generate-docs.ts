@@ -15,6 +15,42 @@ const getContractFileNames = async (
   return files.filter((fileName) => fileName.includes("Contract"));
 };
 
+const writeIndexFile = async (
+  contractFilenameWithoutExtension: string,
+  pathToEventsDocumentation: string,
+): Promise<void> => {
+  const eventMarkdownTemplate = readFileSync(
+    path.join(__dirname, "/doc-template.md"),
+    "utf8",
+  );
+  const markdownWithName = eventMarkdownTemplate.replace(
+    "//name//",
+    contractFilenameWithoutExtension,
+  );
+  // TODO: replace with version from contract path once versioning is implemented
+  const markdownWithVersion = markdownWithName.replace("//version//", "1.0.0");
+
+  await writeFile(`${pathToEventsDocumentation}/index.md`, markdownWithVersion);
+};
+
+const writeSchemaFile = async (
+  pathToContractFile: string,
+  pathToEventsDocumentation: string,
+): Promise<void> => {
+  const typeToSchemaConfig = {
+    path: pathToContractFile,
+    tsconfig: path.join(process.cwd(), "/tsconfig.json"),
+    type: "*",
+  };
+  const schema = createGenerator(typeToSchemaConfig).createSchema(
+    typeToSchemaConfig.type,
+  );
+  const jsonSchemaWhiteSpace = 2;
+  const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
+
+  await writeFile(`${pathToEventsDocumentation}/schema.json`, schemaString);
+};
+
 export const generateDocs = async (
   pathToContractsDirectory: string,
   pathToEventsDocumentationDirectory: string,
@@ -33,46 +69,18 @@ export const generateDocs = async (
         contractFilenameWithoutExtension,
       );
 
-      const pathToEventsDocumentationFile = path.join(
+      const pathToEventsDocumentation = path.join(
         `${pathToEventsDocumentationDirectory}/${contractFilenameWithoutExtension}`,
       );
 
-      mkdirSync(pathToEventsDocumentationFile, { recursive: true });
+      mkdirSync(pathToEventsDocumentation, { recursive: true });
 
-      const eventMarkdownTemplate = readFileSync(
-        path.join(__dirname, "/doc-template.md"),
-        "utf8",
-      );
-      const markdownWithName = eventMarkdownTemplate.replace(
-        "//name//",
+      await writeIndexFile(
         contractFilenameWithoutExtension,
-      );
-      // TODO: replace with version from contract path once versioning is implemented
-      const markdownWithVersion = markdownWithName.replace(
-        "//version//",
-        "1.0.0",
+        pathToEventsDocumentation,
       );
 
-      await writeFile(
-        `${pathToEventsDocumentationFile}/index.md`,
-        markdownWithVersion,
-      );
-
-      const typeToSchemaConfig = {
-        path: pathToContractFile,
-        tsconfig: path.join(process.cwd(), "/tsconfig.json"),
-        type: "*",
-      };
-      const schema = createGenerator(typeToSchemaConfig).createSchema(
-        typeToSchemaConfig.type,
-      );
-      const jsonSchemaWhiteSpace = 2;
-      const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
-
-      await writeFile(
-        `${pathToEventsDocumentationFile}/schema.json`,
-        schemaString,
-      );
+      await writeSchemaFile(pathToContractFile, pathToEventsDocumentation);
 
       console.log(`Created docs for ${contractFilenameWithoutExtension}`);
     }
