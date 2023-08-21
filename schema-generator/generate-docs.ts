@@ -4,26 +4,31 @@ import path from "path";
 import { createGenerator } from "ts-json-schema-generator";
 import { fileURLToPath } from "url";
 
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
+
+//Contract file name must include term 'Contract' to be parsed
+const getContractFileNames = async (
+  pathToContracts: string
+): Promise<string[]> => {
+  const files = await readdir(pathToContracts);
+
+  return files.filter((fileName) => fileName.includes("Contract"));
+};
+
 export const generateDocs = async (
   pathToContracts: string,
-  pathToEventsFolder: string,
+  pathToEventsFolder: string
 ): Promise<void> => {
-  const __dirname = fileURLToPath(new URL(".", import.meta.url));
-
   try {
-    const files = await readdir(pathToContracts);
+    const contractFileNames = await getContractFileNames(pathToContracts);
 
-    const contractFiles = files.filter((fileName) =>
-      fileName.includes("Contract"),
-    );
+    for (const contractFileName of contractFileNames) {
+      console.log(`Found ${contractFileName}`);
 
-    for (const contractFile of contractFiles) {
-      console.log(`Found ${contractFile}`);
-
-      const pathToFile = path.join(pathToContracts, contractFile);
-      const filenameWithoutExtension = contractFile.split(".")[0];
+      const pathToFile = path.join(pathToContracts, contractFileName);
+      const filenameWithoutExtension = contractFileName.split(".")[0];
       const fileNameWithoutContract = filenameWithoutExtension.endsWith(
-        "Contract",
+        "Contract"
       )
         ? filenameWithoutExtension.replace("Contract", "")
         : filenameWithoutExtension;
@@ -33,23 +38,23 @@ export const generateDocs = async (
       }
 
       const eventDocsFilePath = path.join(
-        `${pathToEventsFolder}/${fileNameWithoutContract}`,
+        `${pathToEventsFolder}/${fileNameWithoutContract}`
       );
 
       mkdirSync(eventDocsFilePath, { recursive: true });
 
       const eventMarkdownTemplate = readFileSync(
         path.join(__dirname, "/doc-template.md"),
-        "utf8",
+        "utf8"
       );
       const markdownWithName = eventMarkdownTemplate.replace(
         "//name//",
-        fileNameWithoutContract,
+        fileNameWithoutContract
       );
       // TODO: replace with version from contract path once versioning is implemented
       const markdownWithVersion = markdownWithName.replace(
         "//version//",
-        "1.0.0",
+        "1.0.0"
       );
 
       await writeFile(`${eventDocsFilePath}/index.md`, markdownWithVersion);
@@ -60,7 +65,7 @@ export const generateDocs = async (
         type: "*",
       };
       const schema = createGenerator(typeToSchemaConfig).createSchema(
-        typeToSchemaConfig.type,
+        typeToSchemaConfig.type
       );
       const jsonSchemaWhiteSpace = 2;
       const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
