@@ -14,11 +14,11 @@
     "dist"
   ],
   "bin": {
-    "schema-generator": "./dist/generate-docs.js"
+    "schema-generator": "./dist/script.js"
   },
   "type": "module",
-  "module": "./dist/generate-docs.js",
-  "types": "./dist/generate-docs.d.ts",
+  "module": "./dist/script.js",
+  "types": "./dist/script.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
