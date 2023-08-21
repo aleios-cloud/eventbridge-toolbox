@@ -3,17 +3,11 @@ import path from "path";
 import { createGenerator } from "ts-json-schema-generator";
 import { fileURLToPath } from "url";
 
-export const generateDocs = (): void => {
+export const generateDocs = (
+  pathToContracts: string,
+  pathToEventsFolder: string,
+): void => {
   const __dirname = fileURLToPath(new URL(".", import.meta.url));
-
-  if (process.argv[2] === "") {
-    throw "Please provide the path to your contracts as the first argument.";
-  }
-  if (process.argv[3] === "") {
-    throw "Please provide the path to your event catalog events folder as the second argument.";
-  }
-
-  const pathToContracts = path.join(process.cwd(), process.argv[2]);
 
   readdir(pathToContracts, (err, files) => {
     if (err) {
@@ -27,34 +21,33 @@ export const generateDocs = (): void => {
           const pathToFile = path.join(pathToContracts, file);
           const filenameWithoutExtension = file.split(".")[0];
           const fileNameWithoutContract = filenameWithoutExtension.endsWith(
-            "Contract"
+            "Contract",
           )
             ? filenameWithoutExtension.replace("Contract", "")
             : filenameWithoutExtension;
 
-          const docsFilePath = path.join(process.cwd(), process.argv[3]);
-          if (!existsSync(docsFilePath)) {
+          if (!existsSync(pathToEventsFolder)) {
             throw "File path provided for documentation directory is invalid. Directory does not exist.";
           }
 
           const eventDocsFilePath = path.join(
-            process.cwd(),
-            `/${process.argv[3]}/${fileNameWithoutContract}`
+            `${pathToEventsFolder}/${fileNameWithoutContract}`,
           );
+
           mkdirSync(eventDocsFilePath, { recursive: true });
 
           const eventMarkdownTemplate = readFileSync(
             path.join(__dirname, "/doc-template.md"),
-            "utf8"
+            "utf8",
           );
           const markdownWithName = eventMarkdownTemplate.replace(
             "//name//",
-            fileNameWithoutContract
+            fileNameWithoutContract,
           );
           // TODO: replace with version from contract path once versioning is implemented
           const markdownWithVersion = markdownWithName.replace(
             "//version//",
-            "1.0.0"
+            "1.0.0",
           );
 
           writeFile(
@@ -64,7 +57,7 @@ export const generateDocs = (): void => {
               if (error) {
                 console.log(error);
               }
-            }
+            },
           );
 
           const typeToSchemaConfig = {
@@ -73,13 +66,13 @@ export const generateDocs = (): void => {
             type: "*",
           };
           const schema = createGenerator(typeToSchemaConfig).createSchema(
-            typeToSchemaConfig.type
+            typeToSchemaConfig.type,
           );
           const jsonSchemaWhiteSpace = 2;
           const schemaString = JSON.stringify(
             schema,
             null,
-            jsonSchemaWhiteSpace
+            jsonSchemaWhiteSpace,
           );
 
           writeFile(
@@ -89,7 +82,7 @@ export const generateDocs = (): void => {
               if (error) {
                 console.log(error);
               }
-            }
+            },
           );
 
           console.log(`Created docs for ${fileNameWithoutContract}`);
