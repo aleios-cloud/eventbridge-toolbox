@@ -17,7 +17,7 @@ const getContractFileNames = async (
 
 const writeIndexFile = async (
   contractFilenameWithoutExtension: string,
-  pathToEventsDocumentation: string,
+  pathToContractDocsDirectory: string,
 ): Promise<void> => {
   const eventMarkdownTemplate = readFileSync(
     path.join(__dirname, "/doc-template.md"),
@@ -30,12 +30,15 @@ const writeIndexFile = async (
   // TODO: replace with version from contract path once versioning is implemented
   const markdownWithVersion = markdownWithName.replace("//version//", "1.0.0");
 
-  await writeFile(`${pathToEventsDocumentation}/index.md`, markdownWithVersion);
+  await writeFile(
+    `${pathToContractDocsDirectory}/index.md`,
+    markdownWithVersion,
+  );
 };
 
 const writeSchemaFile = async (
   pathToContractFile: string,
-  pathToEventsDocumentation: string,
+  pathToContractDocsDirectory: string,
 ): Promise<void> => {
   const typeToSchemaConfig = {
     path: pathToContractFile,
@@ -48,12 +51,12 @@ const writeSchemaFile = async (
   const jsonSchemaWhiteSpace = 2;
   const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
 
-  await writeFile(`${pathToEventsDocumentation}/schema.json`, schemaString);
+  await writeFile(`${pathToContractDocsDirectory}/schema.json`, schemaString);
 };
 
 export const generateDocs = async (
   pathToContractsDirectory: string,
-  pathToEventsDocumentationDirectory: string,
+  pathToDocsDirectory: string,
 ): Promise<void> => {
   try {
     const contractFileNames = await getContractFileNames(
@@ -69,18 +72,18 @@ export const generateDocs = async (
         contractFilenameWithoutExtension,
       );
 
-      const pathToEventsDocumentation = path.join(
-        `${pathToEventsDocumentationDirectory}/${contractFilenameWithoutExtension}`,
+      const pathToContractDocsDirectory = path.join(
+        `${pathToDocsDirectory}/${contractFilenameWithoutExtension}`,
       );
 
-      mkdirSync(pathToEventsDocumentation, { recursive: true });
+      mkdirSync(pathToContractDocsDirectory, { recursive: true });
 
       await writeIndexFile(
         contractFilenameWithoutExtension,
-        pathToEventsDocumentation,
+        pathToContractDocsDirectory,
       );
 
-      await writeSchemaFile(pathToContractFile, pathToEventsDocumentation);
+      await writeSchemaFile(pathToContractFile, pathToContractDocsDirectory);
 
       console.log(`Created docs for ${contractFilenameWithoutExtension}`);
     }
