@@ -2,7 +2,7 @@
 import { existsSync } from "fs";
 import path from "path";
 
-import { generateDocs } from "./generate-docs.js";
+import { generateDocumentation } from "./generate-docs.js";
 
 const getValidContractsPath = (): string => {
   if (process.argv[2] === "") {
@@ -32,7 +32,7 @@ const main = async () => {
   const pathToContracts = getValidContractsPath();
   const pathToEventsFolder = getValidEventFolderPath();
 
-  await generateDocs(pathToContracts, pathToEventsFolder);
+  await generateDocumentation(pathToContracts, pathToEventsFolder);
 
   console.log("Successfully generated docs");
 };
