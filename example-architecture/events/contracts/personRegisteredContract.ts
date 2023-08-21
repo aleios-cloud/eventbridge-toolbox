@@ -1,4 +1,4 @@
-import { Contract } from "src/classes/types";
+import { Contract } from "src/types";
 export interface PersonRegisteredContract extends Contract {
   "detail-type": "PersonRegisteredContract";
   detail: {
