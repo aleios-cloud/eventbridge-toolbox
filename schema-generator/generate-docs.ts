@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync } from "fs";
+import { mkdirSync, readFileSync } from "fs";
 import { readdir, writeFile } from "fs/promises";
 import path from "path";
 import { createGenerator } from "ts-json-schema-generator";
@@ -8,7 +8,7 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 //Contract file name must include term 'Contract' to be parsed
 const getContractFileNames = async (
-  pathToContracts: string
+  pathToContracts: string,
 ): Promise<string[]> => {
   const files = await readdir(pathToContracts);
 
@@ -17,7 +17,7 @@ const getContractFileNames = async (
 
 export const generateDocs = async (
   pathToContracts: string,
-  pathToEventsFolder: string
+  pathToEventsFolder: string,
 ): Promise<void> => {
   try {
     const contractFileNames = await getContractFileNames(pathToContracts);
@@ -28,28 +28,24 @@ export const generateDocs = async (
       const pathToFile = path.join(pathToContracts, contractFileName);
       const filenameWithoutExtension = contractFileName.split(".")[0];
 
-      if (!existsSync(pathToEventsFolder)) {
-        throw "File path provided for documentation directory is invalid. Directory does not exist.";
-      }
-
       const eventDocsFilePath = path.join(
-        `${pathToEventsFolder}/${filenameWithoutExtension}`
+        `${pathToEventsFolder}/${filenameWithoutExtension}`,
       );
 
       mkdirSync(eventDocsFilePath, { recursive: true });
 
       const eventMarkdownTemplate = readFileSync(
         path.join(__dirname, "/doc-template.md"),
-        "utf8"
+        "utf8",
       );
       const markdownWithName = eventMarkdownTemplate.replace(
         "//name//",
-        filenameWithoutExtension
+        filenameWithoutExtension,
       );
       // TODO: replace with version from contract path once versioning is implemented
       const markdownWithVersion = markdownWithName.replace(
         "//version//",
-        "1.0.0"
+        "1.0.0",
       );
 
       await writeFile(`${eventDocsFilePath}/index.md`, markdownWithVersion);
@@ -60,7 +56,7 @@ export const generateDocs = async (
         type: "*",
       };
       const schema = createGenerator(typeToSchemaConfig).createSchema(
-        typeToSchemaConfig.type
+        typeToSchemaConfig.type,
       );
       const jsonSchemaWhiteSpace = 2;
       const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
