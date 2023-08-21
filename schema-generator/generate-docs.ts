@@ -25,8 +25,8 @@ export const generateDocs = async (
     for (const contractFileName of contractFileNames) {
       console.log(`Found ${contractFileName}`);
 
-      const pathToFile = path.join(pathToContracts, contractFileName);
       const filenameWithoutExtension = contractFileName.split(".")[0];
+      const pathToFile = path.join(pathToContracts, filenameWithoutExtension);
 
       const eventDocsFilePath = path.join(
         `${pathToEventsFolder}/${filenameWithoutExtension}`,
