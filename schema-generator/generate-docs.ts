@@ -27,18 +27,13 @@ export const generateDocs = async (
 
       const pathToFile = path.join(pathToContracts, contractFileName);
       const filenameWithoutExtension = contractFileName.split(".")[0];
-      const fileNameWithoutContract = filenameWithoutExtension.endsWith(
-        "Contract"
-      )
-        ? filenameWithoutExtension.replace("Contract", "")
-        : filenameWithoutExtension;
 
       if (!existsSync(pathToEventsFolder)) {
         throw "File path provided for documentation directory is invalid. Directory does not exist.";
       }
 
       const eventDocsFilePath = path.join(
-        `${pathToEventsFolder}/${fileNameWithoutContract}`
+        `${pathToEventsFolder}/${filenameWithoutExtension}`
       );
 
       mkdirSync(eventDocsFilePath, { recursive: true });
@@ -49,7 +44,7 @@ export const generateDocs = async (
       );
       const markdownWithName = eventMarkdownTemplate.replace(
         "//name//",
-        fileNameWithoutContract
+        filenameWithoutExtension
       );
       // TODO: replace with version from contract path once versioning is implemented
       const markdownWithVersion = markdownWithName.replace(
@@ -72,7 +67,7 @@ export const generateDocs = async (
 
       await writeFile(`${eventDocsFilePath}/schema.json`, schemaString);
 
-      console.log(`Created docs for ${fileNameWithoutContract}`);
+      console.log(`Created docs for ${filenameWithoutExtension}`);
     }
   } catch (error) {
     console.error(error);
