@@ -3,8 +3,7 @@ import path from "path";
 
 import { generateDocs } from "./generate-docs.js";
 
-//TODO: eslint here
-const main = () => {
+const main = async () => {
   if (process.argv[2] === "") {
     throw "Please provide the path to your contracts as the first argument.";
   }
@@ -14,9 +13,9 @@ const main = () => {
   }
   const pathToEventsFolder = path.join(process.cwd(), process.argv[3]);
 
-  generateDocs(pathToContracts, pathToEventsFolder);
+  await generateDocs(pathToContracts, pathToEventsFolder);
 
-  console.log("Successfully generated docs:");
+  console.log("Successfully generated docs");
 };
 
-main();
+await main();
