@@ -8,7 +8,7 @@ const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 //Contract file name must include term 'Contract' to be parsed
 const getContractFileNames = async (
-  pathToContracts: string,
+  pathToContracts: string
 ): Promise<string[]> => {
   const files = await readdir(pathToContracts);
 
@@ -17,28 +17,25 @@ const getContractFileNames = async (
 
 const writeIndexFile = async (
   contractFilenameWithoutExtension: string,
-  pathToContractDocsDirectory: string,
+  pathToContractDocsFolder: string
 ): Promise<void> => {
   const eventMarkdownTemplate = readFileSync(
     path.join(__dirname, "/doc-template.md"),
-    "utf8",
+    "utf8"
   );
   const markdownWithName = eventMarkdownTemplate.replace(
     "//name//",
-    contractFilenameWithoutExtension,
+    contractFilenameWithoutExtension
   );
   // TODO: replace with version from contract path once versioning is implemented
   const markdownWithVersion = markdownWithName.replace("//version//", "1.0.0");
 
-  await writeFile(
-    `${pathToContractDocsDirectory}/index.md`,
-    markdownWithVersion,
-  );
+  await writeFile(`${pathToContractDocsFolder}/index.md`, markdownWithVersion);
 };
 
 const writeSchemaFile = async (
   pathToContractFile: string,
-  pathToContractDocsDirectory: string,
+  pathToContractDocsFolder: string
 ): Promise<void> => {
   const typeToSchemaConfig = {
     path: pathToContractFile,
@@ -46,44 +43,42 @@ const writeSchemaFile = async (
     type: "*",
   };
   const schema = createGenerator(typeToSchemaConfig).createSchema(
-    typeToSchemaConfig.type,
+    typeToSchemaConfig.type
   );
   const jsonSchemaWhiteSpace = 2;
   const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
 
-  await writeFile(`${pathToContractDocsDirectory}/schema.json`, schemaString);
+  await writeFile(`${pathToContractDocsFolder}/schema.json`, schemaString);
 };
 
 export const generateDocs = async (
-  pathToContractsDirectory: string,
-  pathToDocsDirectory: string,
+  pathToContractsFolder: string,
+  pathToDocsFolder: string
 ): Promise<void> => {
   try {
-    const contractFileNames = await getContractFileNames(
-      pathToContractsDirectory,
-    );
+    const contractFileNames = await getContractFileNames(pathToContractsFolder);
 
     for (const contractFileName of contractFileNames) {
       console.log(`Found ${contractFileName}`);
 
       const contractFilenameWithoutExtension = contractFileName.split(".")[0];
       const pathToContractFile = path.join(
-        pathToContractsDirectory,
-        contractFilenameWithoutExtension,
+        pathToContractsFolder,
+        contractFilenameWithoutExtension
       );
 
-      const pathToContractDocsDirectory = path.join(
-        `${pathToDocsDirectory}/${contractFilenameWithoutExtension}`,
+      const pathToContractDocsFolder = path.join(
+        `${pathToDocsFolder}/${contractFilenameWithoutExtension}`
       );
 
-      mkdirSync(pathToContractDocsDirectory, { recursive: true });
+      mkdirSync(pathToContractDocsFolder, { recursive: true });
 
       await writeIndexFile(
         contractFilenameWithoutExtension,
-        pathToContractDocsDirectory,
+        pathToContractDocsFolder
       );
 
-      await writeSchemaFile(pathToContractFile, pathToContractDocsDirectory);
+      await writeSchemaFile(pathToContractFile, pathToContractDocsFolder);
 
       console.log(`Created docs for ${contractFilenameWithoutExtension}`);
     }
