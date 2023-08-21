@@ -37,9 +37,14 @@ const writeIndexFile = async (
 };
 
 const writeSchemaFile = async (
-  pathToContractFile: string,
+  pathToContractsFolder: string,
+  contractFilenameWithoutExtension: string,
   pathToContractDocumentationFolder: string,
 ): Promise<void> => {
+  const pathToContractFile = path.join(
+    pathToContractsFolder,
+    contractFilenameWithoutExtension,
+  );
   const typeToSchemaConfig = {
     path: pathToContractFile,
     tsconfig: path.join(process.cwd(), "/tsconfig.json"),
@@ -65,13 +70,7 @@ export const generateDocumentation = async (
     const contractFileNames = await getContractFileNames(pathToContractsFolder);
 
     for (const contractFileName of contractFileNames) {
-      console.log(`Found ${contractFileName}`);
-
       const contractFilenameWithoutExtension = contractFileName.split(".")[0];
-      const pathToContractFile = path.join(
-        pathToContractsFolder,
-        contractFilenameWithoutExtension,
-      );
 
       const pathToContractDocumentationFolder = path.join(
         `${pathToDocumentationFolder}/${contractFilenameWithoutExtension}`,
@@ -85,7 +84,8 @@ export const generateDocumentation = async (
       );
 
       await writeSchemaFile(
-        pathToContractFile,
+        pathToContractsFolder,
+        contractFilenameWithoutExtension,
         pathToContractDocumentationFolder,
       );
 
