@@ -29,9 +29,15 @@ const main = async () => {
     "documentation directory",
   );
 
-  await generateDocumentation(pathToContracts, pathToEventDocumentationFolder);
-
-  console.log("Successfully generated docs");
+  try {
+    await generateDocumentation(
+      pathToContracts,
+      pathToEventDocumentationFolder,
+    );
+    console.log("Successfully generated all docs");
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 await main();

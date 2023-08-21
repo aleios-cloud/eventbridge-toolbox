@@ -5,7 +5,7 @@ import path from "path";
 import { writeIndexFile } from "./helpers/writeIndexFile.js";
 import { writeSchemaFile } from "./helpers/writeSchemaFile.js";
 
-//Contract file name must include term 'Contract' to be parsed
+//Note: contract file name must include term 'Contract' to be parsed
 const getContractFileNames = async (
   pathToContracts: string,
 ): Promise<string[]> => {
@@ -18,32 +18,28 @@ export const generateDocumentation = async (
   pathToContractsFolder: string,
   pathToDocumentationFolder: string,
 ): Promise<void> => {
-  try {
-    const contractFileNames = await getContractFileNames(pathToContractsFolder);
+  const contractFileNames = await getContractFileNames(pathToContractsFolder);
 
-    for (const contractFileName of contractFileNames) {
-      const contractFilenameWithoutExtension = contractFileName.split(".")[0];
+  for (const contractFileName of contractFileNames) {
+    const contractFilenameWithoutExtension = contractFileName.split(".")[0];
 
-      const pathToContractDocumentationFolder = path.join(
-        `${pathToDocumentationFolder}/${contractFilenameWithoutExtension}`,
-      );
+    const pathToContractDocumentationFolder = path.join(
+      `${pathToDocumentationFolder}/${contractFilenameWithoutExtension}`,
+    );
 
-      mkdirSync(pathToContractDocumentationFolder, { recursive: true });
+    mkdirSync(pathToContractDocumentationFolder, { recursive: true });
 
-      await writeIndexFile(
-        contractFilenameWithoutExtension,
-        pathToContractDocumentationFolder,
-      );
+    await writeIndexFile(
+      contractFilenameWithoutExtension,
+      pathToContractDocumentationFolder,
+    );
 
-      await writeSchemaFile(
-        pathToContractsFolder,
-        contractFilenameWithoutExtension,
-        pathToContractDocumentationFolder,
-      );
+    await writeSchemaFile(
+      pathToContractsFolder,
+      contractFilenameWithoutExtension,
+      pathToContractDocumentationFolder,
+    );
 
-      console.log(`Created docs for ${contractFilenameWithoutExtension}`);
-    }
-  } catch (error) {
-    console.error(error);
+    console.log(`Created docs for ${contractFilenameWithoutExtension}`);
   }
 };
