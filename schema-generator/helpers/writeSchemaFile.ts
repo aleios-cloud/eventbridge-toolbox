@@ -12,6 +12,7 @@ export const writeSchemaFile = async (
   const typeToSchemaConfig = {
     path: pathToContractFile,
     tsconfig: path.join(process.cwd(), "/tsconfig.json"),
+    topRef: false,
     type: "*",
   };
   const schema = createGenerator(typeToSchemaConfig).createSchema(
