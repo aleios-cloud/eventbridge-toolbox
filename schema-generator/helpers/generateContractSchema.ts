@@ -4,15 +4,20 @@ import path from "path";
 import { createGenerator } from "ts-json-schema-generator";
 
 type ContractLike = {
-  properties: {
-    "detail-type": {
-      const: string;
-    };
-    detail: {
-      properties: {
-        "detail-version": {
-          const: number;
-        };
+  properties: DetailType & DetailVersion;
+};
+
+type DetailType = {
+  "detail-type": {
+    const: string;
+  };
+};
+
+type DetailVersion = {
+  detail: {
+    properties: {
+      "detail-version": {
+        const: number;
       };
     };
   };
@@ -25,43 +30,41 @@ const isString = (field: unknown): field is string => typeof field === "string";
 
 const isNumber = (field: unknown): field is number => typeof field === "number";
 
+const hasDetailTypeConst = (field: object): field is DetailType =>
+  "detail-type" in field &&
+  isObject(field["detail-type"]) &&
+  "const" in field["detail-type"] &&
+  isString(field["detail-type"].const);
+
+const hasDetailVersionConst = (field: object): field is DetailVersion => {
+  if (hasDetailTypeConst(field)) {
+    if ("detail" in field && isObject(field.detail)) {
+      if ("properties" in field.detail && isObject(field.detail.properties)) {
+        if (
+          "detail-version" in field.detail.properties &&
+          isObject(field.detail.properties["detail-version"])
+        ) {
+          if (
+            "const" in field.detail.properties["detail-version"] &&
+            isNumber(field.detail.properties["detail-version"].const)
+          ) {
+            return true;
+          }
+        }
+      }
+    }
+  }
+
+  return false;
+};
+
 const validateContractJsonSchema = (
   contractSchema: object
 ): contractSchema is ContractLike => {
   if ("properties" in contractSchema && isObject(contractSchema.properties)) {
-    console.log("hey");
-    if (
-      "detail-type" in contractSchema.properties &&
-      isObject(contractSchema.properties["detail-type"]) &&
-      "const" in contractSchema.properties["detail-type"] &&
-      isString(contractSchema.properties["detail-type"].const)
-    ) {
-      if (
-        "detail" in contractSchema.properties &&
-        isObject(contractSchema.properties.detail)
-      ) {
-        if (
-          "properties" in contractSchema.properties.detail &&
-          isObject(contractSchema.properties.detail.properties)
-        ) {
-          if (
-            "detail-version" in contractSchema.properties.detail.properties &&
-            isObject(
-              contractSchema.properties.detail.properties["detail-version"]
-            )
-          ) {
-            if (
-              "const" in
-                contractSchema.properties.detail.properties["detail-version"] &&
-              isNumber(
-                contractSchema.properties.detail.properties["detail-version"]
-                  .const
-              )
-            ) {
-              return true;
-            }
-          }
-        }
+    if (hasDetailTypeConst(contractSchema.properties)) {
+      if (hasDetailVersionConst(contractSchema.properties)) {
+        return true;
       }
     }
   }
