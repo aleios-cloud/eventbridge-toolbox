@@ -8,7 +8,7 @@
     "clean": "rimraf dist",
     "lint-fix": "eslint . --ext=js,ts --fix",
     "lint-test": "eslint . --ext=js,ts",
-    "build": "pnpm clean && tsc && cp doc-template.md dist/doc-template.md"
+    "build": "pnpm clean && tsc"
   },
   "files": [
     "dist"
