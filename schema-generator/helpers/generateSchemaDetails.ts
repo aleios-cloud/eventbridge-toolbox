@@ -20,11 +20,14 @@ export const generateSchemaDetails = (
     typeToSchemaConfig.type,
   );
 
+  //TODO: validate that detailType would be a valid filename
   if (isValidJsonSchemaContract(contractSchema)) {
     return {
       detailType: contractSchema.properties["detail-type"].const,
       detailVersion:
-        contractSchema.properties.detail.properties["detail-version"].const,
+        contractSchema.properties.detail.properties[
+          "detail-version"
+        ].const.toString(),
       schema: contractSchema,
     };
   } else {

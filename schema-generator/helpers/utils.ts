@@ -64,6 +64,6 @@ export const isValidJsonSchemaContract = (
 
 export type SchemaDetails = {
   detailType: string;
-  detailVersion: number;
+  detailVersion: string;
   schema: ContractSchemaType;
 };
