@@ -26,15 +26,11 @@ type DetailVersion = {
 const isObject = (field: unknown): field is object =>
   typeof field === "object" && field !== null;
 
-const isString = (field: unknown): field is string => typeof field === "string";
-
-const isNumber = (field: unknown): field is number => typeof field === "number";
-
 const hasDetailTypeConst = (field: object): field is DetailType =>
   "detail-type" in field &&
   isObject(field["detail-type"]) &&
   "const" in field["detail-type"] &&
-  isString(field["detail-type"].const);
+  typeof field["detail-type"].const === "string";
 
 const hasDetailVersionConst = (field: object): field is DetailVersion => {
   if (hasDetailTypeConst(field)) {
@@ -46,7 +42,7 @@ const hasDetailVersionConst = (field: object): field is DetailVersion => {
         ) {
           if (
             "const" in field.detail.properties["detail-version"] &&
-            isNumber(field.detail.properties["detail-version"].const)
+            typeof field.detail.properties["detail-version"].const === "number"
           ) {
             return true;
           }
