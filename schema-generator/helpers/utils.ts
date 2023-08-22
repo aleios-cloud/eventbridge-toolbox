@@ -1,22 +1,8 @@
-export type ContractSchemaType = {
-  properties: DetailTypeSchemaType & DetailVersionSchemaType;
-};
-
-type DetailTypeSchemaType = {
-  "detail-type": {
-    const: string;
-  };
-};
-
-type DetailVersionSchemaType = {
-  detail: {
-    properties: {
-      "detail-version": {
-        const: number;
-      };
-    };
-  };
-};
+import {
+  ContractSchemaType,
+  DetailTypeSchemaType,
+  DetailVersionSchemaType,
+} from "../types";
 
 const isObject = (field: unknown): field is object =>
   typeof field === "object" && field !== null;
@@ -60,10 +46,4 @@ export const isValidJsonSchemaContract = (
   }
 
   return true;
-};
-
-export type SchemaDetails = {
-  detailType: string;
-  detailVersion: string;
-  schema: ContractSchemaType;
 };
