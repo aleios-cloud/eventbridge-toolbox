@@ -26,10 +26,9 @@ export const generateDocumentation = async (
       pathToContractsFolder,
       contractFileName,
     );
-    const contractFilenameWithoutExtension = contractFileName.split(".")[0];
 
     const pathToContractDocumentationFolder = path.join(
-      `${pathToDocumentationFolder}/${contractFilenameWithoutExtension}`,
+      `${pathToDocumentationFolder}/${detailType}/versioned/${detailVersion}`,
     );
 
     mkdirSync(pathToContractDocumentationFolder, { recursive: true });
@@ -46,6 +45,6 @@ export const generateDocumentation = async (
       schema,
     });
 
-    console.log(`Created docs for ${contractFilenameWithoutExtension}`);
+    console.log(`Created docs for ${detailType}`);
   }
 };
