@@ -1,5 +1,3 @@
-/* eslint-disable max-depth */
-/* eslint-disable complexity */
 import path from "path";
 import { createGenerator } from "ts-json-schema-generator";
 
@@ -26,27 +24,23 @@ type DetailVersion = {
 const isObject = (field: unknown): field is object =>
   typeof field === "object" && field !== null;
 
+const hasConst = (field: object, constType: string): boolean =>
+  "const" in field && typeof field.const === constType;
+
 const hasDetailTypeConst = (field: object): field is DetailType =>
   "detail-type" in field &&
   isObject(field["detail-type"]) &&
-  "const" in field["detail-type"] &&
-  typeof field["detail-type"].const === "string";
+  hasConst(field["detail-type"], "string");
 
 const hasDetailVersionConst = (field: object): field is DetailVersion => {
-  if (hasDetailTypeConst(field)) {
-    if ("detail" in field && isObject(field.detail)) {
-      if ("properties" in field.detail && isObject(field.detail.properties)) {
-        if (
-          "detail-version" in field.detail.properties &&
-          isObject(field.detail.properties["detail-version"])
-        ) {
-          if (
-            "const" in field.detail.properties["detail-version"] &&
-            typeof field.detail.properties["detail-version"].const === "number"
-          ) {
-            return true;
-          }
-        }
+  if ("detail" in field && isObject(field.detail)) {
+    if ("properties" in field.detail && isObject(field.detail.properties)) {
+      if (
+        "detail-version" in field.detail.properties &&
+        isObject(field.detail.properties["detail-version"]) &&
+        hasConst(field.detail.properties["detail-version"], "number")
+      ) {
+        return true;
       }
     }
   }
@@ -54,18 +48,19 @@ const hasDetailVersionConst = (field: object): field is DetailVersion => {
   return false;
 };
 
-const validateContractJsonSchema = (
+const isValidJsonSchemaContract = (
   contractSchema: object
 ): contractSchema is ContractLike => {
   if ("properties" in contractSchema && isObject(contractSchema.properties)) {
-    if (hasDetailTypeConst(contractSchema.properties)) {
-      if (hasDetailVersionConst(contractSchema.properties)) {
-        return true;
-      }
+    if (
+      !hasDetailTypeConst(contractSchema.properties) ||
+      !hasDetailVersionConst(contractSchema.properties)
+    ) {
+      return false;
     }
   }
 
-  return false;
+  return true;
 };
 
 export const generateContractSchema = (
@@ -85,9 +80,7 @@ export const generateContractSchema = (
     typeToSchemaConfig.type
   );
 
-  if (validateContractJsonSchema(contractSchema)) {
-    console.log("it's valid :)");
-
+  if (isValidJsonSchemaContract(contractSchema)) {
     return {
       detailType: contractSchema.properties["detail-type"].const,
       detailVersion:
