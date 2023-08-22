@@ -19,15 +19,18 @@ const eventMarkdownTemplate =
   "<Schema />";
 
 export const writeIndexFile = async (
-  contractFilenameWithoutExtension: string,
   pathToContractDocumentationFolder: string,
+  detailType: string,
+  detailVersion: number,
 ): Promise<void> => {
   const markdownWithName = eventMarkdownTemplate.replace(
     "//name//",
-    contractFilenameWithoutExtension,
+    detailType,
   );
-  // TODO: replace with version from contract path once versioning is implemented
-  const markdownWithVersion = markdownWithName.replace("//version//", "1.0.0");
+  const markdownWithVersion = markdownWithName.replace(
+    "//version//",
+    detailVersion.toString(),
+  );
 
   await writeFile(
     `${pathToContractDocumentationFolder}/index.md`,

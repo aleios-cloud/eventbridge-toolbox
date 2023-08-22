@@ -1,6 +1,6 @@
 ---
-name: personRegisteredContract
-version: 1.0.0
+name: PersonRegisteredContract
+version: 1
 summary: |
   A summary
 producers:

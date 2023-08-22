@@ -1,16 +1,12 @@
 import path from "path";
 import { createGenerator } from "ts-json-schema-generator";
 
-import { ContractSchemaType, isValidJsonSchemaContract } from "./utils.js";
+import { isValidJsonSchemaContract, SchemaDetails } from "./utils.js";
 
-export const generateContractSchema = (
+export const generateSchemaDetails = (
   pathToContractsFolder: string,
   contractFilename: string,
-): {
-  detailType: string;
-  detailVersion: number;
-  schema: ContractSchemaType;
-} => {
+): SchemaDetails => {
   const pathToContractFile = path.join(pathToContractsFolder, contractFilename);
 
   const typeToSchemaConfig = {

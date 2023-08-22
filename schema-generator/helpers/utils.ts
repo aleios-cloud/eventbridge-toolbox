@@ -61,3 +61,9 @@ export const isValidJsonSchemaContract = (
 
   return true;
 };
+
+export type SchemaDetails = {
+  detailType: string;
+  detailVersion: number;
+  schema: ContractSchemaType;
+};

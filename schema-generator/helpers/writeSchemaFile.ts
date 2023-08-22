@@ -1,25 +1,17 @@
 import { writeFile } from "fs/promises";
-import path from "path";
-import { createGenerator } from "ts-json-schema-generator";
+
+import { SchemaDetails } from "./utils.js";
 
 export const writeSchemaFile = async (
-  pathToContractsFolder: string,
-  contractFilename: string,
   pathToContractDocumentationFolder: string,
+  schemaDetails: SchemaDetails,
 ): Promise<void> => {
-  const pathToContractFile = path.join(pathToContractsFolder, contractFilename);
-
-  const typeToSchemaConfig = {
-    path: pathToContractFile,
-    tsconfig: path.join(process.cwd(), "/tsconfig.json"),
-    topRef: false,
-    type: "*",
-  };
-  const schema = createGenerator(typeToSchemaConfig).createSchema(
-    typeToSchemaConfig.type,
-  );
   const jsonSchemaWhiteSpace = 2;
-  const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
+  const schemaString = JSON.stringify(
+    schemaDetails.schema,
+    null,
+    jsonSchemaWhiteSpace,
+  );
 
   await writeFile(
     `${pathToContractDocumentationFolder}/schema.json`,
