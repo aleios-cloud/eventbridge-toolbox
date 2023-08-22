@@ -1,5 +1,5 @@
 import { type PutEventsResponse } from "@aws-sdk/client-eventbridge";
-import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
+import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContractV1";
 import { getEnvVariable } from "example-architecture/helpers/getEnvVariable";
 import { Event } from "src/classes/Event";
 
