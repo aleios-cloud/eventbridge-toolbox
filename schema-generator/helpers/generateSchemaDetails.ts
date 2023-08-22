@@ -1,7 +1,7 @@
 import path from "path";
 import { createGenerator } from "ts-json-schema-generator";
 
-import { isValidJsonSchemaContract, SchemaDetails } from "./utils.js";
+import { isValidJsonSchemaContract, SchemaDetails } from "./utils";
 
 export const generateSchemaDetails = (
   pathToContractsFolder: string,

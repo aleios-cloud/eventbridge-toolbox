@@ -1,6 +1,6 @@
 import { writeFile } from "fs/promises";
 
-import { SchemaDetails } from "./utils.js";
+import { SchemaDetails } from "./utils";
 
 export const writeSchemaFile = async (
   pathToContractDocumentationFolder: string,

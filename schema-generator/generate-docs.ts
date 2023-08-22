@@ -2,9 +2,9 @@ import { mkdirSync } from "fs";
 import { readdir } from "fs/promises";
 import path from "path";
 
-import { generateSchemaDetails } from "./helpers/generateSchemaDetails.js";
-import { writeIndexFile } from "./helpers/writeIndexFile.js";
-import { writeSchemaFile } from "./helpers/writeSchemaFile.js";
+import { generateSchemaDetails } from "./helpers/generateSchemaDetails";
+import { writeIndexFile } from "./helpers/writeIndexFile";
+import { writeSchemaFile } from "./helpers/writeSchemaFile";
 
 //Note: contract file name must include term 'Contract' to be parsed
 const getContractFileNames = async (
@@ -45,6 +45,6 @@ export const generateDocumentation = async (
       schema,
     });
 
-    console.log(`Created docs for ${detailType}`);
+    console.log(`Created docs for ${contractFileName}`);
   }
 };
