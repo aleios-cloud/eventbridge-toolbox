@@ -36,7 +36,7 @@ export const generateDocumentation = async (
 
     await writeSchemaFile(
       pathToContractsFolder,
-      contractFilenameWithoutExtension,
+      contractFileName,
       pathToContractDocumentationFolder,
     );
 

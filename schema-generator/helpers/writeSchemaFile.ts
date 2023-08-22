@@ -4,13 +4,11 @@ import { createGenerator } from "ts-json-schema-generator";
 
 export const writeSchemaFile = async (
   pathToContractsFolder: string,
-  contractFilenameWithoutExtension: string,
+  contractFilename: string,
   pathToContractDocumentationFolder: string,
 ): Promise<void> => {
-  const pathToContractFile = path.join(
-    pathToContractsFolder,
-    contractFilenameWithoutExtension,
-  );
+  const pathToContractFile = path.join(pathToContractsFolder, contractFilename);
+
   const typeToSchemaConfig = {
     path: pathToContractFile,
     tsconfig: path.join(process.cwd(), "/tsconfig.json"),
