@@ -31,6 +31,6 @@ export const generateSchemaDetails = (
       schema: contractSchema,
     };
   } else {
-    throw "ghjk";
+    throw "Contracts types are incorrect. A const value much be set for 'detail-type' and 'detail-version'.";
   }
 };
