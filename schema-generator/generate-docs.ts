@@ -2,6 +2,7 @@ import { mkdirSync } from "fs";
 import { readdir } from "fs/promises";
 import path from "path";
 
+import { generateContractSchema } from "./helpers/generateContractSchema.js";
 import { writeIndexFile } from "./helpers/writeIndexFile.js";
 import { writeSchemaFile } from "./helpers/writeSchemaFile.js";
 
@@ -21,6 +22,11 @@ export const generateDocumentation = async (
   const contractFileNames = await getContractFileNames(pathToContractsFolder);
 
   for (const contractFileName of contractFileNames) {
+    const { detailType, detailVersion, schema } = generateContractSchema(
+      pathToContractsFolder,
+      contractFileName,
+    );
+    console.log({ detailType, detailVersion }, schema);
     const contractFilenameWithoutExtension = contractFileName.split(".")[0];
 
     const pathToContractDocumentationFolder = path.join(

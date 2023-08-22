@@ -1,4 +1,4 @@
-type ContractSchemaType = {
+export type ContractSchemaType = {
   properties: DetailTypeSchemaType & DetailVersionSchemaType;
 };
 
