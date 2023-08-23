@@ -9,7 +9,7 @@ const getValidFolderPath = (
   argumentType: string,
 ): string => {
   if (pathArgument === "") {
-    throw `Please provide the path to your ${argumentType} as the second argument.`;
+    throw `Please provide the path to your ${argumentType} as the argument.`;
   }
   const pathToEventsFolder = path.join(process.cwd(), pathArgument);
   if (!existsSync(pathToEventsFolder)) {
