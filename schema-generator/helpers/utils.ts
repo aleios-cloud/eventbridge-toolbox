@@ -2,7 +2,7 @@ import {
   ContractSchemaType,
   DetailTypeSchemaType,
   DetailVersionSchemaType,
-} from "../types";
+} from "../types.js";
 
 const isObject = (field: unknown): field is object =>
   typeof field === "object" && field !== null;

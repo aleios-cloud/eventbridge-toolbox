@@ -3,8 +3,8 @@ import { createGenerator } from "ts-json-schema-generator";
 
 //TODO: We have to use relative paths here as apparently ts-node doesn't support esm :(
 // I think we should investigate a proper fix for this.
-import { isValidJsonSchemaContract } from "./utils";
-import { SchemaDetails } from "../types";
+import { isValidJsonSchemaContract } from "./utils.js";
+import { SchemaDetails } from "../types.js";
 
 export const generateSchemaDetails = (
   pathToContractsFolder: string,

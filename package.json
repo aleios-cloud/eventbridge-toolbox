@@ -10,7 +10,7 @@
     "lint-fix": "eslint . --ext=js,ts --fix",
     "lint-test": "eslint . --ext=js,ts",
     "build": "pnpm clean && tsc",
-    "generate-example-docs": "ts-node schema-generator/script.ts example-architecture/events/contracts event-catalog/events"
+    "generate-example-docs": "ts-node --esm schema-generator/script.ts example-architecture/events/contracts event-catalog/events"
   },
   "files": [
     "dist",

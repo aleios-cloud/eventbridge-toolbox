@@ -2,9 +2,9 @@ import { mkdirSync } from "fs";
 import { readdir } from "fs/promises";
 import path from "path";
 
-import { generateSchemaDetails } from "./helpers/generateSchemaDetails";
-import { writeIndexFile } from "./helpers/writeIndexFile";
-import { writeSchemaFile } from "./helpers/writeSchemaFile";
+import { generateSchemaDetails } from "./helpers/generateSchemaDetails.js";
+import { writeIndexFile } from "./helpers/writeIndexFile.js";
+import { writeSchemaFile } from "./helpers/writeSchemaFile.js";
 
 //Note: contract file name must include term 'Contract' to be parsed
 const getContractFileNames = async (
