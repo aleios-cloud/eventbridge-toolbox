@@ -2,11 +2,12 @@
   "extends": "../tsconfig.json",
   "include": ["**/*.ts"],
   "compilerOptions": {
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "module": "esnext",
+    "moduleResolution": "NodeNext"
   },
   "ts-node": {
     "esm": true,
-    "experimentalSpecifierResolution": "node",
     "require": ["tsconfig-paths/register"]
   }
 }
