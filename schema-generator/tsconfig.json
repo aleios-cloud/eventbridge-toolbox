@@ -3,5 +3,10 @@
   "include": ["**/*.ts"],
   "compilerOptions": {
     "outDir": "./dist"
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "require": ["tsconfig-paths/register"]
   }
 }

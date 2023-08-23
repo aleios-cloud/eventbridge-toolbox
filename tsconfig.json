@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "node",
     "baseUrl": ".",
     "esModuleInterop": true,
     "declaration": true, // generate .d.ts files
@@ -16,8 +16,9 @@
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.test.ts"],
   "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node",
+    "compilerOptions": {
+      "module": "NodeNext"
+    },
     "require": ["tsconfig-paths/register"]
   }
 }
