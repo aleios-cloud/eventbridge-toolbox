@@ -34,6 +34,6 @@ export const generateSchemaDetails = (
       schema: contractSchema,
     };
   } else {
-    throw "Contracts types are incorrect. A const value much be set for 'detail-type' and 'detail-version'.";
+    throw "Contracts types are incorrect. A const value must be set for 'detail-type' and 'detail-version'.";
   }
 };
