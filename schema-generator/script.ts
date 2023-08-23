@@ -5,15 +5,15 @@ import path from "path";
 import { generateDocumentation } from "./generate-docs.js";
 
 const getValidFolderPath = (
-  pathArgument: string,
-  argumentType: string,
+  directoryPath: string,
+  directoryName: string,
 ): string => {
-  if (pathArgument === "") {
-    throw `Please provide the path to your ${argumentType} as the argument.`;
+  if (directoryPath === "") {
+    throw `Please provide the path to your ${directoryName} as the argument.`;
   }
-  const pathToEventsFolder = path.join(process.cwd(), pathArgument);
+  const pathToEventsFolder = path.join(process.cwd(), directoryPath);
   if (!existsSync(pathToEventsFolder)) {
-    throw `File path provided for ${argumentType} is invalid. Directory does not exist.`;
+    throw `File path provided for ${directoryName} is invalid. Directory does not exist.`;
   }
 
   return pathToEventsFolder;
