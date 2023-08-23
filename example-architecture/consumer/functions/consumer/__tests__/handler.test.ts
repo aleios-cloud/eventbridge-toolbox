@@ -1,6 +1,6 @@
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { handler } from "example-architecture/consumer/functions/consumer/handler";
-import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContract";
+import { PersonRegisteredContract } from "example-architecture/events/contracts/personRegisteredContractV1";
 import { describe, expect, it, vi } from "vitest";
 
 process.env.TABLE_NAME = "mockTableName";

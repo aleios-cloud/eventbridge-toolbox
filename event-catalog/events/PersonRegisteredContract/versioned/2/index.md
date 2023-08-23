@@ -1,6 +1,6 @@
 ---
-name: //name//
-version: //version//
+name: PersonRegisteredContract
+version: 2
 summary: |
   A summary
 producers:

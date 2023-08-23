@@ -1,89 +1,50 @@
-import { existsSync, mkdirSync, readdir, readFileSync, writeFile } from "fs";
+import { mkdirSync } from "fs";
+import { readdir } from "fs/promises";
 import path from "path";
-import { createGenerator } from "ts-json-schema-generator";
-import { fileURLToPath } from "url";
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
+import { generateSchemaDetails } from "./helpers/generateSchemaDetails.js";
+import { writeIndexFile } from "./helpers/writeIndexFile.js";
+import { writeSchemaFile } from "./helpers/writeSchemaFile.js";
 
-if (process.argv[2] === "") {
-  throw "Please provide the path to your contracts as the first argument.";
-}
-if (process.argv[3] === "") {
-  throw "Please provide the path to your event catalog events folder as the second argument.";
-}
+//Note: contract file name must include term 'Contract' to be parsed
+const getContractFileNames = async (
+  pathToContracts: string,
+): Promise<string[]> => {
+  const files = await readdir(pathToContracts);
 
-const pathToContracts = path.join(process.cwd(), process.argv[2]);
+  return files.filter((fileName) => fileName.includes("Contract"));
+};
 
-readdir(pathToContracts, (err, files) => {
-  if (err) {
-    console.error(err);
-  } else {
-    files
-      .filter((fileName) => fileName.includes("Contract"))
-      .forEach((file) => {
-        console.log(`Found ${file}`);
+export const generateDocumentation = async (
+  pathToContractsFolder: string,
+  pathToDocumentationFolder: string,
+): Promise<void> => {
+  const contractFileNames = await getContractFileNames(pathToContractsFolder);
 
-        const pathToFile = path.join(pathToContracts, file);
-        const filenameWithoutExtension = file.split(".")[0];
-        const fileNameWithoutContract = filenameWithoutExtension.endsWith(
-          "Contract",
-        )
-          ? filenameWithoutExtension.replace("Contract", "")
-          : filenameWithoutExtension;
+  for (const contractFileName of contractFileNames) {
+    const { detailType, detailVersion, schema } = generateSchemaDetails(
+      pathToContractsFolder,
+      contractFileName,
+    );
 
-        const docsFilePath = path.join(process.cwd(), process.argv[3]);
-        if (!existsSync(docsFilePath)) {
-          throw "File path provided for documentation directory is invalid. Directory does not exist.";
-        }
+    const pathToContractDocumentationFolder = path.join(
+      `${pathToDocumentationFolder}/${detailType}/versioned/${detailVersion}`,
+    );
 
-        const eventDocsFilePath = path.join(
-          process.cwd(),
-          `/${process.argv[3]}/${fileNameWithoutContract}`,
-        );
-        mkdirSync(eventDocsFilePath, { recursive: true });
+    mkdirSync(pathToContractDocumentationFolder, { recursive: true });
 
-        const eventMarkdownTemplate = readFileSync(
-          path.join(__dirname, "/doc-template.md"),
-          "utf8",
-        );
-        const markdownWithName = eventMarkdownTemplate.replace(
-          "//name//",
-          fileNameWithoutContract,
-        );
-        // TODO: replace with version from contract path once versioning is implemented
-        const markdownWithVersion = markdownWithName.replace(
-          "//version//",
-          "1.0.0",
-        );
+    await writeIndexFile(
+      pathToContractDocumentationFolder,
+      detailType,
+      detailVersion,
+    );
 
-        writeFile(
-          `${eventDocsFilePath}/index.md`,
-          markdownWithVersion,
-          (error) => {
-            if (error) {
-              console.log(error);
-            }
-          },
-        );
+    await writeSchemaFile(pathToContractDocumentationFolder, {
+      detailType,
+      detailVersion,
+      schema,
+    });
 
-        const typeToSchemaConfig = {
-          path: pathToFile,
-          tsconfig: path.join(process.cwd(), "/tsconfig.json"),
-          type: "*",
-        };
-        const schema = createGenerator(typeToSchemaConfig).createSchema(
-          typeToSchemaConfig.type,
-        );
-        const jsonSchemaWhiteSpace = 2;
-        const schemaString = JSON.stringify(schema, null, jsonSchemaWhiteSpace);
-
-        writeFile(`${eventDocsFilePath}/schema.json`, schemaString, (error) => {
-          if (error) {
-            console.log(error);
-          }
-        });
-
-        console.log(`Created docs for ${fileNameWithoutContract}`);
-      });
+    console.log(`Created docs for ${contractFileName}`);
   }
-});
+};

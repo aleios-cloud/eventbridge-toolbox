@@ -8,17 +8,17 @@
     "clean": "rimraf dist",
     "lint-fix": "eslint . --ext=js,ts --fix",
     "lint-test": "eslint . --ext=js,ts",
-    "build": "pnpm clean && tsc && cp doc-template.md dist/doc-template.md"
+    "build": "pnpm clean && tsc"
   },
   "files": [
     "dist"
   ],
   "bin": {
-    "schema-generator": "./dist/generate-docs.js"
+    "schema-generator": "./dist/script.js"
   },
   "type": "module",
-  "module": "./dist/generate-docs.js",
-  "types": "./dist/generate-docs.d.ts",
+  "module": "./dist/script.js",
+  "types": "./dist/script.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -41,5 +41,8 @@
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "vitest": "^0.34.2"
   }
 }

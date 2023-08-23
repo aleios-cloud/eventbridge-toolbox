@@ -1,19 +1,19 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/PersonRegisteredContract",
-  "definitions": {
-    "PersonRegisteredContract": {
+  "type": "object",
+  "properties": {
+    "detail-type": {
+      "type": "string",
+      "const": "PersonRegisteredContract"
+    },
+    "detail": {
       "type": "object",
       "properties": {
-        "version": {
+        "detail-version": {
           "type": "number",
           "const": 1
         },
-        "detailType": {
-          "type": "string",
-          "const": "PersonRegisteredContract"
-        },
-        "detail": {
+        "data": {
           "type": "object",
           "properties": {
             "firstName": {
@@ -31,11 +31,16 @@
         }
       },
       "required": [
-        "detail",
-        "detailType",
-        "version"
+        "detail-version",
+        "data"
       ],
       "additionalProperties": false
     }
-  }
+  },
+  "required": [
+    "detail",
+    "detail-type"
+  ],
+  "additionalProperties": false,
+  "definitions": {}
 }
