@@ -5,12 +5,9 @@
   "main": "index.js",
   "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
   "scripts": {
-    "clean": "rimraf dist",
     "test": "vitest run",
     "lint-fix": "eslint . --ext=js,ts --fix",
-    "lint-test": "eslint . --ext=js,ts",
-    "build": "pnpm clean && tsc",
-    "generate-example-docs": "ts-node --esm schema-generator/script.ts example-architecture/events/contracts event-catalog/events"
+    "lint-test": "eslint . --ext=js,ts"
   },
   "files": [
     "dist",
