@@ -47,13 +47,8 @@ const { mockSend } = vi.hoisted(() => ({
   mockSend: vi.fn(),
 }));
 
-vi.mock("@aws-sdk/client-eventbridge", async () => {
-  const actualModule = await vi.importActual<object>(
-    "@aws-sdk/client-eventbridge",
-  );
-
+vi.mock("@aws-sdk/client-eventbridge", () => {
   return {
-    ...actualModule,
     EventBridgeClient: vi.fn().mockReturnValue({
       send: mockSend,
     }),
@@ -78,7 +73,7 @@ describe("Given an Event class", () => {
       await event.publish("MOCK_EVENT_BUS_ARN", "mockSource");
       expect(mockSend).toHaveBeenCalled();
       expect(consoleMock).toHaveBeenCalledWith(
-        "Error publishing event to event bus",
+        "Error publishing event to event bus"
       );
     });
 
@@ -95,7 +90,7 @@ describe("Given an Event class", () => {
         {
           ErrorCode: "mockErrorCode",
           ErrorMessage: "mockErrorMessage",
-        },
+        }
       );
     });
   });
