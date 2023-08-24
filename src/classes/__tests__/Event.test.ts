@@ -73,7 +73,7 @@ describe("Given an Event class", () => {
       await event.publish("MOCK_EVENT_BUS_ARN", "mockSource");
       expect(mockSend).toHaveBeenCalled();
       expect(consoleMock).toHaveBeenCalledWith(
-        "Error publishing event to event bus"
+        "Error publishing event to event bus",
       );
     });
 
@@ -90,7 +90,7 @@ describe("Given an Event class", () => {
         {
           ErrorCode: "mockErrorCode",
           ErrorMessage: "mockErrorMessage",
-        }
+        },
       );
     });
   });
