@@ -20,11 +20,8 @@ const { mockFrom } = vi.hoisted(() => ({
   mockFrom: vi.fn(),
 }));
 
-vi.mock("@aws-sdk/lib-dynamodb", async () => {
-  const actualModule = await vi.importActual<object>("@aws-sdk/lib-dynamodb");
-
+vi.mock("@aws-sdk/lib-dynamodb", () => {
   return {
-    ...actualModule,
     DynamoDBDocumentClient: vi.fn().mockReturnValue({
       from: mockFrom,
     }),

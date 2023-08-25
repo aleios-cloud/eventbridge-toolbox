@@ -9,11 +9,8 @@ mockPublish.mockReturnValue({
   eventId: "mockEventId",
 });
 
-vi.mock("src/classes/Event", async () => {
-  const actualModule = await vi.importActual<object>("src/classes/Event");
-
+vi.mock("src/classes/Event", () => {
   return {
-    ...actualModule,
     Event: vi.fn().mockReturnValue({
       publish: mockPublish,
     }),

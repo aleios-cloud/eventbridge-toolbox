@@ -47,13 +47,8 @@ const { mockSend } = vi.hoisted(() => ({
   mockSend: vi.fn(),
 }));
 
-vi.mock("@aws-sdk/client-eventbridge", async () => {
-  const actualModule = await vi.importActual<object>(
-    "@aws-sdk/client-eventbridge",
-  );
-
+vi.mock("@aws-sdk/client-eventbridge", () => {
   return {
-    ...actualModule,
     EventBridgeClient: vi.fn().mockReturnValue({
       send: mockSend,
     }),
