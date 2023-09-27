@@ -1,6 +1,6 @@
 # eventbridge-toolbox
 
-Eventbridge Toolbox is a lightweight eventbridge adapter that can help you enforce good practicies in your event driven architectures.
+Eventbridge Toolbox is a lightweight eventbridge adapter that can help you enforce good practices in your event-driven architectures.
 
 ## Eventbridge Contracts
 
@@ -8,13 +8,13 @@ Within event-driven architectures, events facilitate communication between loose
 
 Event emitters are responsible for broadcasting events to event channels, while event consumers are responsible for executing business logic whenever they encounter a relevant event.
 
-EventBridge contracts ensure a stable and reliable interaction emitters and consumers. These contract acts as a guiding agreement which guarantees that emitters' published events will consistently trigger the corresponding business logic on the consumer side.
+EventBridge contracts ensure a stable and reliable interaction between emitters and consumers. These contracts act as a guiding agreement that guarantees that emitters' published events will consistently trigger the corresponding business logic on the consumer side.
 
 ## Creating an EventBridge contract
 
-To create an EventBridge Contract, define a type for your contract. Your contract type must extend the interface `Contract`, with `Contract` being importable from the eventbridge-toolbox package. This typing will force you to add an event version to your contract. If you ever alter your contract (for instance, to add a new field), please create a copy of the contract in a new file, and give it a version number higher that you previous version of your contract. The `detail-type` field stays consistent, and allows you to link together all versions of your contract.
+To create an EventBridge Contract, define a type for your contract. Your contract type must extend the interface `Contract`, with `Contract` being importable from the eventbridge-toolbox package. This typing will force you to add an event version to your contract. If you ever alter your contract (for instance, to add a new field), please create a copy of the contract in a new file, and give it a version number higher than the previous version of your contract. The `detail-type` field stays consistent and allows you to link together all versions of your contract.
 
-Create an Contract type:
+Create a Contract type:
 
 ```typescript
 export interface PersonRegisteredContractV1 extends Contract {
@@ -31,7 +31,7 @@ export interface PersonRegisteredContractV1 extends Contract {
 
 As `'detail-version'` and `detail-type` are set as constants in the type, when we create an object of type PersonRegisteredContractV1, the `'detail-version'` and `detail-type` must match what is defined here otherwise you will see an error.
 
-Create an Contract type:
+Create a Contract type:
 
 ```typescript
 const ourEvent: PersonRegisteredContractV1 = {
