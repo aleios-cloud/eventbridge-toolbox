@@ -103,19 +103,19 @@ await myEvent.publish(EVENT_BUS_ARN, "lambda.amazonaws.com");
 With npm:
 
 ```
-npm install --save-dev eventbridge-toolbox
+npm install --save-dev @aleios-cloud/eventbridge-toolbox
 ```
 
 With yarn:
 
 ```
-yarn add -D eventbridge-toolbox
+yarn add -D @aleios-cloud/eventbridge-toolbox
 ```
 
 With pnpm:
 
 ```
-pnpm add -D eventbridge-toolbox
+pnpm add -D @aleios-cloud/eventbridge-toolbox
 ```
 
 ## Contributors
