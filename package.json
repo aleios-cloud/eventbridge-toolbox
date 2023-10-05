@@ -1,6 +1,6 @@
 {
   "name": "@aleios-cloud/eventbridge-toolbox",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",

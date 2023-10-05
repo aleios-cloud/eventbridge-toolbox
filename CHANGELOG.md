@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0](https://github.com/aleios-cloud/eventbridge-toolbox/compare/v0.2.0...v0.3.0) (2023-10-05)
+
+
+### Features
+
+* 49-event-versioning-test ([#28](https://github.com/aleios-cloud/eventbridge-toolbox/issues/28)) ([c45917c](https://github.com/aleios-cloud/eventbridge-toolbox/commit/c45917c9e73c52390673cc69141a016217c6f669))
+* event catalog docs site ([#29](https://github.com/aleios-cloud/eventbridge-toolbox/issues/29)) ([7a9ba03](https://github.com/aleios-cloud/eventbridge-toolbox/commit/7a9ba03273585a7896981ceba92a96c6d8835d09))
+
+
+### Bug Fixes
+
+* readme typos ([#42](https://github.com/aleios-cloud/eventbridge-toolbox/issues/42)) ([a65d6c1](https://github.com/aleios-cloud/eventbridge-toolbox/commit/a65d6c1056ecbd763cde2139733d448632cdabeb))
+* small change to remove uneccessary code from tests ([#41](https://github.com/aleios-cloud/eventbridge-toolbox/issues/41)) ([f624de7](https://github.com/aleios-cloud/eventbridge-toolbox/commit/f624de7edbd944918fbb2bca0f090ae658fb2f6c))
+
 ## [0.2.0](https://github.com/aleios-cloud/eventbridge-toolbox/compare/v0.1.2...v0.2.0) (2023-08-18)
 
 
