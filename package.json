@@ -2,21 +2,24 @@
   "name": "@aleios-cloud/eventbridge-toolbox",
   "version": "0.2.0",
   "description": "",
-  "main": "index.js",
   "repository": "https://github.com/aleios-cloud/eventbridge-toolbox.git",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf dist *.tsbuildinfo",
+    "package": "pnpm clean && pnpm package-transpile && pnpm package-types && pnpm package-types-aliases",
+    "package-transpile": "tsup",
+    "package-types": "tsc -p tsconfig.build.json",
+    "package-types-aliases": "tsc-alias -p tsconfig.build.json",
     "test": "vitest run",
     "lint-fix": "eslint . --ext=js,ts --fix",
-    "lint-test": "eslint . --ext=js,ts",
-    "build": "pnpm clean && tsc -p tsconfig.prod.json"
+    "lint-test": "eslint . --ext=js,ts"
   },
   "files": [
     "dist",
     "src"
   ],
+  "main": "dist/index.cjs",
   "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -41,7 +44,9 @@
     "rimraf": "^5.0.1",
     "ts-json-schema-generator": "^1.2.0",
     "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
+    "tsup": "^7.2.0",
     "typescript": "^5.1.6",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.34.1"

@@ -1,1 +1,1 @@
-export { Contract } from "./Contract";
+export type { Contract } from './Contract';

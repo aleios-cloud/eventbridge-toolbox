@@ -3,14 +3,14 @@ import {
   PutEventsCommand,
   type PutEventsResponse,
   type PutEventsResultEntry,
-} from "@aws-sdk/client-eventbridge";
-import { Contract, Detail } from "src/types/Contract";
+} from '@aws-sdk/client-eventbridge';
+import { Contract, Detail } from 'types/Contract';
 
 export const eventBridge = new EventBridgeClient({});
 
 const logResponseOnPublishFailure = (entry: PutEventsResultEntry): void => {
   if (entry.ErrorCode !== undefined) {
-    console.error("Event failed to publish to event bus.", {
+    console.error('Event failed to publish to event bus.', {
       ErrorCode: entry.ErrorCode,
       ErrorMessage: entry.ErrorMessage,
     });
@@ -19,14 +19,14 @@ const logResponseOnPublishFailure = (entry: PutEventsResultEntry): void => {
 
 export class Event implements Contract {
   readonly data: Record<string, unknown>;
-  readonly "detail-version": number;
-  readonly "detail-type": string;
+  readonly 'detail-version': number;
+  readonly 'detail-type': string;
   readonly detail: Detail;
 
   constructor(eventContract: Contract) {
     this.data = eventContract.detail.data;
-    this["detail-version"] = eventContract.detail["detail-version"];
-    this["detail-type"] = eventContract["detail-type"];
+    this['detail-version'] = eventContract.detail['detail-version'];
+    this['detail-type'] = eventContract['detail-type'];
     this.detail = eventContract.detail;
   }
 
@@ -35,11 +35,11 @@ export class Event implements Contract {
   };
 
   getDetailType = (): string => {
-    return this["detail-type"];
+    return this['detail-type'];
   };
 
   getDetailVersion = (): number => {
-    return this["detail-version"];
+    return this['detail-version'];
   };
 
   publish = async (
@@ -51,7 +51,7 @@ export class Event implements Contract {
         {
           Detail: JSON.stringify(this.detail),
           Source: eventSource,
-          DetailType: this["detail-type"],
+          DetailType: this['detail-type'],
           EventBusName: eventBusArn,
         },
       ],
@@ -61,9 +61,9 @@ export class Event implements Contract {
       new PutEventsCommand(params),
     );
     if (eventBridgeResponse.Entries === undefined) {
-      console.error("Error publishing event to event bus");
+      console.error('Error publishing event to event bus');
     } else {
-      eventBridgeResponse.Entries.forEach((entry) =>
+      eventBridgeResponse.Entries.forEach(entry =>
         logResponseOnPublishFailure(entry),
       );
     }
