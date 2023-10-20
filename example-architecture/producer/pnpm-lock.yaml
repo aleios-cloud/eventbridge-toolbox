@@ -1,9 +1,16 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
+  '@aleios-cloud/eventbridge-toolbox':
+    specifier: latest
+    version: 0.2.0
   '@aws-cdk/aws-iam':
     specifier: ^1.204.0
-    version: 1.204.0(constructs@10.2.69)
+    version: 1.204.0(@aws-cdk/cloud-assembly-schema@1.204.0)(@aws-cdk/core@1.204.0)(@aws-cdk/region-info@1.204.0)(constructs@10.2.69)
   '@aws-sdk/client-eventbridge':
     specifier: ^3.387.0
     version: 3.387.0
@@ -47,6 +54,15 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
+  /@aleios-cloud/eventbridge-toolbox@0.2.0:
+    resolution: {integrity: sha512-HB217KFARB/hsZOqJIv1W28odCwl5DfpBJzOfaQ+dJO0/EMcGfRj6crHna4JdOJYMjzCoQDi0vFOMt7vZLhCNw==}
+    dependencies:
+      '@aws-sdk/client-eventbridge': 3.387.0
+    transitivePeerDependencies:
+      - '@aws-sdk/signature-v4-crt'
+      - aws-crt
+    dev: false
+
   /@aws-cdk/asset-awscli-v1@2.2.200:
     resolution: {integrity: sha512-Kf5J8DfJK4wZFWT2Myca0lhwke7LwHcHBo+4TvWOGJrFVVKVuuiLCkzPPRBQQVDj0Vtn2NBokZAz8pfMpAqAKg==}
     dev: true
@@ -59,7 +75,7 @@ packages:
     resolution: {integrity: sha512-j0xnccpUQHXJKPgCwQcGGNu4lRiC1PptYfdxBIH1L4dRK91iBxtSQHESRQX+yB47oGLaF/WfNN/aF3WXwlhikg==}
     dev: true
 
-  /@aws-cdk/aws-iam@1.204.0(constructs@10.2.69):
+  /@aws-cdk/aws-iam@1.204.0(@aws-cdk/cloud-assembly-schema@1.204.0)(@aws-cdk/core@1.204.0)(@aws-cdk/region-info@1.204.0)(constructs@10.2.69):
     resolution: {integrity: sha512-Fh2egW3v/uDdw3m4jvcupS7COL/+sJl2NHjz9l298ddyMxqDwJD2NQwE8mvgPLK4rDtAtDnE0c8RS6d+NWiC+w==}
     engines: {node: '>= 14.15.0'}
     deprecated: |-
@@ -68,12 +84,16 @@ packages:
 
       For more information on how to migrate, see https://docs.aws.amazon.com/cdk/v2/guide/migrating-v2.html
     peerDependencies:
+      '@aws-cdk/core': 1.204.0
+      '@aws-cdk/region-info': 1.204.0
       constructs: ^3.3.69
     dependencies:
-      '@aws-cdk/core': 1.204.0(constructs@10.2.69)
-      '@aws-cdk/cx-api': 1.204.0
+      '@aws-cdk/core': 1.204.0(@aws-cdk/cloud-assembly-schema@1.204.0)(@aws-cdk/cx-api@1.204.0)(@aws-cdk/region-info@1.204.0)(constructs@10.2.69)
+      '@aws-cdk/cx-api': 1.204.0(@aws-cdk/cloud-assembly-schema@1.204.0)
       '@aws-cdk/region-info': 1.204.0
       constructs: 10.2.69
+    transitivePeerDependencies:
+      - '@aws-cdk/cloud-assembly-schema'
     dev: false
 
   /@aws-cdk/cloud-assembly-schema@1.204.0:
@@ -92,7 +112,7 @@ packages:
       - jsonschema
       - semver
 
-  /@aws-cdk/core@1.204.0(constructs@10.2.69):
+  /@aws-cdk/core@1.204.0(@aws-cdk/cloud-assembly-schema@1.204.0)(@aws-cdk/cx-api@1.204.0)(@aws-cdk/region-info@1.204.0)(constructs@10.2.69):
     resolution: {integrity: sha512-yO/flJ9ihpzRhLTEqlbdbuPGtyyghHiiQPkUTLslwUM5vThVTbpgvW4UQHSGqytyst4MYXrN2jQn2RkwIRU57g==}
     engines: {node: '>= 14.15.0'}
     deprecated: |-
@@ -101,16 +121,15 @@ packages:
 
       For more information on how to migrate, see https://docs.aws.amazon.com/cdk/v2/guide/migrating-v2.html
     peerDependencies:
-      constructs: ^3.3.69
-    dependencies:
       '@aws-cdk/cloud-assembly-schema': 1.204.0
       '@aws-cdk/cx-api': 1.204.0
       '@aws-cdk/region-info': 1.204.0
-      '@balena/dockerignore': 1.0.2
+      constructs: ^3.3.69
+    dependencies:
+      '@aws-cdk/cloud-assembly-schema': 1.204.0
+      '@aws-cdk/cx-api': 1.204.0(@aws-cdk/cloud-assembly-schema@1.204.0)
+      '@aws-cdk/region-info': 1.204.0
       constructs: 10.2.69
-      fs-extra: 9.1.0
-      ignore: 5.2.4
-      minimatch: 3.1.2
     dev: false
     bundledDependencies:
       - fs-extra
@@ -118,7 +137,7 @@ packages:
       - '@balena/dockerignore'
       - ignore
 
-  /@aws-cdk/cx-api@1.204.0:
+  /@aws-cdk/cx-api@1.204.0(@aws-cdk/cloud-assembly-schema@1.204.0):
     resolution: {integrity: sha512-Juh/jL1kFPD5JcI9Uu6X0mM2L6hBCN5grdjSS40F8dThbH25VPzFBejaKjiy5nP1UZB83X+HW3utYOEi97DqxA==}
     engines: {node: '>= 14.15.0'}
     deprecated: |-
@@ -126,6 +145,8 @@ packages:
       This package is no longer being updated, and users should migrate to AWS CDK v2.
 
       For more information on how to migrate, see https://docs.aws.amazon.com/cdk/v2/guide/migrating-v2.html
+    peerDependencies:
+      '@aws-cdk/cloud-assembly-schema': 1.204.0
     dependencies:
       '@aws-cdk/cloud-assembly-schema': 1.204.0
       semver: 7.5.4
@@ -928,6 +949,7 @@ packages:
 
   /@balena/dockerignore@1.0.2:
     resolution: {integrity: sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==}
+    dev: true
 
   /@cspotcode/source-map-support@0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -1949,11 +1971,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /at-least-node@1.0.0:
-    resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
-    engines: {node: '>= 4.0.0'}
-    dev: false
-
   /aws-cdk-lib@2.89.0(constructs@10.2.69):
     resolution: {integrity: sha512-UgyiS/u9d27MsL3M8Hz9yvi5AiJUQUGvqfQw6qDXrnyGMIC4gsNTc00VUT+LCXgtqQM/wF1jDUrODxkWglAiAw==}
     engines: {node: '>= 14.15.0'}
@@ -2306,16 +2323,6 @@ packages:
       universalify: 2.0.0
     dev: true
 
-  /fs-extra@9.1.0:
-    resolution: {integrity: sha512-hcg3ZmepS30/7BSFqRvoo3DOMQu7IjqxO5nCDt+zM9XWjb33Wg7ziNT+Qvqbuc3+gWpzO02JubVyk2G4Zvo1OQ==}
-    engines: {node: '>=10'}
-    dependencies:
-      at-least-node: 1.0.0
-      graceful-fs: 4.2.11
-      jsonfile: 6.1.0
-      universalify: 2.0.0
-    dev: false
-
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: false
@@ -2358,6 +2365,7 @@ packages:
 
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
+    dev: true
 
   /graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
@@ -2451,6 +2459,7 @@ packages:
       universalify: 2.0.0
     optionalDependencies:
       graceful-fs: 4.2.11
+    dev: true
 
   /jsonschema@1.4.1:
     resolution: {integrity: sha512-S6cATIPVv1z0IlxdN+zUk5EPjkGCdnhN4wVSBlvoUO1tOLJootbo9CquNJmbIh4yikWHiUedhRYrNPn1arpEmQ==}
@@ -2865,6 +2874,7 @@ packages:
   /universalify@2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
+    dev: true
 
   /uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
@@ -3046,7 +3056,3 @@ packages:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
     dev: false
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

@@ -1,7 +1,7 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { Contract } from "dist/types/Contract";
 import { getEnvVariable } from "example-architecture/helpers/getEnvVariable";
-import { Contract } from "src/types/Contract";
 
 type EventBridgeConsumerEvent = {
   id: string;
@@ -14,7 +14,7 @@ type EventBridgeConsumerEvent = {
 } & Contract;
 
 export const handler = async (
-  event: EventBridgeConsumerEvent,
+  event: EventBridgeConsumerEvent
 ): Promise<void> => {
   const dynamoDB = DynamoDBDocumentClient.from(new DynamoDBClient());
 
