@@ -1,6 +1,7 @@
 {
   "name": "producer",
   "version": "0.1.0",
+  "type": "module",
   "bin": {
     "producer": "bin/producer.js"
   },

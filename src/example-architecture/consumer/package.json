@@ -1,6 +1,7 @@
 {
   "name": "consumer",
   "version": "0.1.0",
+  "type": "module",
   "bin": {
     "consumer": "bin/consumer.js"
   },
