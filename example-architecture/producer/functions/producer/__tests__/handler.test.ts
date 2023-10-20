@@ -9,7 +9,7 @@ mockPublish.mockReturnValue({
   eventId: "mockEventId",
 });
 
-vi.mock("src/classes/Event", () => {
+vi.mock("dist/classes/Event", () => {
   return {
     Event: vi.fn().mockReturnValue({
       publish: mockPublish,

@@ -21,6 +21,7 @@
     "typescript": "~5.1.6"
   },
   "dependencies": {
+    "@aleios-cloud/eventbridge-toolbox": "latest",
     "@aws-cdk/aws-iam": "^1.204.0",
     "@aws-sdk/client-eventbridge": "^3.387.0",
     "@aws-sdk/client-lambda": "^3.382.0",

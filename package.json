@@ -7,7 +7,9 @@
   "scripts": {
     "test": "vitest run",
     "lint-fix": "eslint . --ext=js,ts --fix",
-    "lint-test": "eslint . --ext=js,ts"
+    "lint-test": "eslint . --ext=js,ts",
+    "build": "pnpm clean && tsc",
+    "clean": "rimraf dist"
   },
   "files": [
     "dist",

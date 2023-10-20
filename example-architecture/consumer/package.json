@@ -21,6 +21,7 @@
     "typescript": "~5.1.6"
   },
   "dependencies": {
+    "@aleios-cloud/eventbridge-toolbox": "latest",
     "@aws-cdk/aws-events-targets": "^1.204.0",
     "@aws-cdk/aws-iam": "^1.204.0",
     "@aws-sdk/client-dynamodb": "^3.391.0",
