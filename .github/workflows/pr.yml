@@ -22,7 +22,7 @@ defaults:
 
 jobs:
   run-tests:
-    name: Deploy and Run Tests 
+    name: Deploy and Run Tests
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -36,7 +36,7 @@ jobs:
         id: setup-node
         uses: actions/setup-node@v3
         with:
-          cache: "pnpm"
+          cache: 'pnpm'
       - name: Install Top Level Dependencies
         run: pnpm install --frozen-lockfile
       - name: Configure AWS Credentials
@@ -46,20 +46,20 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
       - name: 🚀 Install Events Dependencies and Deploy
         run: |
-          cd example-architecture/events 
+          cd src/example-architecture/events 
           pnpm install --frozen-lockfile
           pnpm deploy-dev
       - name: 🚀 Install Producer Dependencies and Deploy
         run: |
-          cd example-architecture/producer 
+          cd src/example-architecture/producer 
           pnpm install --frozen-lockfile
           pnpm deploy-dev
       - name: 🚀 Install Consumer Dependencies and Deploy
         run: |
-          cd example-architecture/consumer 
+          cd src/example-architecture/consumer 
           pnpm install --frozen-lockfile
           pnpm deploy-dev
-      - name: "🧪 Test unit and integration"
+      - name: '🧪 Test unit and integration'
         run: pnpm test --verbose
       - name: '🧪 Test linter'
         run: pnpm lint-test
