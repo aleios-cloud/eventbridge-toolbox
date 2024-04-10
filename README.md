@@ -118,12 +118,17 @@ With pnpm:
 pnpm add -D @aleios-cloud/eventbridge-toolbox
 ```
 
+### Future Improvements
+
+- Integration with ![EventCatalog](https://www.eventcatalog.dev/)
+
 ## Contributors
 
 <!-- markdownlint-disable -->
 <table>
   <tbody>
     <tr>
+      <td valign="top"><a href="https://github.com/lukey-aleios"><img src="https://avatars.githubusercontent.com/u/90857374?v=4" width="100px;" alt="Luke Yianni"/><br /><sub><b>Aiden Walton</b></sub></a></td>
       <td valign="top"><a href="https://github.com/lukey-aleios"><img src="https://avatars.githubusercontent.com/u/93375669?v=4" width="100px;" alt="Luke Yianni"/><br /><sub><b>Luke Yianni</b></sub></a></td>
       <td valign="top"><a href="https://github.com/april-bates-aleios"><img src="https://avatars.githubusercontent.com/u/124585201?v=4" width="100px;" alt="April Bates"/><br /><sub><b>April Bates</b></sub></a></td>
       <td valign="top"><a href="https://github.com/RyanT5"><img src="https://avatars.githubusercontent.com/u/22382958?v=4" width="100px;" alt="Ryan Schuller"/><br /><sub><b>Ryan Schuller</b></sub></a></td>
